@@ -1,0 +1,44 @@
+.login--hr {
+  width: 40px;
+  opacity: 1;
+  border-color: var(--bg-theme);
+  border-width: 2px;
+  display: inline-block;
+}
+
+.login--hr.black {
+  border-color: var(--bs-gray-900);
+}
+
+.error--icon {
+  fill: var(--bs-danger);
+  font-size: 16px;
+}
+
+/* login wrap */
+
+.login--wrap {
+  border-radius: var(--radius);
+  max-width: 450px;
+  margin: auto;
+  background-color: white;
+  padding: 35px 40px;
+  box-shadow: 0px 0px 7px #efefef;
+}
+
+/* login cover */
+
+.login--cover {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  aspect-ratio: 2/1.5;
+}
+
+.login--logo {
+  width: 100%;
+  object-fit: contain;
+  height: 150px;
+  margin-bottom: 20px;
+}
+

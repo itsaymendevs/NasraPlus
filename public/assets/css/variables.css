@@ -1,0 +1,25 @@
+/* root */
+
+:root {
+  --color-theme: #44A08D;
+  --color-black: #111;
+  --bg-theme: #44A08D;
+  --bg-theme-dark: #337f6f;
+  --bg-alternate: #f8f8f8;
+  --color-border: #eee;
+  --radius: 10px;
+  --btn-height: 42px;
+  --btn-height-sm: 38px;
+  --navbar-btn-height: 60px;
+  --input-border-color: var(--color-theme);
+  --input-radius: 10px;
+  --input-padding: 0px 15px;
+  --select-padding: 15px;
+  --input-font: 14px;
+  --input-height: 52px;
+  --result-bg: #eee;
+  --result-bg-odd: #f8f8f8;
+  --edit-color: #333;
+  --delete-color: var(--bs-danger);
+}
+

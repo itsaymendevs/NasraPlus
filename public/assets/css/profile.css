@@ -1,0 +1,42 @@
+.profile--label {
+  display: inline-block !important;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.profile--label svg {
+  margin-right: 10px;
+  font-size: 8px;
+  margin-bottom: 1px;
+  fill: var(--bs-gray-600);
+  animation: rotate 3s linear infinite;
+}
+
+.profile--span-title {
+  border-bottom: 1px solid var(--bs-yellow);
+}
+
+.profile--span-title.one-line {
+  display: block;
+  border-bottom: none;
+  margin-bottom: 3px;
+  margin-right: 0px;
+}
+
+.profile--span-title.one-line::after {
+  content: none;
+}
+
+/* profile wrap */
+
+.profile--title-wrap label {
+  font-size: 13px;
+  font-weight: 600 !important;
+  margin-bottom: 8px;
+}
+
+.profile--title-wrap p {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+
