@@ -10,16 +10,24 @@ return new class extends Migration {
      */
     public function up() : void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->id();
+
 
 
             // 1: general
             $table->string('name', 255)->nullable();
             $table->string('nameAr', 255)->nullable();
-            $table->text('password')->nullable();
-            $table->string('permission', 100)->nullable()->default('Low');
-            $table->boolean('isActive')->nullable()->default(1);
+
+
+
+
+            // 1.2: country
+            $table->bigInteger('countryId')->unsigned()->nullable();
+            $table->foreign('countryId')->references('id')->on('countries')->onDelete('cascade');
+
+
+
 
 
 
@@ -32,6 +40,6 @@ return new class extends Migration {
      */
     public function down() : void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('states');
     }
 };

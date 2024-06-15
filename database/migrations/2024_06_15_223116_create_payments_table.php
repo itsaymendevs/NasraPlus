@@ -10,16 +10,29 @@ return new class extends Migration {
      */
     public function up() : void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
 
 
+
             // 1: general
+            $table->string('type', 100)->nullable();
+
             $table->string('name', 255)->nullable();
             $table->string('nameAr', 255)->nullable();
-            $table->text('password')->nullable();
-            $table->string('permission', 100)->nullable()->default('Low');
+            $table->string('accountName', 255)->nullable();
+            $table->string('accountNumber', 255)->nullable();
+
+
+
+
+            // 1.2: isFor - isActive
+            $table->boolean('isForDelivery')->nullable()->default(0);
+            $table->boolean('isForPickup')->nullable()->default(0);
+            $table->boolean('isForRefund')->nullable()->default(0);
+
             $table->boolean('isActive')->nullable()->default(1);
+
 
 
 
@@ -32,6 +45,6 @@ return new class extends Migration {
      */
     public function down() : void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('payments');
     }
 };
