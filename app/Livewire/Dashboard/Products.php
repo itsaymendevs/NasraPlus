@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Traits\HelperTrait;
 use Livewire\Component;
 
 class Products extends Component
@@ -9,10 +10,8 @@ class Products extends Component
 
 
 
-
     public function render()
     {
-
 
 
 

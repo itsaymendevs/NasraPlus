@@ -30,47 +30,21 @@
 
 
 
-    {{-- section --}}
-    <section data-aos="fade-down" data-aos-duration="700" data-aos-delay="400" id="header--div" wire:ignore.self
-        class="header--div w-100">
+    {{-- headerSection --}}
+    <section data-aos="fade-down" data-aos-duration="700" data-aos-delay="400" id="header--div"
+        class="header--div w-100" wire:ignore.self>
 
 
 
 
-        {{-- 1: newButton --}}
-        <a class="btn btn--outline-theme btn--header scalemix--3 px-4" role="button" href="new-product.html"><svg
-                xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"
-                class="bi bi-plus-lg me-2">
-                <path fill-rule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z">
-                </path>
-            </svg>New Product
-        </a>
-
-
-
-
-        {{-- title --}}
-        <h3 class="mb-0">Products</h3>
-
-
-
-
-
-
-        {{-- 2: profile --}}
-        <button class="btn btn--theme btn--header scale--3 px-4" type="button">
-            Profile<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                viewBox="0 0 16 16" class="bi bi-arrow-up-right ms-2">
-                <path fill-rule="evenodd"
-                    d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z">
-                </path>
-            </svg>
-        </button>
-
+        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='New Product'
+            leftLink="{{ route('dashboard.createProduct') }}" title='Products' />
 
 
     </section>
+    {{-- endHeader --}}
+
+
 
 
 
@@ -79,6 +53,8 @@
 
     {{-- --------------------------------------- --}}
     {{-- --------------------------------------- --}}
+
+
 
 
 
@@ -200,12 +176,12 @@
                     <label class="form-check-label" for="formCheck-1">By General Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="formCheck-3" />
-                    <label class="form-check-label" for="formCheck-3">By Product Types</label>
+                    <input class="form-check-input" type="radio" id="formCheck-2" />
+                    <label class="form-check-label" for="formCheck-2">By Product Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="formCheck-2" />
-                    <label class="form-check-label" for="formCheck-2">By Company Name</label>
+                    <input class="form-check-input" type="radio" id="formCheck-3" />
+                    <label class="form-check-label" for="formCheck-3">By Company Name</label>
                 </div>
             </div>
 
