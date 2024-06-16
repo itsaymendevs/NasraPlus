@@ -3,6 +3,7 @@
 use App\Livewire\Dashboard\Areas;
 use App\Livewire\Dashboard\Areas\AreasCreate;
 use App\Livewire\Dashboard\Areas\AreasEdit;
+use App\Livewire\Dashboard\Employees;
 use App\Livewire\Dashboard\Products;
 use App\Livewire\Dashboard\Products\Group\Categories;
 use App\Livewire\Dashboard\Products\Group\Companies;
@@ -14,6 +15,10 @@ use App\Livewire\Dashboard\Products\ProductsEdit;
 use App\Livewire\Dashboard\Stores;
 use App\Livewire\Dashboard\Stores\Components\StoresCreate;
 use App\Livewire\Dashboard\Stores\Components\StoresEdit;
+use App\Livewire\Dashboard\Users;
+use App\Livewire\Dashboard\Users\UsersOrder;
+use App\Livewire\Dashboard\Users\UsersProfile;
+use App\Livewire\Dashboard\Users\UsersReceiver;
 use App\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -267,6 +272,74 @@ Route::get('stores', Stores::class)->name('dashboard.stores');
 Route::get('stores/create', StoresCreate::class)->name('dashboard.createStore');
 Route::get('stores/{id}/edit', StoresEdit::class)->name('dashboard.editStore');
 
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+// 5: Customers Tab
+
+
+
+
+// 5.1: customers
+Route::get('customers', Users::class)->name('dashboard.users');
+
+Route::get('customers/{id}', UsersProfile::class)->name('dashboard.userProfile');
+Route::get('customers/{id}/order', UsersOrder::class)->name('dashboard.userOrder');
+Route::get('customers/{id}/receiver/{id}', UsersReceiver::class)->name('dashboard.userReceiver');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+// 7: Employees Tab
+
+
+
+
+// 7.1: employees - create - edit
+Route::get('employees', Employees::class)->name('dashboard.employees');
 
 
 

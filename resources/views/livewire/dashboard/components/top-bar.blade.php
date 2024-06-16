@@ -9,7 +9,7 @@
 
 
     {{-- 1.2: return --}}
-    @if ($leftTitle == 'Return')
+    @if ($leftTitle == 'Return' || $leftTitle == 'Orders')
 
 
 
