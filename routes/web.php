@@ -128,10 +128,10 @@ Route::get('login', Login::class)->name('dashboard.login');
 
 
 // 1.2: products - create - edit
-Route::get('products', Products::class)->name('dashboard.products');
+Route::get('dashboard/products', Products::class)->name('dashboard.products');
 
-Route::get('products/create', ProductsCreate::class)->name('dashboard.createProduct');
-Route::get('products/{id}/edit', ProductsEdit::class)->name('dashboard.editProduct');
+Route::get('dashboard/products/create', ProductsCreate::class)->name('dashboard.createProduct');
+Route::get('dashboard/products/{id}/edit', ProductsEdit::class)->name('dashboard.editProduct');
 
 
 
@@ -148,7 +148,7 @@ Route::get('products/{id}/edit', ProductsEdit::class)->name('dashboard.editProdu
 
 
 // 1.3: categories - create - edit
-Route::get('categories', Categories::class)->name('dashboard.categories');
+Route::get('dashboard/categories', Categories::class)->name('dashboard.categories');
 
 
 
@@ -164,7 +164,7 @@ Route::get('categories', Categories::class)->name('dashboard.categories');
 
 
 // 1.4: subCategories - create - edit
-Route::get('sub-categories', SubCategories::class)->name('dashboard.subCategories');
+Route::get('dashboard/sub-categories', SubCategories::class)->name('dashboard.subCategories');
 
 
 
@@ -180,7 +180,7 @@ Route::get('sub-categories', SubCategories::class)->name('dashboard.subCategorie
 
 
 // 1.5: types - create - edit
-Route::get('types', Types::class)->name('dashboard.types');
+Route::get('dashboard/types', Types::class)->name('dashboard.types');
 
 
 
@@ -197,7 +197,7 @@ Route::get('types', Types::class)->name('dashboard.types');
 
 
 // 1.6: companies - create - edit
-Route::get('companies', Companies::class)->name('dashboard.companies');
+Route::get('dashboard/companies', Companies::class)->name('dashboard.companies');
 
 
 
@@ -214,7 +214,7 @@ Route::get('companies', Companies::class)->name('dashboard.companies');
 
 
 // 1.7: units - create - edit
-Route::get('units', Units::class)->name('dashboard.units');
+Route::get('dashboard/units', Units::class)->name('dashboard.units');
 
 
 
@@ -243,10 +243,10 @@ Route::get('units', Units::class)->name('dashboard.units');
 
 
 // 2.1: areas - create - edit
-Route::get('areas', Areas::class)->name('dashboard.areas');
+Route::get('dashboard/areas', Areas::class)->name('dashboard.areas');
 
-Route::get('areas/create', AreasCreate::class)->name('dashboard.createArea');
-Route::get('areas/{id}/edit', AreasEdit::class)->name('dashboard.editArea');
+Route::get('dashboard/areas/create', AreasCreate::class)->name('dashboard.createArea');
+Route::get('dashboard/areas/{id}/edit', AreasEdit::class)->name('dashboard.editArea');
 
 
 
@@ -272,10 +272,10 @@ Route::get('areas/{id}/edit', AreasEdit::class)->name('dashboard.editArea');
 
 
 // 2.1: stores - create - edit
-Route::get('stores', Stores::class)->name('dashboard.stores');
+Route::get('dashboard/stores', Stores::class)->name('dashboard.stores');
 
-Route::get('stores/create', StoresCreate::class)->name('dashboard.createStore');
-Route::get('stores/{id}/edit', StoresEdit::class)->name('dashboard.editStore');
+Route::get('dashboard/stores/create', StoresCreate::class)->name('dashboard.createStore');
+Route::get('dashboard/stores/{id}/edit', StoresEdit::class)->name('dashboard.editStore');
 
 
 
@@ -304,11 +304,11 @@ Route::get('stores/{id}/edit', StoresEdit::class)->name('dashboard.editStore');
 
 
 // 5.1: customers
-Route::get('customers', Users::class)->name('dashboard.users');
+Route::get('dashboard/customers', Users::class)->name('dashboard.users');
 
-Route::get('customers/{id}', UsersProfile::class)->name('dashboard.userProfile');
-Route::get('customers/{id}/order', UsersOrder::class)->name('dashboard.userOrder');
-Route::get('customers/{id}/receivers/{receiverId}', UsersReceiver::class)->name('dashboard.userReceiver');
+Route::get('dashboard/customers/{id}', UsersProfile::class)->name('dashboard.userProfile');
+Route::get('dashboard/customers/{id}/order', UsersOrder::class)->name('dashboard.userOrder');
+Route::get('dashboard/customers/{id}/receivers/{receiverId}', UsersReceiver::class)->name('dashboard.userReceiver');
 
 
 
@@ -346,7 +346,7 @@ Route::get('customers/{id}/receivers/{receiverId}', UsersReceiver::class)->name(
 
 
 // 6.1: help
-Route::get('help', Help::class)->name('dashboard.help');
+Route::get('dashboard/help', Help::class)->name('dashboard.help');
 
 
 
@@ -363,7 +363,7 @@ Route::get('help', Help::class)->name('dashboard.help');
 
 
 // 6.2: contact
-Route::get('contact/{id}', Contact::class)->name('dashboard.contact');
+Route::get('dashboard/contact/{id}', Contact::class)->name('dashboard.contact');
 
 
 
@@ -381,9 +381,9 @@ Route::get('contact/{id}', Contact::class)->name('dashboard.contact');
 
 
 // 6.3: messages - globalMessages
-Route::get('messages', Messages::class)->name('dashboard.messages');
+Route::get('dashboard/messages', Messages::class)->name('dashboard.messages');
 
-Route::get('global-messages', MessagesGlobal::class)->name('dashboard.globalMessages');
+Route::get('dashboard/global-messages', MessagesGlobal::class)->name('dashboard.globalMessages');
 
 
 
@@ -402,7 +402,7 @@ Route::get('global-messages', MessagesGlobal::class)->name('dashboard.globalMess
 
 
 // 6.4: advertisements
-Route::get('advertisements', Advertisements::class)->name('dashboard.advertisements');
+Route::get('dashboard/advertisements', Advertisements::class)->name('dashboard.advertisements');
 
 
 
@@ -433,7 +433,7 @@ Route::get('advertisements', Advertisements::class)->name('dashboard.advertiseme
 
 
 // 7.1: employees - create - edit
-Route::get('employees', Employees::class)->name('dashboard.employees');
+Route::get('dashboard/employees', Employees::class)->name('dashboard.employees');
 
 
 
