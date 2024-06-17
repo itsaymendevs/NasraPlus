@@ -52,6 +52,7 @@
         {{-- 1.5: stylesheets --}}
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/aos.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/variables.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/animation.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/filters.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/globals.css')}}">
@@ -67,7 +68,7 @@
         <link rel="stylesheet" href="{{asset('assets/css/sms.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/sort.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/variables.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/uploader.css')}}">
 
 
 
@@ -171,6 +172,7 @@
         <script src="{{asset('assets/js/init-sort.js')}}"></script>
         <script src="{{asset('assets/js/reinit-general.js')}}"></script>
         <script src="{{asset('assets/js/reinit-select.js')}}"></script>
+        <script src="{{asset('assets/js/file-preview.js')}}"></script>
 
 
 

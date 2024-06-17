@@ -300,22 +300,89 @@
 
 
 
+
+                {{-- --------------------------------- --}}
+                {{-- --------------------------------- --}}
+
+
+
+
+
+
                 {{-- leftCol --}}
                 <div class="col-6 mb-5">
 
 
 
-                    {{-- picture --}}
-                    <label class="form-label form--label">Picture</label>
-                    <div class="img--holder for-store">
-                        <img loading="lazy" src="{{ asset('assets/img/Logo/logo.png') }}" />
+
+
+
+
+
+
+
+                    {{-- isActive --}}
+                    <div class="d-block mb-4">
+
+                        <div class="form-check form-switch form--switch w-100 justify-content-center">
+                            <input class="form-check-input" type="checkbox" id="formCheck-1" />
+                            <label class="form-check-label fs-6" for="formCheck-1">Show Global Address on
+                                Application</label>
+                        </div>
+
                     </div>
+
+
+
+
+
+
+
+
+                    {{-- ------------------------------- --}}
+                    {{-- ------------------------------- --}}
+
+
+
+
+                    {{-- imageFile --}}
+                    <label class="img--holder for-store upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                        for="about--file" title="Click To Upload">
+
+
+
+
+                        {{-- caption --}}
+                        <span class="upload--caption badge">Picture</span>
+
+
+
+
+                        {{-- input --}}
+                        <input class="form-control d-none file--input" id="about--file" data-preview="about--preview"
+                            type="file" wire:model='instance.imageFile' />
+
+
+                        {{-- preview --}}
+                        <img class="inventory--image-frame" id="about--preview"
+                            src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+
+                    </label>
+
+
+
+
 
 
 
 
                 </div>
                 {{-- end leftCol --}}
+
+
+
+
 
 
 
@@ -360,15 +427,18 @@
 
 
 
-                        {{-- isActive --}}
-                        <div class="col-12">
 
-                            <div class="form-check form-switch form--switch w-100 justify-content-center">
-                                <input class="form-check-input" type="checkbox" id="formCheck-1" />
-                                <label class="form-check-label fs-6" for="formCheck-1">Show Global Address on
-                                    Application</label>
-                            </div>
 
+
+                        {{-- ------------------------ --}}
+                        {{-- ------------------------ --}}
+
+
+
+                        {{-- submitButton --}}
+                        <div class="d-block text-center mt-3">
+                            <button class="btn btn--theme btn--submit rounded-1" type="button"
+                                style="margin-right: 2%">Save Address</button>
                         </div>
 
 
@@ -380,21 +450,6 @@
 
 
 
-
-
-
-                {{-- --------------------------------------- --}}
-                {{-- --------------------------------------- --}}
-
-
-
-
-
-                {{-- submitButton --}}
-                <div class="col-12 text-center">
-                    <button class="btn btn--theme
-                    btn--submit rounded-1" type="button" style="margin-right: 2%">Save Address</button>
-                </div>
             </div>
         </form>
         {{-- endForm --}}

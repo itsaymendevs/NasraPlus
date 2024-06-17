@@ -5,6 +5,12 @@ $(document).ready(function () {
     $(".dropdown-menu").dropdown();
 });
 
+document.addEventListener("livewire:navigated", function () {
+    $(document).ready(function () {
+        $(".dropdown-menu").dropdown();
+    });
+});
+
 // -------------------------------------------------------------
 
 // 2: reloadPage if back/forward

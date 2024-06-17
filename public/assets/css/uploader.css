@@ -1,0 +1,44 @@
+.upload--wrap {
+    position: relative;
+    display: block;
+    padding: 5px 5px;
+    margin: 0px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    border: 2px dashed var(--color-theme);
+}
+
+.upload--wrap:hover,
+.upload--wrap:focus {
+    border: 2px dashed var(--color-gold);
+}
+
+.upload--wrap svg {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-size: 35px;
+    fill: var(--color-theme);
+    display: none;
+}
+
+.upload--wrap:hover svg,
+.upload--wrap:focus svg {
+    transform: scale(1.4);
+    fill: var(--color-gold);
+}
+
+.upload--wrap .upload--caption {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    max-width: 120px;
+    margin: auto;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500 !important;
+    color: white;
+    background-color: var(--edit-color);
+}

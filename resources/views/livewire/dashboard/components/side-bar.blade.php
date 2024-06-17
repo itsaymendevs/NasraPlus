@@ -201,17 +201,45 @@
 
 
 
+
                 {{-- 4: payment --}}
-                <button class="btn fs-5 btn--navbar ps-3 scale--3" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                        viewBox="0 0 16 16" class="bi bi-credit-card-2-front-fill">
-                        <path
-                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z">
-                        </path>
-                    </svg>
-                    <a wire:navigate class="stretched-link regulate--link"
-                        href="{{ route('dashboard.payments') }}">Payment</a>
-                </button>
+                <div class="btn-group dropend navbar--split-btn">
+
+
+                    {{-- mainLink --}}
+                    <button class="btn fs-5 btn--navbar ps-3 scale--3" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                            viewBox="0 0 16 16" class="bi bi-credit-card-2-front-fill">
+                            <path
+                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z">
+                            </path>
+                        </svg>
+                        <a class="stretched-link regulate--link" href="{{ route('dashboard.payments') }}">Payment</a>
+                    </button>
+
+
+                    {{-- toggler --}}
+                    <button class="btn dropdown-toggle dropdown-toggle-split btn--navbar btn--navbar-arrow scale--3"
+                        data-bs-toggle="dropdown" aria-expanded="false" type="button"></button>
+
+
+
+
+                    {{-- subLinks --}}
+                    {{-- 4.1: conditions --}}
+                    <div class="dropdown-menu dropdown-menu-dark results--dropdown-menu">
+                        <a wire:navigate class="dropdown-item"
+                            href="{{ route('dashboard.payments.conditions') }}">Conditions</a>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
 
 
 
