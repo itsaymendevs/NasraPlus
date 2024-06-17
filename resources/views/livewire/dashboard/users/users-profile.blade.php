@@ -295,7 +295,7 @@
                             {{-- 1: orderStatus --}}
                             <div class="col-4 mb-4 pb-3">
                                 <div class="select--single-wrapper">
-                                    <select class="form--select2" data-placeholder="Order Status">
+                                    <select class="form--select" data-placeholder="Order Status">
                                         <option value=""></option>
                                         <option value="option">option</option>
                                     </select>

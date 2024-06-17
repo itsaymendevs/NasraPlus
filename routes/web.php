@@ -4,6 +4,11 @@ use App\Livewire\Dashboard\Areas;
 use App\Livewire\Dashboard\Areas\AreasCreate;
 use App\Livewire\Dashboard\Areas\AreasEdit;
 use App\Livewire\Dashboard\Employees;
+use App\Livewire\Dashboard\Help;
+use App\Livewire\Dashboard\Help\Group\Advertisements;
+use App\Livewire\Dashboard\Help\Group\Contact;
+use App\Livewire\Dashboard\Help\Group\Messages;
+use App\Livewire\Dashboard\Help\Group\MessagesGlobal;
 use App\Livewire\Dashboard\Products;
 use App\Livewire\Dashboard\Products\Group\Categories;
 use App\Livewire\Dashboard\Products\Group\Companies;
@@ -303,12 +308,101 @@ Route::get('customers', Users::class)->name('dashboard.users');
 
 Route::get('customers/{id}', UsersProfile::class)->name('dashboard.userProfile');
 Route::get('customers/{id}/order', UsersOrder::class)->name('dashboard.userOrder');
-Route::get('customers/{id}/receiver/{id}', UsersReceiver::class)->name('dashboard.userReceiver');
+Route::get('customers/{id}/receivers/{receiverId}', UsersReceiver::class)->name('dashboard.userReceiver');
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+// 6: Help Tab
+
+
+
+
+// 6.1: help
+Route::get('help', Help::class)->name('dashboard.help');
+
+
+
+
+
+
+
+
+// -------------------------------
+
+
+
+
+
+
+// 6.2: contact
+Route::get('contact/{id}', Contact::class)->name('dashboard.contact');
+
+
+
+
+
+
+
+
+
+// -------------------------------
+
+
+
+
+
+
+// 6.3: messages - globalMessages
+Route::get('messages', Messages::class)->name('dashboard.messages');
+
+Route::get('global-messages', MessagesGlobal::class)->name('dashboard.globalMessages');
+
+
+
+
+
+
+
+
+
+
+// -------------------------------
+
+
+
+
+
+
+// 6.4: advertisements
+Route::get('advertisements', Advertisements::class)->name('dashboard.advertisements');
 
 
 
