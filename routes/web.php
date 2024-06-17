@@ -10,6 +10,7 @@ use App\Livewire\Dashboard\Help\Group\Contact;
 use App\Livewire\Dashboard\Help\Group\Messages;
 use App\Livewire\Dashboard\Help\Group\MessagesGlobal;
 use App\Livewire\Dashboard\Orders;
+use App\Livewire\Dashboard\Orders\OrdersView;
 use App\Livewire\Dashboard\PreviousOrders;
 use App\Livewire\Dashboard\Products;
 use App\Livewire\Dashboard\Products\Group\Categories;
@@ -476,9 +477,10 @@ Route::get('dashboard/employees', Employees::class)->name('dashboard.employees')
 
 // 7.1: orders - create - edit
 Route::get('dashboard/orders', Orders::class)->name('dashboard.orders');
-
 Route::get('dashboard/previous-orders', PreviousOrders::class)->name('dashboard.previousOrders');
 
+
+Route::get('dashboard/orders/{id}', OrdersView::class)->name('dashboard.singleOrder');
 
 
 
