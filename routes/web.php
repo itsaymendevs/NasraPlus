@@ -3,6 +3,7 @@
 use App\Livewire\Dashboard\Areas;
 use App\Livewire\Dashboard\Areas\AreasCreate;
 use App\Livewire\Dashboard\Areas\AreasEdit;
+use App\Livewire\Dashboard\Areas\Group\AreasConditions;
 use App\Livewire\Dashboard\Employees;
 use App\Livewire\Dashboard\Help;
 use App\Livewire\Dashboard\Help\Group\Advertisements;
@@ -11,6 +12,8 @@ use App\Livewire\Dashboard\Help\Group\Messages;
 use App\Livewire\Dashboard\Help\Group\MessagesGlobal;
 use App\Livewire\Dashboard\Orders;
 use App\Livewire\Dashboard\Orders\OrdersView;
+use App\Livewire\Dashboard\Payments;
+use App\Livewire\Dashboard\Payments\Group\PaymentsConditions;
 use App\Livewire\Dashboard\PreviousOrders;
 use App\Livewire\Dashboard\Products;
 use App\Livewire\Dashboard\Products\Group\Categories;
@@ -21,8 +24,9 @@ use App\Livewire\Dashboard\Products\Group\Units;
 use App\Livewire\Dashboard\Products\ProductsCreate;
 use App\Livewire\Dashboard\Products\ProductsEdit;
 use App\Livewire\Dashboard\Stores;
-use App\Livewire\Dashboard\Stores\Components\StoresCreate;
-use App\Livewire\Dashboard\Stores\Components\StoresEdit;
+use App\Livewire\Dashboard\Stores\Group\StoresConditions;
+use App\Livewire\Dashboard\Stores\StoresCreate;
+use App\Livewire\Dashboard\Stores\StoresEdit;
 use App\Livewire\Dashboard\Users;
 use App\Livewire\Dashboard\Users\UsersOrder;
 use App\Livewire\Dashboard\Users\UsersProfile;
@@ -257,6 +261,18 @@ Route::get('dashboard/areas/{id}/edit', AreasEdit::class)->name('dashboard.editA
 
 
 
+// 2.2: areas - conditions - create - edit
+Route::get('dashboard/areas/conditions', AreasConditions::class)->name('dashboard.areas.conditions');
+
+
+
+
+
+
+
+
+
+
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
@@ -269,16 +285,71 @@ Route::get('dashboard/areas/{id}/edit', AreasEdit::class)->name('dashboard.editA
 
 
 
-// 3: Collection Tab
+// 3: Pickup Tab
 
 
 
 
-// 2.1: stores - create - edit
+// 3.1: stores - create - edit
 Route::get('dashboard/stores', Stores::class)->name('dashboard.stores');
 
 Route::get('dashboard/stores/create', StoresCreate::class)->name('dashboard.createStore');
 Route::get('dashboard/stores/{id}/edit', StoresEdit::class)->name('dashboard.editStore');
+
+
+
+
+
+
+
+
+
+// 3.2: stores - conditions - create - edit
+Route::get('dashboard/stores/conditions', StoresConditions::class)->name('dashboard.stores.conditions');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+// 4: Payments Tab
+
+
+
+
+// 4.1: payments - create - edit
+Route::get('dashboard/payments', Payments::class)->name('dashboard.payments');
+
+
+
+
+// 4.2: payments - conditions - create - edit
+Route::get('dashboard/payments/conditions', PaymentsConditions::class)->name('dashboard.payments.conditions');
+
+
+
 
 
 

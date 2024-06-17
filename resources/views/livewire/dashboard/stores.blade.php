@@ -6,7 +6,7 @@
     {{-- head --}}
     @section('head')
 
-    <title>Collection Stores</title>
+    <title>Pickup Stores</title>
 
     @endsection
     {{-- endHeader --}}
@@ -38,7 +38,7 @@
 
 
         <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='New Store'
-            leftLink="{{ route('dashboard.createStore') }}" title='Collection Stores' />
+            leftLink="{{ route('dashboard.createStore') }}" title='Pickup Stores' />
 
 
     </section>

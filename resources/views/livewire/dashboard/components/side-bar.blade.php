@@ -132,7 +132,7 @@
                     {{-- subLinks --}}
                     {{-- 2.1: conditions --}}
                     <div class="dropdown-menu dropdown-menu-dark results--dropdown-menu">
-                        <a class="dropdown-item" href="#">Conditions</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.areas.conditions') }}">Conditions</a>
                     </div>
 
                 </div>
@@ -164,7 +164,7 @@
                                 d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z">
                             </path>
                         </svg>
-                        <a class="stretched-link regulate--link" href="{{ route('dashboard.stores') }}">Collection</a>
+                        <a class="stretched-link regulate--link" href="{{ route('dashboard.stores') }}">Pickup</a>
                     </button>
 
 
@@ -180,7 +180,7 @@
                     {{-- subLinks --}}
                     {{-- 3.1: conditions --}}
                     <div class="dropdown-menu dropdown-menu-dark results--dropdown-menu">
-                        <a class="dropdown-item" href="#">Conditions</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.stores.conditions') }}">Conditions</a>
                     </div>
 
                 </div>
@@ -209,7 +209,8 @@
                             d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z">
                         </path>
                     </svg>
-                    <a wire:navigate class="stretched-link regulate--link" href="#">Payment</a>
+                    <a wire:navigate class="stretched-link regulate--link"
+                        href="{{ route('dashboard.payments') }}">Payment</a>
                 </button>
 
 
