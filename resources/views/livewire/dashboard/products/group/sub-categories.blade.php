@@ -81,9 +81,13 @@
                 <div class="col-4">
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select">
+                        <select class="form--select" data-instance='searchCategory' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+                            @foreach ($categories ?? [] as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+
                         </select>
                     </div>
                 </div>
@@ -115,7 +119,7 @@
 
                 {{-- counter --}}
                 <div class="col-4 text-end mb-1">
-                    <h3 class="text-end row--counter">80</h3>
+                    <h3 class="text-end row--counter">{{ $subCategories->total() }}</h3>
                 </div>
 
 
@@ -151,20 +155,26 @@
 
 
             {{-- headers --}}
+
+            @if ($subCategories->total() > 0)
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Name</label>
+                    <label class="col-form-label form--label row--label">Category</label>
                 </div>
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">Name Ar</label>
+                    <label class="col-form-label form--label row--label">Name</label>
                 </div>
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
             </div>
+
+
+            @endif
             {{-- endHeaders --}}
 
 
@@ -181,28 +191,33 @@
 
 
 
-            {{-- contentRow --}}
-            <div class="row g-0 align-items-center results--item">
+
+
+            {{-- loop - subCategories --}}
+            @foreach ($subCategories ?? [] as $subCategory)
+
+
+            <div class="row g-0 align-items-center results--item" key='single-subCategory-{{ $subCategory->id }}'>
 
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">SC-001</label>
+                    <label class="col-form-label form--label row--label">SC-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
-                {{-- 2: name --}}
+                {{-- 2: category --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Furits &amp; Vegetables</label>
+                    <label class="col-form-label form--label row--label">{{ $subCategory->category->name }}</label>
                 </div>
 
 
 
-                {{-- 2.1: nameAr --}}
+                {{-- 3: name --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">الفواكه والخضروات</label>
+                    <label class="col-form-label form--label row--label">{{ $subCategory->name }}</label>
                 </div>
 
 
@@ -217,8 +232,9 @@
 
                     {{-- 1: edit --}}
                     <button class="btn btn--raw-icon edit scale--3" type="button" data-bs-target="#subCategories-edit"
-                        data-bs-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                            fill="currentColor" viewBox="0 0 16 16" class="bi bi-pencil-square">
+                        wire:click='edit({{ $subCategory->id }})' data-bs-toggle="modal"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                            viewBox="0 0 16 16" class="bi bi-pencil-square">
                             <path
                                 d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
                             </path>
@@ -230,12 +246,34 @@
                 </div>
 
 
-
             </div>
+            @endforeach
+            {{-- end loop --}}
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $subCategories?->links() }}</div>
+            </div>
+
+
+
+
+
         </div>
-        {{-- endResultRow --}}
-
-
     </section>
     {{-- endSection --}}
 
@@ -255,8 +293,49 @@
 
 
 
+
+
+
     {{-- ----------------------------------------------------- --}}
     {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+    {{-- selectHandle --}}
+    <script>
+        $(".form--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         instance = $(this).attr('data-instance');
+
+
+         @this.set(instance, selectValue);
+
+
+      }); //end function
+    </script>
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
 
 
 

@@ -68,7 +68,8 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
@@ -79,7 +80,8 @@
 
                 {{-- search --}}
                 <div class="col-4">
-                    <input type="search" class="form--input" placeholder="Search by Category" />
+                    <input type="search" class="form--input" placeholder="Search by Category"
+                        wire:model.live='searchCategory' />
                 </div>
 
 
@@ -105,7 +107,7 @@
 
                 {{-- counter --}}
                 <div class="col-4 text-end">
-                    <h3 class="text-end row--counter">80</h3>
+                    <h3 class="text-end row--counter">{{ $categories->total() }}</h3>
                 </div>
             </div>
         </div>
@@ -134,6 +136,9 @@
 
 
             {{-- headers --}}
+
+            @if ($categories->total() > 0)
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -149,6 +154,13 @@
                 </div>
             </div>
 
+            @endif
+            {{-- end if --}}
+
+
+
+
+
 
 
 
@@ -163,27 +175,29 @@
 
 
 
-            {{-- row --}}
-            <div class="row g-0 align-items-center results--item">
+            {{-- loop - categories --}}
+            @foreach ($categories ?? [] as $category)
+
+            <div class="row g-0 align-items-center results--item" key='single-category-{{ $category->id }}'>
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">MC-001</label>
+                    <label class="col-form-label form--label row--label">MC-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 2: name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Furits &amp; Vegetables</label>
+                    <label class="col-form-label form--label row--label">{{ $category->name }}</label>
                 </div>
 
 
 
                 {{-- 2.5: nameAr --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">الفواكه والخضروات</label>
+                    <label class="col-form-label form--label row--label">{{ $category->nameAr }}</label>
                 </div>
 
 
@@ -198,7 +212,7 @@
 
                     {{-- 1: editModal --}}
                     <button class="btn btn--raw-icon edit scale--3" type="button" data-bs-target="#categories-edit"
-                        data-bs-toggle="modal">
+                        data-bs-toggle="modal" wire:click='edit({{ $category->id }})'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-pencil-square">
                             <path
@@ -214,7 +228,29 @@
 
 
             </div>
-            {{-- endRow --}}
+            @endforeach
+            {{-- end loop --}}
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $categories?->links() }}</div>
+            </div>
+
+
 
 
         </div>
@@ -243,7 +279,7 @@
 
 
         {{-- categoryPicturesForm --}}
-        <form class="row">
+        <form wire:submit='updateCover' wire:loading.class='disabled' class="row">
 
 
 
@@ -264,23 +300,90 @@
 
 
 
+
+            {{-- ----------------------------------------- --}}
+            {{-- ----------------------------------------- --}}
+
+
+
+
+
+
+
             {{-- 1: picture --}}
             <div class="col-6 mb-4">
-                <label class="form-label form--label">English Version</label>
-                <div class="img--holder for-category">
-                    <img loading="lazy" />
-                </div>
+                <label class="img--holder for-category upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                    for="cover--file-1" title="Click To Upload">
+
+
+
+
+                    {{-- caption --}}
+                    <span class="upload--caption badge">English Picture</span>
+
+
+
+
+                    {{-- input --}}
+                    <input class="form-control d-none file--input" id="cover--file-1" data-preview="cover--preview-1"
+                        type="file" wire:model='instance.imageFile' />
+
+
+                    {{-- preview --}}
+                    <img class="inventory--image-frame" id="cover--preview-1"
+                        src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+
+                </label>
             </div>
+
+
+
+
+
 
 
 
             {{-- 2: pictureAr --}}
             <div class="col-6 mb-4">
-                <label class="form-label form--label">Arabic Version</label>
-                <div class="img--holder for-category">
-                    <img loading="lazy" />
-                </div>
+                <label class="img--holder for-category upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                    for="cover--file-2" title="Click To Upload">
+
+
+
+
+                    {{-- caption --}}
+                    <span class="upload--caption badge">Arabic Picture</span>
+
+
+
+
+                    {{-- input --}}
+                    <input class="form-control d-none file--input" id="cover--file-2" data-preview="cover--preview-2"
+                        type="file" wire:model='instance.imageFileAr' />
+
+
+                    {{-- preview --}}
+                    <img class="inventory--image-frame" id="cover--preview-2"
+                        src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+
+                </label>
             </div>
+
+
+
+
+
+
+
+
+
+            {{-- -------------------------------------- --}}
+            {{-- -------------------------------------- --}}
+
+
+
 
 
 
@@ -288,7 +391,8 @@
 
             {{-- submiButton --}}
             <div class="col-12 text-center mb-5 mt-2">
-                <button class="btn btn--theme btn--submit rounded-1" type="button">
+                <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'
+                    wire:target='instance.imageFile, instance.imageFileAr'>
                     Save Changes
                 </button>
             </div>

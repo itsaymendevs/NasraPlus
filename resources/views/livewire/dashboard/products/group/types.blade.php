@@ -65,7 +65,8 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
@@ -79,31 +80,43 @@
 
 
 
-                {{-- category --}}
-                <div class="col-4">
-                    <label class="form-label form--label">Category</label>
-                    <div class="select--single-wrapper">
-                        <select class="form--select">
-                            <option value=""></option>
-                            <option value="option">option</option>
-                        </select>
-                    </div>
-                </div>
-
-
-
-
-
                 {{-- subCategory --}}
                 <div class="col-4">
                     <label class="form-label form--label">Sub Category</label>
-                    <div class="select--single-wrapper">
-                        <select class="form--select">
+                    <div class="select--single-wrapper" wire:ignore>
+                        <select class="form--select" data-instance='searchSubCategory' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+
+
+                            {{-- loop - groupByCategory --}}
+                            @foreach ($subCategories->groupBy('categoryId') ?? [] as $commonCategory =>
+                            $subCategoriesByCategory)
+
+                            <optgroup label="{{ $subCategoriesByCategory->first()->category->name }}">
+
+
+                                {{-- loop - subCategories --}}
+                                @foreach ($subCategoriesByCategory as $subCategory)
+
+                                <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+
+                                @endforeach
+                                {{-- end loop --}}
+
+
+                            </optgroup>
+
+
+                            @endforeach
+                            {{-- end loop - groupByCategory --}}
+
+
                         </select>
                     </div>
                 </div>
+
+
 
 
 
@@ -130,10 +143,21 @@
 
 
 
+
+                {{-- -------------------------------- --}}
+                {{-- -------------------------------- --}}
+
+
+
+
+
                 {{-- counter --}}
-                <div class="col-2 text-end mb-1">
-                    <h3 class="text-end row--counter">80</h3>
+                <div class="col-6 text-end mb-1">
+                    <h3 class="text-end row--counter">{{ $types->total() }}</h3>
                 </div>
+
+
+
             </div>
         </div>
         {{-- endFilters --}}
@@ -168,20 +192,26 @@
 
 
             {{-- headers --}}
+            @if ($types->total() > 0)
+
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Name</label>
+                    <label class="col-form-label form--label row--label">Sub Category</label>
                 </div>
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">Name Ar</label>
+                    <label class="col-form-label form--label row--label">Name</label>
                 </div>
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
             </div>
+
+
+            @endif
             {{-- endHeaders --}}
 
 
@@ -202,28 +232,30 @@
 
 
 
-            {{-- content --}}
-            <div class="row g-0 align-items-center results--item">
+            {{-- loop - types --}}
+            @foreach ($types ?? [] as $type)
+
+            <div class="row g-0 align-items-center results--item" key='single-type-{{ $type->id }}'>
 
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">T-001</label>
+                    <label class="col-form-label form--label row--label">T-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
-                {{-- 1.2: name --}}
+                {{-- 1.2: subCategory --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Furits &amp; Vegetables</label>
+                    <label class="col-form-label form--label row--label">{{ $type->subCategory->name }}</label>
                 </div>
 
 
 
-                {{-- 1.3: nameAr --}}
+                {{-- 1.3: name --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">الفواكه والخضروات</label>
+                    <label class="col-form-label form--label row--label">{{ $type->name }}</label>
                 </div>
 
 
@@ -233,7 +265,7 @@
                 {{-- 1.4: edit --}}
                 <div class="col-1">
                     <button class="btn btn--raw-icon edit scale--3" type="button" data-bs-target="#types-edit"
-                        data-bs-toggle="modal">
+                        data-bs-toggle="modal" wire:click='edit({{ $type->id }})'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-pencil-square">
                             <path
@@ -246,7 +278,10 @@
                     </button>
                 </div>
             </div>
-            {{-- endRow --}}
+
+
+            @endforeach
+            {{-- end loop --}}
 
 
 
@@ -261,6 +296,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+    {{-- selectHandle --}}
+    <script>
+        $(".form--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         instance = $(this).attr('data-instance');
+
+
+         @this.set(instance, selectValue);
+
+
+      }); //end function
+    </script>
 
 
 

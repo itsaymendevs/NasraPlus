@@ -1,6 +1,6 @@
 <div class="modal fade" role="dialog" tabindex="-1" id="categories-edit" wire:ignore.self>
     <div class="modal-dialog" role="document">
-        <form class="modal-content">
+        <form wire:submit='update' wire:loading.class='disabled' class="modal-content">
 
 
 
@@ -33,15 +33,49 @@
 
                     {{-- imageFile --}}
                     <div class="col-12 mb-4">
-                        <div class="img--holder mx-auto"><img loading="lazy" /></div>
+                        <label class="img--holder mx-auto upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                            for="category--file-2" title="Click To Upload">
+
+
+
+
+                            {{-- caption --}}
+                            <span class="upload--caption badge">Picture</span>
+
+
+
+
+                            {{-- input --}}
+                            <input class="form-control d-none file--input" id="category--file-2"
+                                data-preview="category--preview-2" type="file" wire:model='instance.imageFile' />
+
+
+                            {{-- preview --}}
+                            <img class="inventory--image-frame" id="category--preview-2"
+                                src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+
+                        </label>
                     </div>
+
+
+
+
+
+
+                    {{-- ------------------------------------- --}}
+                    {{-- ------------------------------------- --}}
+
+
+
+
 
 
 
                     {{-- name --}}
                     <div class="col-12 mb-4">
                         <label class="form-label form--label">Name</label>
-                        <input type="text" class="form--input" />
+                        <input type="text" class="form--input" required wire:model='instance.name' />
                     </div>
 
 
@@ -51,7 +85,7 @@
                         <label class="form-label form--label ar">Name
                             <span class="lang--span">العربية</span>
                         </label>
-                        <input type="text" class="form--input" />
+                        <input type="text" class="form--input" required wire:model='instance.nameAr' />
                     </div>
                 </div>
             </div>
@@ -74,7 +108,8 @@
             {{-- submitFooter --}}
             <div class="modal-footer">
                 <button class="btn border-0 rounded-1" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn--theme btn--sm px-5 rounded-1" type="button">Update</button>
+                <button class="btn btn--theme btn--sm px-5 rounded-1" wire:loading.class='disabled'
+                    wire:target='instance.imageFile, update'>Update</button>
             </div>
             {{-- endFooter --}}
 

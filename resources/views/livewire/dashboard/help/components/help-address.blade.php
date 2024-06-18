@@ -158,7 +158,8 @@
 
                 {{-- submitButton --}}
                 <div class="d-block text-center mt-3">
-                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'>Save
+                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'
+                        wire:target='instance.imageFile, update'>Save
                         Address</button>
                 </div>
 

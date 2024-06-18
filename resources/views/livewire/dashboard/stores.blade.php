@@ -163,7 +163,7 @@
             {{-- loop - stores --}}
             @foreach ($stores ?? [] as $store)
 
-            <div class="row g-0 align-items-center results--item">
+            <div class="row g-0 align-items-center results--item" key='single-store-{{ $store->id }}'>
 
 
 
@@ -221,6 +221,25 @@
             {{-- end loop --}}
 
 
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $stores?->links() }}</div>
+            </div>
 
 
 

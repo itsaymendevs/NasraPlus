@@ -253,7 +253,8 @@
 
                 {{-- submitButton --}}
                 <div class="col-6 text-center align-self-end">
-                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'>
+                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'
+                        wire:target='instance.imageFile, store'>
                         Save Store
                     </button>
                 </div>
