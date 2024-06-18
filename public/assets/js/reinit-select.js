@@ -290,6 +290,15 @@ window.addEventListener("initChildSelect", (event) => {
 // 5: resetSelect
 window.addEventListener("resetSelect", (event) => {
     $(document).ready(function () {
+        $(".form--select").each(function () {
+            $(this).val("").trigger("change");
+        }); // end loop
+    });
+});
+
+// 5: resetModalSelect
+window.addEventListener("resetModalSelect", (event) => {
+    $(document).ready(function () {
         $(".form--modal-select").each(function () {
             $(this).val("").trigger("change");
         }); // end loop

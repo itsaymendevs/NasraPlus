@@ -68,7 +68,7 @@
 
             {{-- imageFile --}}
             <label class="img--holder for-store upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
-                for="about--file" title="Click To Upload">
+                for="address--file" title="Click To Upload">
 
 
 
@@ -80,13 +80,13 @@
 
 
                 {{-- input --}}
-                <input class="form-control d-none file--input" id="about--file" data-preview="about--preview"
+                <input class="form-control d-none file--input" id="address--file" data-preview="address--preview"
                     type="file" wire:model='instance.imageFile' />
 
 
                 {{-- preview --}}
-                <img class="inventory--image-frame" id="about--preview" src="{{ asset('assets/img/placeholder.png') }}"
-                    wire:ignore />
+                <img class="inventory--image-frame" id="address--preview"
+                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
 
 
             </label>

@@ -79,8 +79,10 @@
                 {{-- isPickupActive --}}
                 <div class="col-8">
                     <div class="form-check form-switch form--switch xl">
-                        <input class="form-check-input" type="checkbox" id="formCheck-1" /><label
-                            class="form-check-label" for="formCheck-1">Activate receiving for stores</label>
+                        <input class="form-check-input" type="checkbox" id="isPickupActive-checkbox-1"
+                            wire:model.live='isPickupActive' wire:change='togglePickup' />
+                        <label class="form-check-label" for="isPickupActive-checkbox-1">Enable Receiving for
+                            Stores</label>
                     </div>
                 </div>
 
@@ -90,8 +92,8 @@
 
                 {{-- counter --}}
                 <div class="col-4 text-end">
-                    <h3 class="text-end row--counter" s="margin-right: 5%;">
-                        2
+                    <h3 class="text-end row--counter">
+                        {{ $stores->total() }}
                     </h3>
                 </div>
             </div>
@@ -123,6 +125,8 @@
 
 
             {{-- headers --}}
+            @if ($stores->total() > 0)
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -137,6 +141,8 @@
                     <label class="col-form-label form--label row--label"></label>
                 </div>
             </div>
+
+            @endif
             {{-- endHeaders --}}
 
 
@@ -154,28 +160,30 @@
 
 
 
-            {{-- rows --}}
+            {{-- loop - stores --}}
+            @foreach ($stores ?? [] as $store)
+
             <div class="row g-0 align-items-center results--item">
 
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">S-001</label>
+                    <label class="col-form-label form--label row--label">S-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 1.2: name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Nasra Centre Omdurman</label>
+                    <label class="col-form-label form--label row--label">{{ $store->title }}</label>
                 </div>
 
 
 
-                {{-- 1.3: nameAr --}}
+                {{-- 1.3: information --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">Osman Zubair St. - Near Nile Store</label>
+                    <label class="col-form-label form--label row--label">{{ $store->information }}</label>
                 </div>
 
 
@@ -191,18 +199,26 @@
 
 
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" href="edit-store.html">Edit Store</a>
+                            <a class="dropdown-item" href="{{ route('dashboard.editStore', [$store->id]) }}">Edit</a>
+
+
 
 
                             {{-- 2: toggleDisable --}}
-                            <a class="dropdown-item" href="#">Disable Store</a>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='toggleActive({{ $store->id }})'>
+                                @if ($store->isActive) Disable @else Enable @endif
+                            </a>
 
 
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- endRow --}}
+
+
+            @endforeach
+            {{-- end loop --}}
 
 
 

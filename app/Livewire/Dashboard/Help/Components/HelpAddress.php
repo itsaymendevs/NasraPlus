@@ -39,6 +39,26 @@ class HelpAddress extends Component
 
 
 
+        // 1.2 imageFile - convertBoolean
+        $this->instance->imageFileName = $this->instance->imageFile ?? null;
+        $this->instance->isActive = boolval($this->instance->isActive);
+
+
+
+
+
+
+
+
+        // 1.2: setFilePreview
+        $preview = $this->instance->imageFile ?
+            asset('storage/help/addresses/' . $this->instance->imageFile) : $this->getDefaultPreview();
+
+        $this->dispatch('setFilePreview', filePreview: 'address--preview', defaultPreview: $preview);
+
+
+
+
 
     } // end function
 
@@ -61,12 +81,34 @@ class HelpAddress extends Component
 
 
 
-        // 1: get instance
+
+        // 1: uploadFile
+        if ($this->instance->imageFile)
+            $this->instance->imageFileName = $this->uploadFile($this->instance->imageFile, 'help/addresses', 'ADR');
+
+
+
+
+
+
+
+
+        // ---------------------------------------------
+        // ---------------------------------------------
+
+
+
+
+
+
+
+        // 2: get instance
         $address = AddressInformation::first();
 
 
 
-        // 1.2: general
+
+        // 2.1: general
         $address->address = $this->instance->address ?? null;
         $address->latitude = $this->instance->latitude ?? null;
         $address->longitude = $this->instance->longitude ?? null;
@@ -74,8 +116,11 @@ class HelpAddress extends Component
 
 
 
-        $address->save();
+        // 2.2: imageFile
+        $address->imageFile = $this->instance->imageFileName ?? null;
 
+
+        $address->save();
 
 
 

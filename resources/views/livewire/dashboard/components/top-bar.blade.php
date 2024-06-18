@@ -14,7 +14,7 @@
 
 
 
-    <a wire:navigate class="btn btn--outline-theme btn--header scale--3 px-4" role="button" href="{{ $leftLink }}">
+    <a class="btn btn--outline-theme btn--header scale--3 px-4" role="button" href="{{ $leftLink }}">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"
             class="bi bi-arrow-up-left me-2">
             <path fill-rule="evenodd"
@@ -60,7 +60,7 @@
 
 
     {{-- 1: newButton --}}
-    <a wire:navigate class="btn btn--outline-theme btn--header scalemix--3 px-4" role="button" href="{{ $leftLink }}">
+    <a class="btn btn--outline-theme btn--header scalemix--3 px-4" role="button" href="{{ $leftLink }}">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"
             class="bi bi-plus-lg me-2">
             <path fill-rule="evenodd"

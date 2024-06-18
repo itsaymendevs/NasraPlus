@@ -62,27 +62,27 @@
 
 
                         {{-- 1: category --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.categories') }}">Main
+                        <a class="dropdown-item" href="{{ route('dashboard.categories') }}">Main
                             Category</a>
 
 
 
                         {{-- 2: subCategory --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.subCategories') }}">Sub
+                        <a class="dropdown-item" href="{{ route('dashboard.subCategories') }}">Sub
                             Category</a>
 
 
                         {{-- 3: types --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.types') }}">Inner Types</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.types') }}">Inner Types</a>
 
 
 
                         {{-- 4: companies --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.companies') }}">Companies</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.companies') }}">Companies</a>
 
 
                         {{-- 5: units --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.units') }}">Measuring Units</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.units') }}">Measuring Units</a>
 
 
 
@@ -228,8 +228,7 @@
                     {{-- subLinks --}}
                     {{-- 4.1: conditions --}}
                     <div class="dropdown-menu dropdown-menu-dark results--dropdown-menu">
-                        <a wire:navigate class="dropdown-item"
-                            href="{{ route('dashboard.payments.conditions') }}">Conditions</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.payments.conditions') }}">Conditions</a>
                     </div>
 
                 </div>
@@ -258,8 +257,7 @@
                             d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z">
                         </path>
                     </svg>
-                    <a wire:navigate class="stretched-link regulate--link"
-                        href="{{ route('dashboard.users') }}">Customers</a>
+                    <a class="stretched-link regulate--link" href="{{ route('dashboard.users') }}">Customers</a>
                 </button>
 
 
@@ -310,18 +308,18 @@
 
 
                         {{-- 1: help --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.help') }}">Help Page</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.help') }}">Help Page</a>
 
 
 
 
                         {{-- 2: messages --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.messages') }}">Local SMS</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.messages') }}">Local SMS</a>
 
 
 
                         {{-- 2.5: globalMessages --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.globalMessages') }}">Global
+                        <a class="dropdown-item" href="{{ route('dashboard.globalMessages') }}">Global
                             SMS</a>
 
 
@@ -337,19 +335,18 @@
 
 
                         {{-- 3: contact --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact SD</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact SD</a>
 
 
 
                         {{-- 3.5: globalContact --}}
-                        <a wire:navigate class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact UK</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact UK</a>
 
 
 
 
                         {{-- 5: advertisements --}}
-                        <a wire:navigate class="dropdown-item"
-                            href="{{ route('dashboard.advertisements') }}">Advertisements</a>
+                        <a class="dropdown-item" href="{{ route('dashboard.advertisements') }}">Advertisements</a>
 
 
                     </div>
@@ -380,8 +377,7 @@
                             d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z">
                         </path>
                     </svg>
-                    <a wire:navigate class="stretched-link regulate--link"
-                        href="{{ route('dashboard.employees') }}">Employees</a>
+                    <a class="stretched-link regulate--link" href="{{ route('dashboard.employees') }}">Employees</a>
                 </button>
 
 

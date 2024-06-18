@@ -1,6 +1,6 @@
 <div class="modal fade" role="dialog" tabindex="-1" id="paragraphs-edit" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <form wire:submit='update' wire:loading.class='disabled' class="modal-content">
 
 
 
@@ -16,8 +16,12 @@
 
 
 
+
+
             {{-- -------------------------------- --}}
             {{-- -------------------------------- --}}
+
+
 
 
 
@@ -29,10 +33,12 @@
                 <div class="row align-items-center">
 
 
+
+
                     {{-- title --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">Title</label>
-                        <input type="text" class="form--input" value="Paragraph Title" />
+                        <input type="text" class="form--input" wire:model='instance.title' required />
                     </div>
 
 
@@ -44,7 +50,7 @@
                             <span class="lang--span">العربية</span>
                         </label>
 
-                        <input type="text" class="form--input w-100" value="عنوان الفقرة" />
+                        <input type="text" class="form--input w-100" wire:model='instance.titleAr' required />
                     </div>
 
 
@@ -52,8 +58,13 @@
                     {{-- content --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">Content</label>
-                        <input type="text" class="form--input" value="Paragraph Content" />
+
+                        <textarea class="form-control form--input form--textarea" required
+                            wire:model='instance.content'></textarea>
                     </div>
+
+
+
 
 
 
@@ -63,8 +74,14 @@
                             <span class="lang--span">العربية</span>
                         </label>
 
-                        <input type="text" class="form--input w-100" value="محتوى الفقرة" />
+                        <textarea class="form-control form--input form--textarea" required
+                            wire:model='instance.contentAr'></textarea>
+
                     </div>
+
+
+
+
                 </div>
             </div>
             {{-- endBody --}}
@@ -84,16 +101,19 @@
 
 
 
+
+
+
             {{-- submitButton --}}
             <div class="modal-footer">
                 <button class="btn border-0 rounded-1" type="button" data-bs-dismiss="modal">
                     Close</button>
-                <button class="btn btn--theme btn--sm px-5 rounded-1" type="button">Update</button>
+                <button class="btn btn--theme btn--sm px-5 rounded-1" wire:loading.class='disabled'>Update</button>
             </div>
 
 
 
-        </div>
+        </form>
     </div>
     {{-- endWrapper --}}
 

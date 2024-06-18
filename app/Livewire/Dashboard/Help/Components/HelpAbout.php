@@ -74,6 +74,29 @@ class HelpAbout extends Component
 
 
 
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function edit($id)
+    {
+
+
+        // 1: dispatchEvent
+        $this->dispatch('editAboutParagraph', $id);
+
+
+
+    } // end function
+
+
+
+
+
+
 
 
     // ---------------------------------------------------------------------------
@@ -167,6 +190,7 @@ class HelpAbout extends Component
 
 
 
+    #[On('refreshAbout')]
     public function render()
     {
 

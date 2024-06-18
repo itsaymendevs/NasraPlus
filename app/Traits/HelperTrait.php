@@ -26,7 +26,6 @@ trait HelperTrait
 
 
 
-
     protected function getGramToKG()
     {
         return 1000;

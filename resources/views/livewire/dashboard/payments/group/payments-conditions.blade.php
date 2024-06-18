@@ -64,12 +64,13 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
         {{-- form --}}
-        <form class="form--page mb-5">
+        <form wire:submit='store' wire:loading.class='disabled' class="form--page mb-5">
             <div class="row">
 
 
@@ -77,7 +78,7 @@
                 {{-- title --}}
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Title</label>
-                    <input class="form-control form--input" type="text" />
+                    <input class="form-control form--input" type="text" required wire:model='instance.title' />
                 </div>
 
 
@@ -88,7 +89,7 @@
                         <span class="lang--span">العربية</span>
                     </label>
 
-                    <input class="form-control form--input" type="text" />
+                    <input class="form-control form--input" type="text" required wire:model='instance.titleAr' />
                 </div>
 
 
@@ -99,7 +100,8 @@
                 {{-- content --}}
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Content</label>
-                    <textarea class="form-control form--input form--textarea"></textarea>
+                    <textarea class="form-control form--input form--textarea" required
+                        wire:model='instance.content'></textarea>
                 </div>
 
 
@@ -111,7 +113,8 @@
                         <span class="lang--span">العربية</span>
                     </label>
 
-                    <textarea class="form-control form--input form--textarea"></textarea>
+                    <textarea class="form-control form--input form--textarea" required
+                        wire:model='instance.contentAr'></textarea>
                 </div>
 
 
@@ -121,7 +124,7 @@
 
                 {{-- submitButton --}}
                 <div class="col-12 text-center mt-3">
-                    <button class="btn btn--theme btn--submit rounded-1" type="button">
+                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'>
                         Save item
                     </button>
                 </div>
@@ -151,6 +154,9 @@
 
 
             {{-- headers --}}
+
+            @if ($conditions?->total() > 0)
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -167,6 +173,10 @@
             </div>
 
 
+            @endif
+            {{-- end if --}}
+
+
 
 
 
@@ -179,25 +189,27 @@
 
 
             {{-- rows --}}
+            @foreach ($conditions ?? [] as $condition)
+
             <div class="row g-0 align-items-center results--item">
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">SC-001</label>
+                    <label class="col-form-label form--label row--label">SC-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 2: title --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Condition Title</label>
+                    <label class="col-form-label form--label row--label">{{ $condition->title }}</label>
                 </div>
 
 
 
                 {{-- content --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">Condition Content</label>
+                    <label class="col-form-label form--label row--label">{{ $condition->content }}</label>
                 </div>
 
 
@@ -211,12 +223,15 @@
                         <div class="dropdown-menu results--dropdown-menu">
 
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" data-bs-target="#conditions-edit" data-bs-toggle="modal">Edit
-                                Condition</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-bs-target="#conditions-edit"
+                                wire:click='edit({{ $condition->id }})' data-bs-toggle="modal">Edit</a>
 
 
                             {{-- 2: remove --}}
-                            <a class="dropdown-item" href="#">Remove Condition</a>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='remove({{ $condition->id }})'>Remove</a>
+
+
                         </div>
                     </div>
                 </div>
@@ -224,7 +239,11 @@
 
 
             </div>
-            {{-- endRows --}}
+
+            @endforeach
+            {{-- end loop --}}
+
+
 
 
 
