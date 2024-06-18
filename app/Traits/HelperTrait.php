@@ -18,6 +18,15 @@ trait HelperTrait
 
 
 
+    // :: globalVariables
+    public $removeId;
+
+
+
+
+
+
+
     protected function getGramToKG()
     {
         return 1000;

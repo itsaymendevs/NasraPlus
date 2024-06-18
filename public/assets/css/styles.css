@@ -310,3 +310,39 @@ a:hover {
 .results--dropdown-menu {
     min-width: 110px;
 }
+
+/* pagination */
+
+.pagination--wrap {
+    align-items: center !important;
+}
+
+.pagination--wrap ul,
+.pagination--wrap p {
+    margin-bottom: 0px !important;
+}
+
+.pagination--wrap p {
+    letter-spacing: 0.4px;
+    border-bottom: 1px dashed var(--color-theme);
+}
+.page-item .page-link {
+    background-color: white;
+    border-color: var(--color-theme);
+    color: var(--color-theme);
+    padding: 6px 20px;
+}
+
+.page-item.active .page-link,
+.page-item:hover .page-link,
+.page-item:focus .page-link {
+    background-color: var(--color-theme);
+    border-color: var(--color-theme);
+    color: white;
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none !important;
+    color: white;
+    background-color: var(--color-theme);
+}

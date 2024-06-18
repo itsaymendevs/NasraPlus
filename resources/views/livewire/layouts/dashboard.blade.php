@@ -10,7 +10,7 @@
 
         {{-- 1.2: meta --}}
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1">
         <meta name="description" content="Nasra Centre - Best Grocery Place">
         <meta name="keywords" content="grocery, online grocery, fresh, fruits, vegetables, nasra, nasra centre">
         <meta name="author" content="Orbits Team">
@@ -80,7 +80,7 @@
         {{-- 1.6: jquery --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            crossorigin="anonymous" referrerpolicy="no-referrer" data-navigate-once></script>
 
 
 
@@ -163,8 +163,9 @@
 
 
         {{-- 2: scripts --}}
-        <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+        <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}" data-navigate-once></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" data-navigate-once>
+        </script>
         <script src="{{asset('assets/js/aos.min.js')}}"></script>
         <script src="{{asset('assets/js/select2.min.js')}}"></script>
         <script src="{{asset('assets/js/init.js')}}"></script>
@@ -173,6 +174,15 @@
         <script src="{{asset('assets/js/reinit-general.js')}}"></script>
         <script src="{{asset('assets/js/reinit-select.js')}}"></script>
         <script src="{{asset('assets/js/file-preview.js')}}"></script>
+
+
+
+
+
+        {{-- 2.1: sweetAlert 2 --}}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <x-livewire-alert::scripts />
+
 
 
 

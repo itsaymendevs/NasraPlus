@@ -2,8 +2,37 @@
 <div class="col-12 align-self-center content--col px-0" id="content--col">
 
 
+
+
+    {{-- head --}}
+    @section('head')
+
+    <title>Nasra Centre</title>
+
+    @endsection
+    {{-- endHeader --}}
+
+
+
+
+
+
+
+
+    {{-- --------------------------------------- --}}
+    {{-- --------------------------------------- --}}
+
+
+
+
+
+
+
+
+
+
     {{-- section --}}
-    <form id="content--main" class="d-block" wire:loading.class='disabled'>
+    <form wire:submit='check' id="content--main" class="d-block" wire:loading.class='disabled'>
         <div class="row justify-content-center align-items-center">
 
 
@@ -23,13 +52,14 @@
 
 
 
-                    {{-- email - password --}}
-                    <input type="email" class="form--input mb-4" placeholder="Email Address" required>
-                    <input type="password" class="form--input mb-4" placeholder="Password" required>
+                    {{-- name - password --}}
+                    <input type="text" class="form--input mb-4" placeholder="Full Name" required wire:model='name'>
+                    <input type="password" class="form--input mb-4" placeholder="Password" required
+                        wire:model='password'>
 
 
                     <div class="text-center d-block pt-2">
-                        <button class="btn btn--theme btn--submit btn--sm rounded-1">
+                        <button class="btn btn--theme btn--submit btn--sm rounded-1" wire:loading.class='disabled'>
                             Login</button>
                     </div>
                 </div>

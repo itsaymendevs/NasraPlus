@@ -65,13 +65,14 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
 
         {{-- 1: createForm --}}
-        <form class="form--page mb-5">
+        <form wire:submit='store' class="form--page mb-5" wire:loading.class='disabled'>
             <div class="row">
 
 
@@ -79,7 +80,7 @@
                 {{-- 1.2: name --}}
                 <div class="col-6">
                     <label class="form-label form--label">Name</label>
-                    <input class="form-control form--input mb-4" type="text" />
+                    <input class="form-control form--input mb-4" type="text" required wire:model='instance.name' />
                 </div>
 
 
@@ -89,7 +90,7 @@
                     <label class="form-label form--label">Name
                         <span class="lang--span">العربية</span>
                     </label>
-                    <input class="form-control form--input mb-4" type="text" />
+                    <input class="form-control form--input mb-4" type="text" required wire:model='instance.nameAr' />
                 </div>
 
 
@@ -99,7 +100,7 @@
                 {{-- 1.3: password --}}
                 <div class="col-6">
                     <label class="form-label form--label">Password</label>
-                    <input class="form-control form--input" type="password" />
+                    <input class="form-control form--input" type="password" required wire:model='instance.password' />
                 </div>
 
 
@@ -116,17 +117,18 @@
 
                     {{-- 1: lowPermission --}}
                     <div class="form-check form--radio">
-                        <input class="form-check-input" type="radio" id="formCheck-1" checked="" name="permission"
-                            value="1" />
-                        <label class="form-check-label" for="formCheck-1">Low Permission</label>
+                        <input class="form-check-input" type="radio" id="permission-checkbox-1" name="permission"
+                            value="Low Permission" wire:model='instance.permission' />
+                        <label class="form-check-label" for="permission-checkbox-1">Low Permission</label>
                     </div>
 
 
 
                     {{-- 2: highPermission --}}
                     <div class="form-check form--radio">
-                        <input class="form-check-input" type="radio" id="formCheck-2" name="permission" value="2" />
-                        <label class="form-check-label" for="formCheck-2">High Permission</label>
+                        <input class="form-check-input" type="radio" id="permission-checkbox-2" name="permission"
+                            wire:model='instance.permission' value="High Permission" />
+                        <label class="form-check-label" for="permission-checkbox-2">High Permission</label>
                     </div>
 
                 </div>
@@ -143,9 +145,8 @@
 
                 {{-- submitButton --}}
                 <div class="col-12 text-center mt-5">
-                    <button class="btn btn--theme btn--submit rounded-1" type="button">
-                        Save Employee
-                    </button>
+                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'>Save
+                        Employee</button>
                 </div>
             </div>
         </form>
@@ -185,7 +186,20 @@
 
 
 
+
+            {{-- ------------------------------------------ --}}
+            {{-- ------------------------------------------ --}}
+
+
+
+
+
+
+
             {{-- headers --}}
+            @if ($employees?->total() > 0)
+
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -202,6 +216,9 @@
             </div>
 
 
+            @endif
+            {{-- end if --}}
+
 
 
 
@@ -213,27 +230,36 @@
 
 
 
-            {{-- content --}}
-            <div class="row g-0 align-items-center results--item">
+
+            {{-- loop - employees --}}
+            @foreach ($employees ?? [] as $employee)
+
+
+            <div class="row g-0 align-items-center results--item" key='single-employee-{{ $employee->id }}'>
+
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">EM-001</label>
+                    <label class="col-form-label form--label row--label">EM-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 2: name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">Ahmed Ismail</label>
+                    <label class="col-form-label form--label row--label">{{ $employee->name }}</label>
                 </div>
 
 
-                {{-- 2.5: nameAr --}}
+
+
+                {{-- 3: permission --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">High</label>
+                    <label class="col-form-label form--label row--label">{{ $employee->permission }}</label>
                 </div>
+
+
 
 
 
@@ -246,21 +272,35 @@
                         <div class="dropdown-menu results--dropdown-menu">
 
 
+
+
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" data-bs-target="#employees-edit" data-bs-toggle="modal">Edit
-                                Employee</a>
+                            <a class="dropdown-item pointer" href='javascript:void(0);' data-bs-target="#employees-edit"
+                                data-bs-toggle="modal" wire:click='edit({{ $employee->id }})'>Edit Employee</a>
+
+
 
 
 
                             {{-- 2: resetPassword --}}
-                            <a class="dropdown-item" href="#" data-bs-target="#employees-password-reset"
-                                data-bs-toggle="modal">Reset Password</a>
+                            <a class="dropdown-item pointer" href='javascript:void(0);'
+                                data-bs-target="#employees-password-reset" data-bs-toggle="modal"
+                                wire:click='resetPassword({{ $employee->id }})'>Reset
+                                Password</a>
 
 
 
 
-                            {{-- 3: deActivate --}}
-                            <a class="dropdown-item" href="#">Deactivate Account</a>
+
+
+
+                            {{-- 3: toggleActive --}}
+                            <a class="dropdown-item pointer" href='javascript:void(0);' role='button'
+                                wire:click='toggleActive({{ $employee->id }})'>
+                                @if ($employee->isActive) Deactivate Account @else Activate Account @endif
+                            </a>
+
+
                         </div>
                     </div>
                 </div>
@@ -269,8 +309,27 @@
 
 
             </div>
-            {{-- endRow --}}
 
+            @endforeach
+            {{-- end loop --}}
+
+
+
+
+
+
+
+            {{-- --------------------------------- --}}
+            {{-- --------------------------------- --}}
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $employees?->links() }}</div>
+            </div>
 
 
 

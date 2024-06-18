@@ -1,6 +1,8 @@
-<div class="modal fade" role="dialog" tabindex="-1" id="employees-edit">
+<div class="modal fade" role="dialog" tabindex="-1" id="employees-edit" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <form wire:submit='update' wire:loading.class='disabled' class="modal-content">
+
+
 
 
 
@@ -33,7 +35,7 @@
 
                         {{-- 1: name --}}
                         <label class="form-label form--label">Name</label>
-                        <input type="text" class="form--input mb-4" value="Ahmed" />
+                        <input type="text" class="form--input mb-4" required wire:model='instance.name' />
 
 
 
@@ -41,14 +43,18 @@
                         <label class="form-label form--label">Name
                             <span class="lang--span">العربية</span>
                         </label>
-                        <input type="text" class="form--input" value="Ismail" />
+                        <input type="text" class="form--input" required wire:model='instance.nameAr' />
                     </div>
 
 
 
 
+
+
                     {{-- ----------------------------- --}}
                     {{-- ----------------------------- --}}
+
+
 
 
 
@@ -58,22 +64,28 @@
                     <div class="col-6 align-self-end d-flex justify-content-around align-items-center mb-4 pb-2">
 
 
+
+
                         {{-- 1: lowPermission --}}
                         <div class="form-check form--radio">
-                            <input class="form-check-input" type="radio" id="formCheck-5" checked="" name="permission"
-                                value="1" />
-                            <label class="form-check-label" for="formCheck-5">Low Permission</label>
+                            <input class="form-check-input" type="radio" id="permission-checkbox-3"
+                                value="Low Permission" wire:model='instance.permission' />
+                            <label class="form-check-label" for="permission-checkbox-3">Low Permission</label>
                         </div>
+
 
 
 
                         {{-- 2: highPermission --}}
                         <div class="form-check form--radio">
-                            <input class="form-check-input" type="radio" id="formCheck-6" name="permission"
-                                value="2" /><label class="form-check-label" for="formCheck-6">High Permission</label>
+                            <input class="form-check-input" type="radio" id="permission-checkbox-4"
+                                wire:model='instance.permission' value="High Permission" />
+                            <label class="form-check-label" for="permission-checkbox-4">High Permission</label>
                         </div>
-                    </div>
 
+
+                    </div>
+                    {{-- endPermission --}}
 
 
 
@@ -96,12 +108,12 @@
             {{-- submitButton --}}
             <div class="modal-footer">
                 <button class="btn border-0 rounded-1" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn--theme btn--sm px-5 rounded-1" type="button">Update</button>
+                <button class="btn btn--theme btn--sm px-5 rounded-1" wire:loading.class='disabled'>Update</button>
             </div>
 
 
 
-        </div>
+        </form>
     </div>
     {{-- endWrapper --}}
 
