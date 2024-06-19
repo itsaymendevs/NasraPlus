@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\DeliveryArea;
+use App\Models\DeliveryRegion;
 use App\Models\GeneralSetting;
 use App\Models\State;
 use App\Traits\HelperTrait;
@@ -10,7 +10,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Areas extends Component
+class Regions extends Component
 {
 
 
@@ -22,7 +22,7 @@ class Areas extends Component
 
 
     // :: variables
-    public $searchState, $searchStatus;
+    public $searchState, $searchStatus, $searchRegion;
     public $isDeliveryActive;
 
 
@@ -87,14 +87,14 @@ class Areas extends Component
 
 
         // 1: get instance
-        $area = DeliveryArea::find($id);
+        $region = DeliveryRegion::find($id);
 
 
 
 
         // 1.2: toggleActive
-        $area->isActive = ! $area->isActive;
-        $area->save();
+        $region->isActive = ! $region->isActive;
+        $region->save();
 
 
 
@@ -133,7 +133,7 @@ class Areas extends Component
         // 1: params - confirmationBox
         $this->removeId = $id;
 
-        $this->makeAlert('remove', null, 'confirmAreaRemove');
+        $this->makeAlert('remove', null, 'confirmRegionRemove');
 
 
 
@@ -156,7 +156,7 @@ class Areas extends Component
 
 
 
-    #[On('confirmAreaRemove')]
+    #[On('confirmRegionRemove')]
     public function confirmRemove()
     {
 
@@ -168,9 +168,9 @@ class Areas extends Component
 
 
             // 1.2: remove instance
-            DeliveryArea::find($this->removeId)->delete();
+            DeliveryRegion::find($this->removeId)->delete();
 
-            $this->makeAlert('info', 'Area has been removed');
+            $this->makeAlert('info', 'Region has been removed');
 
 
         } // end if
@@ -209,7 +209,7 @@ class Areas extends Component
 
 
 
-    #[On('refreshAreas')]
+    #[On('refreshRegions')]
     public function render()
     {
 
@@ -222,9 +222,10 @@ class Areas extends Component
         $this->isDeliveryActive = boolval(GeneralSetting::first()->isDeliveryActive);
 
 
-        $areas = DeliveryArea::orderBy('created_at', 'desc')
+        $regions = DeliveryRegion::orderBy('created_at', 'desc')
+            ->where('name', 'LIKE', '%' . $this->searchRegion . '%')
             ->whereIn('stateId', $this->searchState ? [$this->searchState] : $states?->pluck('id')?->toArray() ?? [])
-            ->whereIn('isActive', $this->searchStatus ? [$this->searchStatus] : [1, 0])
+            ->whereIn('isActive', $this->searchStatus ? [$this->searchStatus == "true" ? true : false] : [1, 0])
             ->paginate(env('PAGINATE_XXL'));
 
 
@@ -240,7 +241,7 @@ class Areas extends Component
 
 
 
-        return view('livewire.dashboard.areas', compact('areas', 'states'));
+        return view('livewire.dashboard.regions', compact('regions', 'states'));
 
 
 

@@ -12,8 +12,9 @@ body * {
 }
 
 body,
-html {
-    overflow-x: hidden;
+html,
+form {
+    overflow-x: hidden !important;
 }
 
 button,

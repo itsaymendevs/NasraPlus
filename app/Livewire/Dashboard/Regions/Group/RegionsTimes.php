@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Livewire\Dashboard\Areas\Group;
+namespace App\Livewire\Dashboard\Regions\Group;
 
-use App\Livewire\Forms\ConditionForm;
-use App\Models\DeliveryCondition;
+use App\Livewire\Forms\DeliveryTimeForm;
+use App\Models\DeliveryTime;
 use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AreasConditions extends Component
+class RegionsTimes extends Component
 {
+
+
+
 
 
 
@@ -20,7 +23,7 @@ class AreasConditions extends Component
 
 
     // :: variables
-    public ConditionForm $instance;
+    public DeliveryTimeForm $instance;
 
 
 
@@ -38,19 +41,19 @@ class AreasConditions extends Component
 
 
         // 1: create instance
-        $condition = new DeliveryCondition();
+        $deliveryTime = new DeliveryTime();
 
 
 
         // 1.2: general
-        $condition->title = $this->instance->title ?? null;
-        $condition->titleAr = $this->instance->titleAr ?? null;
-        $condition->content = $this->instance->content ?? null;
-        $condition->contentAr = $this->instance->contentAr ?? null;
+        $deliveryTime->title = $this->instance->title ?? null;
+        $deliveryTime->titleAr = $this->instance->titleAr ?? null;
+        $deliveryTime->content = $this->instance->content ?? null;
+        $deliveryTime->contentAr = $this->instance->contentAr ?? null;
 
 
 
-        $condition->save();
+        $deliveryTime->save();
 
 
 
@@ -61,7 +64,7 @@ class AreasConditions extends Component
 
         // 2: reset
         $this->instance->reset();
-        $this->makeAlert('success', 'Condition has been created');
+        $this->makeAlert('success', 'Timing has been created');
 
 
 
@@ -90,7 +93,7 @@ class AreasConditions extends Component
 
 
         // 1: dispatchEvent
-        $this->dispatch('editCondition', $id);
+        $this->dispatch('editDeliveryTime', $id);
 
 
 
@@ -125,7 +128,7 @@ class AreasConditions extends Component
         // 1: params - confirmationBox
         $this->removeId = $id;
 
-        $this->makeAlert('remove', null, 'confirmConditionRemove');
+        $this->makeAlert('remove', null, 'confirmDeliveryTimeRemove');
 
 
 
@@ -148,7 +151,7 @@ class AreasConditions extends Component
 
 
 
-    #[On('confirmConditionRemove')]
+    #[On('confirmDeliveryTimeRemove')]
     public function confirmRemove()
     {
 
@@ -160,9 +163,9 @@ class AreasConditions extends Component
 
 
             // 1.2: remove instance
-            DeliveryCondition::find($this->removeId)->delete();
+            DeliveryTime::find($this->removeId)->delete();
 
-            $this->makeAlert('info', 'Condition has been removed');
+            $this->makeAlert('info', 'Timing has been removed');
 
 
         } // end if
@@ -201,7 +204,7 @@ class AreasConditions extends Component
 
 
 
-    #[On('refreshConditions')]
+    #[On('refreshDeliveryTimes')]
     public function render()
     {
 
@@ -210,7 +213,7 @@ class AreasConditions extends Component
 
 
         // 1: dependencies
-        $conditions = DeliveryCondition::orderBy('created_at', 'desc')
+        $deliveryTimes = DeliveryTime::orderBy('created_at', 'desc')
             ->paginate(env('PAGINATE_XXL'));
 
 
@@ -223,7 +226,7 @@ class AreasConditions extends Component
 
 
 
-        return view('livewire.dashboard.areas.group.areas-conditions', compact('conditions'));
+        return view('livewire.dashboard.regions.group.regions-times', compact('deliveryTimes'));
 
 
 

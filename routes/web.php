@@ -1,9 +1,10 @@
 <?php
 
-use App\Livewire\Dashboard\Areas;
-use App\Livewire\Dashboard\Areas\AreasCreate;
-use App\Livewire\Dashboard\Areas\AreasEdit;
-use App\Livewire\Dashboard\Areas\Group\AreasConditions;
+use App\Livewire\Dashboard\Regions;
+use App\Livewire\Dashboard\Regions\RegionsCreate;
+use App\Livewire\Dashboard\Regions\RegionsEdit;
+use App\Livewire\Dashboard\Regions\Group\RegionsConditions;
+use App\Livewire\Dashboard\Regions\Group\RegionsTimes;
 use App\Livewire\Dashboard\Employees;
 use App\Livewire\Dashboard\Help;
 use App\Livewire\Dashboard\Help\Group\Advertisements;
@@ -249,20 +250,44 @@ Route::get('dashboard/units', Units::class)->name('dashboard.units');
 
 
 
-// 2.1: areas - create - edit
-Route::get('dashboard/areas', Areas::class)->name('dashboard.areas');
+// 2.1: regions - create - edit
+Route::get('dashboard/regions', Regions::class)->name('dashboard.regions');
 
-Route::get('dashboard/areas/create', AreasCreate::class)->name('dashboard.createArea');
-Route::get('dashboard/areas/{id}/edit', AreasEdit::class)->name('dashboard.editArea');
-
-
+Route::get('dashboard/regions/create', RegionsCreate::class)->name('dashboard.createRegion');
+Route::get('dashboard/regions/{id}/edit', RegionsEdit::class)->name('dashboard.editRegion');
 
 
 
 
 
-// 2.2: areas - conditions - create - edit
-Route::get('dashboard/areas/conditions', AreasConditions::class)->name('dashboard.areas.conditions');
+// -------------------------------
+
+
+
+
+
+
+
+// 2.2: regions - conditions - create - edit
+Route::get('dashboard/regions/conditions', RegionsConditions::class)->name('dashboard.regions.conditions');
+
+
+
+
+
+
+
+// -------------------------------
+
+
+
+
+
+
+// 2.3: regions - times - create - edit
+Route::get('dashboard/regions/times', RegionsTimes::class)->name('dashboard.regions.times');
+
+
 
 
 

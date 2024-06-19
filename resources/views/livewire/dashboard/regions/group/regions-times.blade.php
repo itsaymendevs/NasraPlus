@@ -6,7 +6,7 @@
     {{-- head --}}
     @section('head')
 
-    <title>Delivery Conditions</title>
+    <title>Delivery Times</title>
 
     @endsection
     {{-- endHeader --}}
@@ -38,7 +38,7 @@
 
 
         <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Return'
-            leftLink="{{ route('dashboard.areas') }}" title='Delivery Conditions' />
+            leftLink="{{ route('dashboard.regions') }}" title='Delivery Times' />
 
 
     </section>
@@ -102,7 +102,7 @@
 
                 {{-- content --}}
                 <div class="col-6 mb-4">
-                    <label class="form-label form--label">Content</label>
+                    <label class="form-label form--label">Delivery Time</label>
                     <textarea class="form-control form--input form--textarea" required
                         wire:model='instance.content'></textarea>
                 </div>
@@ -112,7 +112,7 @@
 
                 {{-- contentAr --}}
                 <div class="col-6 mb-4">
-                    <label class="form-label form--label">Content
+                    <label class="form-label form--label">Delivery Time
                         <span class="lang--span">العربية</span>
                     </label>
 
@@ -158,7 +158,7 @@
 
             {{-- headers --}}
 
-            @if ($conditions?->total() > 0)
+            @if ($deliveryTimes?->total() > 0)
 
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
@@ -168,7 +168,7 @@
                     <label class="col-form-label form--label row--label">Title</label>
                 </div>
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">Content</label>
+                    <label class="col-form-label form--label row--label">Timing</label>
                 </div>
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
@@ -192,27 +192,28 @@
 
 
             {{-- rows --}}
-            @foreach ($conditions ?? [] as $condition)
+            @foreach ($deliveryTimes ?? [] as $deliveryTime)
 
-            <div class="row g-0 align-items-center results--item" key='single-condition-{{ $condition->id }}'>
+
+            <div class="row g-0 align-items-center results--item" key='single-time-{{ $deliveryTime->id }}'>
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">SC-{{ $globalSNCounter++ }}</label>
+                    <label class="col-form-label form--label row--label">DT-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 2: title --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $condition->title }}</label>
+                    <label class="col-form-label form--label row--label">{{ $deliveryTime->title }}</label>
                 </div>
 
 
 
                 {{-- content --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">{{ $condition->content }}</label>
+                    <label class="col-form-label form--label row--label">{{ $deliveryTime->content }}</label>
                 </div>
 
 
@@ -226,13 +227,13 @@
                         <div class="dropdown-menu results--dropdown-menu">
 
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" href="javascript:void(0);" data-bs-target="#conditions-edit"
-                                wire:click='edit({{ $condition->id }})' data-bs-toggle="modal">Edit</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-bs-target="#times-edit"
+                                wire:click='edit({{ $deliveryTime->id }})' data-bs-toggle="modal">Edit</a>
 
 
                             {{-- 2: remove --}}
                             <a class="dropdown-item" href="javascript:void(0);"
-                                wire:click='remove({{ $condition->id }})'>Remove</a>
+                                wire:click='remove({{ $deliveryTime->id }})'>Remove</a>
 
 
                         </div>
@@ -263,7 +264,7 @@
 
             {{-- paginations --}}
             <div class="row">
-                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $conditions?->links() }}</div>
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $deliveryTimes?->links() }}</div>
             </div>
 
 
@@ -312,7 +313,7 @@
 
 
     {{-- 1: edit --}}
-    <livewire:dashboard.areas.group.areas-conditions.components.areas-conditions-edit />
+    <livewire:dashboard.regions.group.regions-times.components.regions-times-edit />
 
 
 

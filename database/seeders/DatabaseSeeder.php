@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             AboutSeeder::class,
             AddressSeeder::class,
+            MediaSeeder::class,
             CategoryPictureSeeder::class,
             EmployeeSeeder::class,
             GeneralSettingSeeder::class,

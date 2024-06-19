@@ -168,7 +168,7 @@
 
                 {{-- 3: province --}}
                 <div class="col-4 mb-4">
-                    <label class="form-label form--label">County</label>
+                    <label class="form-label form--label">Region</label>
                     <div class="select--single-wrapper">
                         <select class="form--select">
                             <option value=""></option>

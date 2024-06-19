@@ -6,7 +6,7 @@
     {{-- head --}}
     @section('head')
 
-    <title>Delivery Areas</title>
+    <title>Delivery Regions</title>
 
     @endsection
     {{-- endHeader --}}
@@ -37,8 +37,8 @@
 
 
 
-        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='New Area'
-            leftLink="{{ route('dashboard.createArea') }}" title='Delivery Areas' />
+        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='New Region'
+            leftLink="{{ route('dashboard.createRegion') }}" title='Delivery Regions' />
 
 
     </section>
@@ -79,7 +79,7 @@
                         <input class="form-check-input" type="checkbox" id="isDeliveryActive-checkbox-1"
                             wire:model.live='isDeliveryActive' wire:change='toggleDelivery' />
                         <label class="form-check-label" for="isDeliveryActive-checkbox-1">Enable Delivery for
-                            Areas</label>
+                            Regions</label>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
 
 
                             @endforeach
-                            {{-- end loop - groupByCategory --}}
+                            {{-- end loop - groupByCountry --}}
 
 
                         </select>
@@ -185,8 +185,8 @@
 
                 {{-- 3: search --}}
                 <div class="col-4">
-                    <input type="search" class="form--input" placeholder="Search by Area"
-                        wire:model.live='searchArea' />
+                    <input type="search" class="form--input" placeholder="Search by Region"
+                        wire:model.live='searchRegion' />
                 </div>
 
 
@@ -195,7 +195,7 @@
 
                 {{-- counter --}}
                 <div class="col-8 text-end">
-                    <h3 class="text-end row--counter">{{ $areas->total() ?? 0 }}</h3>
+                    <h3 class="text-end row--counter">{{ $regions->total() ?? 0 }}</h3>
                 </div>
 
 
@@ -230,7 +230,7 @@
 
 
             {{-- 1: headers --}}
-            @if ($areas->total() > 0)
+            @if ($regions->total() > 0)
 
 
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
@@ -272,10 +272,10 @@
 
 
 
-            {{-- loop - areas --}}
-            @foreach ($areas ?? [] as $area)
+            {{-- loop - regions --}}
+            @foreach ($regions ?? [] as $region)
 
-            <div class="row g-0 align-items-center results--item" key='single-area-{{ $area->id }}'>
+            <div class="row g-0 align-items-center results--item" key='single-region-{{ $region->id }}'>
 
 
 
@@ -289,14 +289,15 @@
 
                 {{-- 1.2: name --}}
                 <div class="col-3">
-                    <label class="col-form-label form--label row--label">{{ $area->state->name }} - {{ $area->name
+                    <label class="col-form-label form--label row--label">{{ $region->state->name }} - {{ $region->name
                         }}</label>
                 </div>
 
 
                 {{-- nameAr --}}
                 <div class="col-3">
-                    <label class="col-form-label form--label row--label">{{ $area->state->nameAr }} - {{ $area->nameAr
+                    <label class="col-form-label form--label row--label">{{ $region->state->nameAr }} - {{
+                        $region->nameAr
                         }}</label>
                 </div>
 
@@ -307,7 +308,7 @@
 
                 {{-- 1.3: users --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ $area?->users?->count() ?? 0 }}</label>
+                    <label class="col-form-label form--label row--label">{{ $region?->users?->count() ?? 0 }}</label>
                 </div>
 
 
@@ -315,7 +316,7 @@
 
                 {{-- 1.4: deliveryPrice --}}
                 <div class="col-1">
-                    <label class="col-form-label form--label row--label">{{ number_format($area->price) }}</label>
+                    <label class="col-form-label form--label row--label">{{ number_format($region->price) }}</label>
                 </div>
 
 
@@ -334,15 +335,14 @@
                         <div class="dropdown-menu results--dropdown-menu">
 
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                wire:click='edit({{ $area->id }})'>Edit</a>
+                            <a class="dropdown-item" href="{{ route('dashboard.editRegion', [$region->id]) }}">Edit</a>
 
 
 
                             {{-- 2: toggle --}}
                             <a class="dropdown-item" href="javascript:void(0);"
-                                wire:click='toggleActive({{ $area->id }})'>
-                                @if ($area->isActive) Disable @else Enable @endif
+                                wire:click='toggleActive({{ $region->id }})'>
+                                @if ($region->isActive) Disable @else Enable @endif
                             </a>
 
                         </div>
@@ -361,15 +361,6 @@
 
 
 
-            {{-- ----------------------------------- --}}
-            {{-- ----------------------------------- --}}
-
-
-
-
-
-
-
 
 
             {{-- ---------------------------------- --}}
@@ -382,7 +373,7 @@
 
             {{-- paginations --}}
             <div class="row">
-                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $areas?->links() }}</div>
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $regions?->links() }}</div>
             </div>
 
 
@@ -393,6 +384,60 @@
     </section>
     {{-- endSection --}}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+    {{-- selectHandle --}}
+    <script>
+        $(".form--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         instance = $(this).attr('data-instance');
+
+
+         @this.set(instance, selectValue);
+
+
+      }); //end function
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
 
 
 
