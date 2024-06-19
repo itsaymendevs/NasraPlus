@@ -191,7 +191,7 @@
             {{-- rows --}}
             @foreach ($conditions ?? [] as $condition)
 
-            <div class="row g-0 align-items-center results--item">
+            <div class="row g-0 align-items-center results--item" key='single-condition-{{ $condition->id }}'>
 
                 {{-- 1: serial --}}
                 <div class="col-2">
@@ -242,6 +242,27 @@
 
             @endforeach
             {{-- end loop --}}
+
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $conditions?->links() }}</div>
+            </div>
+
 
 
 

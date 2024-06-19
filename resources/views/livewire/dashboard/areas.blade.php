@@ -66,7 +66,8 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
@@ -75,8 +76,10 @@
             <div class="row align-items-end">
                 <div class="col-12">
                     <div class="form-check form-switch form--switch xl">
-                        <input class="form-check-input" type="checkbox" id="formCheck-1" />
-                        <label class="form-check-label" for="formCheck-1">Stop delivering for areas</label>
+                        <input class="form-check-input" type="checkbox" id="isDeliveryActive-checkbox-1"
+                            wire:model.live='isDeliveryActive' wire:change='toggleDelivery' />
+                        <label class="form-check-label" for="isDeliveryActive-checkbox-1">Enable Delivery for
+                            Areas</label>
                     </div>
                 </div>
             </div>
@@ -87,8 +90,13 @@
 
 
 
+
+
         {{-- --------------------------------------------- --}}
         {{-- --------------------------------------------- --}}
+
+
+
 
 
 
@@ -104,13 +112,48 @@
                 {{-- 1: state --}}
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">State</label>
-                    <div class="select--single-wrapper">
-                        <select class="form--select">
+                    <div class="select--single-wrapper" wire:ignore>
+                        <select class="form--select" data-instance='searchState' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+
+                            {{-- loop - groupByCountry --}}
+                            @foreach ($states->groupBy('countryId') ?? [] as $commonCountry =>
+                            $statesByCountry)
+
+                            <optgroup label="{{ $statesByCountry->first()->country->name }}">
+
+
+                                {{-- loop - states --}}
+                                @foreach ($statesByCountry as $state)
+
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+
+                                @endforeach
+                                {{-- end loop --}}
+
+
+                            </optgroup>
+
+
+                            @endforeach
+                            {{-- end loop - groupByCategory --}}
+
+
                         </select>
                     </div>
                 </div>
+
+
+
+
+
+
+
+                {{-- -------------------------------- --}}
+                {{-- -------------------------------- --}}
+
+
 
 
 
@@ -118,13 +161,15 @@
                 {{-- 2: status --}}
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Status</label>
-                    <div class="select--single-wrapper">
-                        <select class="form--select">
+                    <div class="select--single-wrapper" wire:ignore>
+                        <select class="form--select" data-instance='searchStatus' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
                         </select>
                     </div>
                 </div>
+
 
 
 
@@ -136,9 +181,12 @@
 
 
 
+
+
                 {{-- 3: search --}}
                 <div class="col-4">
-                    <input type="search" class="form--input" placeholder="Search by Area" />
+                    <input type="search" class="form--input" placeholder="Search by Area"
+                        wire:model.live='searchArea' />
                 </div>
 
 
@@ -147,8 +195,11 @@
 
                 {{-- counter --}}
                 <div class="col-8 text-end">
-                    <h3 class="text-end row--counter">2</h3>
+                    <h3 class="text-end row--counter">{{ $areas->total() ?? 0 }}</h3>
                 </div>
+
+
+
             </div>
         </div>
         {{-- endFilters --}}
@@ -179,6 +230,9 @@
 
 
             {{-- 1: headers --}}
+            @if ($areas->total() > 0)
+
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -200,8 +254,8 @@
                 </div>
             </div>
 
-
-
+            @endif
+            {{-- end if --}}
 
 
 
@@ -218,14 +272,16 @@
 
 
 
-            {{-- 2: rows --}}
-            <div class="row g-0 align-items-center results--item">
+            {{-- loop - areas --}}
+            @foreach ($areas ?? [] as $area)
+
+            <div class="row g-0 align-items-center results--item" key='single-area-{{ $area->id }}'>
 
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">DA-001</label>
+                    <label class="col-form-label form--label row--label">DA-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
@@ -233,13 +289,15 @@
 
                 {{-- 1.2: name --}}
                 <div class="col-3">
-                    <label class="col-form-label form--label row--label">Khartoum - Mashtal</label>
+                    <label class="col-form-label form--label row--label">{{ $area->state->name }} - {{ $area->name
+                        }}</label>
                 </div>
 
 
                 {{-- nameAr --}}
                 <div class="col-3">
-                    <label class="col-form-label form--label row--label">الخرطوم - المشتل</label>
+                    <label class="col-form-label form--label row--label">{{ $area->state->nameAr }} - {{ $area->nameAr
+                        }}</label>
                 </div>
 
 
@@ -249,7 +307,7 @@
 
                 {{-- 1.3: users --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">35</label>
+                    <label class="col-form-label form--label row--label">{{ $area?->users?->count() ?? 0 }}</label>
                 </div>
 
 
@@ -257,7 +315,7 @@
 
                 {{-- 1.4: deliveryPrice --}}
                 <div class="col-1">
-                    <label class="col-form-label form--label row--label">250</label>
+                    <label class="col-form-label form--label row--label">{{ number_format($area->price) }}</label>
                 </div>
 
 
@@ -275,16 +333,59 @@
 
                         <div class="dropdown-menu results--dropdown-menu">
 
-                            {{-- 1: edit - disable --}}
-                            <a class="dropdown-item" href="#">Edit Area</a>
-                            <a class="dropdown-item" href="#">Disable Area</a>
+                            {{-- 1: edit --}}
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='edit({{ $area->id }})'>Edit</a>
+
+
+
+                            {{-- 2: toggle --}}
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='toggleActive({{ $area->id }})'>
+                                @if ($area->isActive) Disable @else Enable @endif
+                            </a>
 
                         </div>
                     </div>
                 </div>
+                {{-- endActions --}}
+
+
 
             </div>
-            {{-- endRow --}}
+
+            @endforeach
+            {{-- end loop --}}
+
+
+
+
+
+            {{-- ----------------------------------- --}}
+            {{-- ----------------------------------- --}}
+
+
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $areas?->links() }}</div>
+            </div>
+
+
 
 
 

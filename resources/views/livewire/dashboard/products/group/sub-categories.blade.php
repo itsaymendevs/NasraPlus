@@ -347,11 +347,11 @@
 
 
     {{-- 1: create --}}
-    <livewire:dashboard.products.group.sub-categories.components.sub-categories-create />
+    <livewire:dashboard.products.group.sub-categories.components.sub-categories-create key='subCategories-create' />
 
 
     {{-- 2: edit --}}
-    <livewire:dashboard.products.group.sub-categories.components.sub-categories-edit />
+    <livewire:dashboard.products.group.sub-categories.components.sub-categories-edit key='subCategories-edit' />
 
 
 

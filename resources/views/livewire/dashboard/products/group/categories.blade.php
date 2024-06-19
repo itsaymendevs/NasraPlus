@@ -432,11 +432,11 @@
 
 
     {{-- 1: create --}}
-    <livewire:dashboard.products.group.categories.components.categories-create />
+    <livewire:dashboard.products.group.categories.components.categories-create key='category-create' />
 
 
     {{-- 2: edit --}}
-    <livewire:dashboard.products.group.categories.components.categories-edit />
+    <livewire:dashboard.products.group.categories.components.categories-edit key='category-edit' />
 
 
 

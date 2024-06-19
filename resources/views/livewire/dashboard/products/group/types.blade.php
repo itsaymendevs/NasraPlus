@@ -285,6 +285,27 @@
 
 
 
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $types?->links() }}</div>
+            </div>
+
+
+
+
         </div>
     </section>
     {{-- endSection --}}
@@ -356,11 +377,11 @@
 
 
     {{-- 1: create --}}
-    <livewire:dashboard.products.group.types.components.types-create />
+    <livewire:dashboard.products.group.types.components.types-create key='types-create' />
 
 
     {{-- 2: edit --}}
-    <livewire:dashboard.products.group.types.components.types-edit />
+    <livewire:dashboard.products.group.types.components.types-edit key='types-edit' />
 
 
 

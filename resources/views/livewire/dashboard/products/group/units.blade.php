@@ -64,7 +64,8 @@
 
 
     {{-- section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
@@ -75,15 +76,18 @@
 
                 {{-- search --}}
                 <div class="col-4">
-                    <input type="search" class="form--input" placeholder="Search by Unit" />
+                    <input type="search" class="form--input" placeholder="Search by Unit"
+                        wire:model.live='searchUnit' />
                 </div>
+
+
 
 
 
                 {{-- counter --}}
                 <div class="col-8 text-end">
                     <h3 class="text-end row--counter" style="margin-right: 5%">
-                        80
+                        {{ $units->total() ?? 0 }}
                     </h3>
                 </div>
             </div>
@@ -113,6 +117,9 @@
 
 
             {{-- headers --}}
+            @if ($units->total() > 0)
+
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -136,6 +143,11 @@
 
 
 
+            @endif
+            {{-- end if --}}
+
+
+
 
             {{-- --------------------------------- --}}
             {{-- --------------------------------- --}}
@@ -145,27 +157,29 @@
 
 
 
-            {{-- contentRows --}}
-            <div class="row g-0 align-items-center results--item">
+            {{-- loop - units --}}
+            @foreach ($units ?? [] as $unit)
+
+            <div class="row g-0 align-items-center results--item" key='single-unit-{{ $unit->id }}'>
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">U-001</label>
+                    <label class="col-form-label form--label row--label">U-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
 
                 {{-- 2: name --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">Kilogram</label>
+                    <label class="col-form-label form--label row--label">{{ $unit->name }}</label>
                 </div>
 
 
 
                 {{-- 2.1: abbereviation--}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">KG</label>
+                    <label class="col-form-label form--label row--label">{{ $unit->abbreviation }}</label>
                 </div>
 
 
@@ -173,14 +187,14 @@
 
                 {{-- 3: nameAr --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">كيلوجرام</label>
+                    <label class="col-form-label form--label row--label">{{ $unit->nameAr }}</label>
                 </div>
 
 
 
                 {{-- 3.2: abbreviation --}}
                 <div class="col-3">
-                    <label class="col-form-label form--label row--label">كج</label>
+                    <label class="col-form-label form--label row--label">{{ $unit->abbreviationAr }}</label>
                 </div>
 
 
@@ -191,7 +205,7 @@
                 {{-- edit --}}
                 <div class="col-1">
                     <button class="btn btn--raw-icon edit scale--3" type="button" data-bs-target="#units-edit"
-                        data-bs-toggle="modal">
+                        data-bs-toggle="modal" wire:click='edit({{ $unit->id }})'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-pencil-square">
                             <path
@@ -205,8 +219,34 @@
                 </div>
 
 
+
             </div>
-            {{-- endRow --}}
+
+            @endforeach
+            {{-- end loop --}}
+
+
+
+
+
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $units?->links() }}</div>
+            </div>
+
+
+
 
 
         </div>
@@ -247,11 +287,11 @@
 
 
     {{-- 1: create --}}
-    <livewire:dashboard.products.group.units.components.units-create />
+    <livewire:dashboard.products.group.units.components.units-create key='units-create' />
 
 
     {{-- 2: edit --}}
-    <livewire:dashboard.products.group.units.components.units-edit />
+    <livewire:dashboard.products.group.units.components.units-edit key='units-edit' />
 
 
 
