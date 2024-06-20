@@ -1,12 +1,12 @@
 <div class="modal fade" role="dialog" tabindex="-1" id="terms-edit" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <form wire:submit='update' wire:loading.class='disabled' class="modal-content">
 
 
 
             {{-- header --}}
             <div class="modal-header modal--header">
-                <h4 class="modal-title fw-bold">Edit Terms</h4>
+                <h4 class="modal-title fw-bold">Edit Term</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             {{-- endHeader --}}
@@ -31,8 +31,9 @@
                     {{-- title --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">Title</label>
-                        <input type="text" class="form--input" value="Terms Title" />
+                        <input class="form-control form--input" type="text" required wire:model='instance.title' />
                     </div>
+
 
 
 
@@ -43,8 +44,9 @@
                             <span class="lang--span">العربية</span>
                         </label>
 
-                        <input type="text" class="form--input w-100" value="عنوان الشرط" />
+                        <input class="form-control form--input" type="text" required wire:model='instance.titleAr' />
                     </div>
+
 
 
 
@@ -53,7 +55,8 @@
                     {{-- content --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">Content</label>
-                        <input type="text" class="form--input" value="Terms Content" />
+                        <textarea class="form-control form--input form--textarea" required
+                            wire:model='instance.content'></textarea>
                     </div>
 
 
@@ -64,7 +67,8 @@
                             <span class="lang--span">العربية</span>
                         </label>
 
-                        <input type="text" class="form--input w-100" value="محتوى الشرط" />
+                        <textarea class="form-control form--input form--textarea" required
+                            wire:model='instance.contentAr'></textarea>
                     </div>
 
 
@@ -85,12 +89,12 @@
             {{-- submitButton --}}
             <div class="modal-footer">
                 <button class="btn border-0 rounded-1" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn--theme btn--sm px-5 rounded-1" type="button">Save</button>
+                <button class="btn btn--theme btn--sm px-5 rounded-1" wire:looading.class='disabled'>Update</button>
             </div>
 
 
 
-        </div>
+        </form>
     </div>
     {{-- endWrapper --}}
 

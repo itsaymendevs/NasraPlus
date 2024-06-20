@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             CategoryPictureSeeder::class,
             EmployeeSeeder::class,
             GeneralSettingSeeder::class,
-            CountrySeeder::class,
             StateSeeder::class,
         ]);
 

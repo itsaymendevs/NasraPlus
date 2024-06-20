@@ -32,7 +32,7 @@ class Login extends Component
 
         // 1: getEmployee
         $employee = Employee::where('name', $this->name)
-            ->where('nameAr', $this->name)
+            ->orWhere('nameAr', $this->name)
             ->first();
 
 

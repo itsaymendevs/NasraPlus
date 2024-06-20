@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
+use App\Models\CountryContact;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,17 +23,42 @@ class CountrySeeder extends Seeder
 
 
         for ($i = 0; $i < count($countries); $i++) {
-            Country::create([
-                'name' => $countries[$i]['name'],
-                'nameAr' => $countries[$i]['nameAr'],
-                'code' => $countries[$i]['code'],
-                'toSDG' => $countries[$i]['toSDG'],
-                'currency' => $countries[$i]['currency'],
-                'isServiceActive' => $countries[$i]['isServiceActive'],
-                'isOrderingActive' => $countries[$i]['isOrderingActive'],
+
+            $country = new Country();
+
+            $country->name = $countries[$i]['name'];
+            $country->nameAr = $countries[$i]['nameAr'];
+            $country->code = $countries[$i]['code'];
+            $country->toSDG = $countries[$i]['toSDG'];
+            $country->currency = $countries[$i]['currency'];
+            $country->isServiceActive = $countries[$i]['isServiceActive'];
+            $country->isOrderingActive = $countries[$i]['isOrderingActive'];
+            $country->created_at = Carbon::now();
+            $country->updated_at = Carbon::now();
+
+
+            $country->save();
+
+
+
+
+            // ------------------------------
+            // ------------------------------
+
+
+
+
+
+            // 2: countryContact
+            CountryContact::create([
+                'countryId' => $country->id,
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ]);
+
+
+
+
         } // end loop
 
 

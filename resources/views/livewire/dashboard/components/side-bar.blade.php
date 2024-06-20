@@ -6,7 +6,7 @@
 
         {{-- logo --}}
         <img class="w-100 of-contain nav--logo mb-4" style="height: 160px"
-            src="{{ asset('assets/img/Logo/logo.png') }}" />
+            src="{{ asset('assets/img/Logo/logo-login.png') }}" />
 
 
 
@@ -336,13 +336,19 @@
 
 
 
-                        {{-- 3: contact --}}
-                        <a class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact SD</a>
+                        {{-- 3: loop - countries --}}
+                        @foreach ($countries ?? [] as $country)
+
+
+                        <a class="dropdown-item" href="{{ route('dashboard.contact', $country->id) }}">Contact {{
+                            $country->code }}</a>
+
+
+                        @endforeach
+                        {{-- end loop --}}
 
 
 
-                        {{-- 3.5: globalContact --}}
-                        <a class="dropdown-item" href="{{ route('dashboard.contact', 1) }}">Contact UK</a>
 
 
 
