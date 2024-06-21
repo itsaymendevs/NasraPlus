@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             GeneralSettingSeeder::class,
             StateSeeder::class,
+            MessageSeeder::class,
         ]);
 
 
