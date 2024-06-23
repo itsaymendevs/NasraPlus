@@ -1,15 +1,19 @@
+{{-- wrapper --}}
 <div class="accordion-item results--order results--sms">
 
 
 
-    {{-- header --}}
+    {{-- headers --}}
     <h2 class="accordion-header" role="tab">
         <button class="accordion-button collapsed results--order-button" type="button" data-bs-toggle="collapse"
-            data-bs-target="#results--sms-collection .item-3" aria-expanded="false"
-            aria-controls="results--sms-collection .item-3" wire:ignore.self>
-            <span class="@if (!$instance->isActive) text-danger @endif" style="width: 50%">Completed</span>
+            data-bs-target="#results--sms-collection .item-4" aria-expanded="false"
+            aria-controls="results--sms-collection .item-4" wire:ignore.self>
+            <span style="width: 50%">Confirm Receiption</span>
+            <span class="text-end" style="width: 40%"><small
+                    class="sms--indicator @if (!$instanceReceiver->isActive) inactive @endif">Receiver</small></span>
         </button>
     </h2>
+    {{-- endHeader --}}
 
 
 
@@ -17,31 +21,29 @@
 
 
 
-    {{-- ----------------------------------------- --}}
-    {{-- ----------------------------------------- --}}
+
+    {{-- ----------------------------- --}}
+    {{-- ----------------------------- --}}
+
 
 
 
 
 
     {{-- content --}}
-    <div class="accordion-collapse collapse item-3 pt-2" role="tabpanel" data-bs-parent="#results--sms-collection"
+    <div class="accordion-collapse collapse item-4 pt-2" role="tabpanel" data-bs-parent="#results--sms-collection"
         wire:ignore.self>
         <div class="accordion-body">
-            <form wire:submit='update' wire:loading.class='disabled' class="row">
+            <form wire:submit='updateReceiver' wire:loading.class='disabled' class="row">
+
 
 
 
                 {{-- keywords --}}
-
-
-
-                {{-- orderNumber --}}
                 <div class="col-4 text-center mb-4">
                     <label class="form-label form--label text-theme fs-12 mb-1">@orderNum</label>
                     <label class="form-label form--label profile--label">Order Number</label>
                 </div>
-
 
 
 
@@ -51,6 +53,8 @@
                     <label class="form-label form--label text-theme fs-12 mb-1">@userFN</label>
                     <label class="form-label form--label profile--label">First Name</label>
                 </div>
+
+
 
 
 
@@ -65,7 +69,16 @@
 
 
 
-                {{-- pickupCode --}}
+                {{-- receiver --}}
+                <div class="col-4 text-center mb-4">
+                    <label class="form-label form--label text-theme fs-12 mb-1">@receiver</label>
+                    <label class="form-label form--label profile--label">Order Receiver</label>
+                </div>
+
+
+
+
+                {{-- receiver --}}
                 <div class="col-4 text-center mb-4">
                     <label class="form-label form--label text-theme fs-12 mb-1">@pickupCode</label>
                     <label class="form-label form--label profile--label">Pickup Code</label>
@@ -74,20 +87,15 @@
 
 
 
-
-                {{-- ------------------------------- --}}
-                {{-- ------------------------------- --}}
-
-
-
-
-
-
-
                 {{-- empty --}}
-                <div class="col-8 text-center mb-4"></div>
+                <div class="col-12"></div>
 
 
+
+
+
+                {{-- ------------------------------ --}}
+                {{-- ------------------------------ --}}
 
 
 
@@ -99,10 +107,10 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label with-counter">
                         <span class='invisible'>Message</span>
-                        <small class="tag--optional">{{ strlen($instance->content ?? '') }} / 140</small>
+                        <small class="tag--optional">{{ strlen($instanceReceiver->content ?? '') }} / 140</small>
                     </label>
 
-                    <textarea class="form--input form--textarea" wire:model.live='instance.content'
+                    <textarea class="form--input form--textarea" wire:model.live='instanceReceiver.content'
                         placeholder="English Text" required></textarea>
                 </div>
 
@@ -114,10 +122,10 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label with-counter">
                         <span class='invisible'>Message in Arabic</span>
-                        <small class="tag--optional">{{ strlen($instance->contentAr ?? '') }} / 140</small>
+                        <small class="tag--optional">{{ strlen($instanceReceiver->contentAr ?? '') }} / 140</small>
                     </label>
 
-                    <textarea class="form--input form--textarea" wire:model.live='instance.contentAr'
+                    <textarea class="form--input form--textarea" wire:model.live='instanceReceiver.contentAr'
                         placeholder="Arabic Text" required></textarea>
                 </div>
 
@@ -139,9 +147,9 @@
 
                     {{-- 1: toggleActive --}}
                     <button class="btn btn--outline-theme btn--sm fs-12 rounded-1 px-5
-                     @if ($instance->isActive) btn--outline-danger @endif" type='button' wire:click='toggleActive'
-                        wire:loading.class='disabled'>
-                        @if ($instance->isActive) Disable @else Enable @endif
+                      @if ($instanceReceiver->isActive) btn--outline-danger @endif" type='button'
+                        wire:click='toggleReceiverActive' wire:loading.class='disabled'>
+                        @if ($instanceReceiver->isActive) Disable @else Enable @endif
                     </button>
 
 
@@ -151,9 +159,8 @@
                 </div>
 
 
-
             </form>
         </div>
     </div>
 </div>
-{{-- end item --}}
+{{-- endWrapper --}}

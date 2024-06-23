@@ -8,7 +8,7 @@
     <h2 class="accordion-header" role="tab">
         <button class="accordion-button collapsed results--order-button" type="button" data-bs-toggle="collapse"
             data-bs-target="#results--sms-collection .item-1" aria-expanded="false"
-            aria-controls="results--sms-collection .item-1">
+            aria-controls="results--sms-collection .item-1" wire:ignore.self>
             <span style="width: 50%">Processing</span>
             <small class="tag--optional w-100 text-end me-3 d-none">optional</small>
         </button>

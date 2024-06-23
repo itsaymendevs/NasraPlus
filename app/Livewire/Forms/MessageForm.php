@@ -12,7 +12,7 @@ class MessageForm extends Form
     #[Validate('required')]
     public $type, $isFor;
 
-    public $id, $content, $contentAr, $isActive;
+    public $id, $content, $contentAr, $isActive, $target;
 
 
 

@@ -7,7 +7,7 @@
     <h2 class="accordion-header" role="tab">
         <button class="accordion-button collapsed results--order-button" type="button" data-bs-toggle="collapse"
             data-bs-target="#results--sms-delivery .item-2" aria-expanded="false"
-            aria-controls="results--sms-delivery .item-2">
+            aria-controls="results--sms-delivery .item-2" wire:ignore.self>
             <span style="width: 50%" class="@if (!$instance->isActive) text-danger @endif">Canceled</span>
         </button>
     </h2>
