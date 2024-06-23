@@ -218,7 +218,7 @@ class InfoController extends Controller
 
 
       // 1: onlineBankingPayments
-      $onlineBankingPayments = Payment::where('paymentType', 'ONLINEBANKINGPAYMENT')->get();
+      $onlineBankingPayments = Payment::where('type', 'ONLINEBANKINGPAYMENT')->get();
 
       $contentArray = array();
       foreach ($onlineBankingPayments as $onlineBankingPayment) {
@@ -250,7 +250,7 @@ class InfoController extends Controller
 
 
       // 2: atReceivingPayment
-      $atReceivingPayments = Payment::where('paymentType', 'ATRECEIVINGPAYMENT')->get();
+      $atReceivingPayments = Payment::where('type', 'ATRECEIVINGPAYMENT')->get();
 
 
       $contentArray = array();
@@ -286,7 +286,7 @@ class InfoController extends Controller
 
 
       // 3: directPayments
-      $directPayments = Payment::where('paymentType', 'DIRECTPAYMENT')->get();
+      $directPayments = Payment::where('type', 'DIRECTPAYMENT')->get();
 
 
       $contentArray = array();
