@@ -90,7 +90,7 @@ class User extends Authenticatable
     }
 
 
-    public function deliveryArea()
+    public function deliveryRegion()
     {
         return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');
     }

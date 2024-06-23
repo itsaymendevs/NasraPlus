@@ -22,5 +22,11 @@ class State extends Model
     }
 
 
+    public function regions()
+    {
+        return $this->hasMany(DeliveryRegion::class, 'stateId');
+    }
+
+
 
 } // end modal
