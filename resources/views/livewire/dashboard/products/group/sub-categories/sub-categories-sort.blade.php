@@ -9,7 +9,7 @@
     {{-- head --}}
     @section('head')
 
-    <title>Sort Categories</title>
+    <title>Sort Sub-Categories</title>
 
     @endsection
     {{-- endHeader --}}
@@ -37,7 +37,7 @@
 
 
         <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Return'
-            leftLink="{{ route('dashboard.categories') }}" title='Sort Categories' />
+            leftLink="{{ route('dashboard.subCategories') }}" title='Sort Sub-Categories' />
 
 
     </section>
@@ -93,17 +93,18 @@
 
 
 
-            {{-- loop - categories --}}
-            @foreach ($categories ?? [] as $category)
+            {{-- loop - subCategories --}}
+            @foreach ($subCategories ?? [] as $subCategory)
 
 
-            <div class="row g-0 align-items-center results--item sort--item" key='single-category-{{ $category->id }}'>
+            <div class="row g-0 align-items-center results--item sort--item"
+                key='single-subCategory-{{ $subCategory->id }}'>
 
 
 
 
-                {{-- category --}}
-                <input type="hidden" class='sort--list' value='{{ $category->id }}'>
+                {{-- subCategory --}}
+                <input type="hidden" class='sort--list' value='{{ $subCategory->id }}'>
 
 
 
@@ -113,13 +114,13 @@
 
                 {{-- serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">MC-{{ $globalSNCounter++ }}</label>
+                    <label class="col-form-label form--label row--label">SC-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
                 {{-- name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $category->name }}</label>
+                    <label class="col-form-label form--label row--label">{{ $subCategory->name }}</label>
                 </div>
 
 
@@ -127,7 +128,7 @@
 
                 {{-- nameAr --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">{{ $category->nameAr }}</label>
+                    <label class="col-form-label form--label row--label">{{ $subCategory->nameAr }}</label>
                 </div>
 
 

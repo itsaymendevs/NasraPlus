@@ -87,10 +87,18 @@
 
 
 
+
+
+
                 {{-- sort --}}
                 <div class="col-4">
+
+
+                    {{-- exists --}}
+                    @if ($categories->total() > 0)
+
                     <a class="btn btn--theme btn--sort scalemix--3 px-4" role="button" data-bs-toggle="tooltip"
-                        data-bss-tooltip="" data-bs-placement="right" title="Sort Main-Categories"
+                        data-bss-tooltip="" data-bs-placement="right" title="Sort Categories"
                         href="{{ route('dashboard.sortCategories') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-arrow-down-up">
@@ -99,6 +107,10 @@
                             </path>
                         </svg>
                     </a>
+
+                    @endif
+                    {{-- end if --}}
+
                 </div>
 
 
