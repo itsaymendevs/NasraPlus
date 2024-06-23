@@ -128,7 +128,7 @@ class UserController extends Controller
       $content->userAddress = new stdClass();
 
       $content->userAddress->userStateId = strval($user->stateId);
-      $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+      $content->userAddress->userRegionId = strval($user->deliveryRegionId);
 
       $content->userAddress->addressDescription = $user->address;
       $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
@@ -765,7 +765,7 @@ class UserController extends Controller
 
          $user->countryId = 1;
          $user->stateId = $request->newUserData->userStateId;
-         $user->deliveryAreaId = $request->newUserData->userRegionId;
+         $user->deliveryRegionId = $request->newUserData->userRegionId;
 
          $user->save();
 
@@ -794,7 +794,7 @@ class UserController extends Controller
          $content->userAddress = new stdClass();
 
          $content->userAddress->userStateId = strval($user->stateId);
-         $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+         $content->userAddress->userRegionId = strval($user->deliveryRegionId);
 
          $content->userAddress->addressDescription = $user->address;
 
