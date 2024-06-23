@@ -101,7 +101,7 @@
                 <div class="col-4 mb-1">
                     <a class="btn btn--theme btn--sort scalemix--3 px-4 rounded-1" role="button" data-bs-toggle="modal"
                         data-bss-tooltip="" data-bs-placement="right" title="Sort Sub-Categories"
-                        data-bs-target="#sort-modal">
+                        data-bs-target="#sort-modal" href='javascript:void(0);'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-arrow-down-up">
                             <path fill-rule="evenodd"

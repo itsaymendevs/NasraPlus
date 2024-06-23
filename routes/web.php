@@ -2,6 +2,7 @@
 
 use App\Livewire\Dashboard\Products\Group\Categories\CategoriesSort;
 use App\Livewire\Dashboard\Products\Group\SubCategories\SubCategoriesSort;
+use App\Livewire\Dashboard\Products\Group\Types\TypesSort;
 use App\Livewire\Dashboard\Products\ProductsManage;
 use App\Livewire\Dashboard\Regions;
 use App\Livewire\Dashboard\Regions\RegionsCreate;
@@ -201,7 +202,7 @@ Route::get('dashboard/sub-categories/{id}/sort', SubCategoriesSort::class)->name
 
 // 1.5: types - create - edit - sort
 Route::get('dashboard/types', Types::class)->name('dashboard.types');
-Route::get('dashboard/types/{id}/sort', SubCategoriesSort::class)->name('dashboard.sortTypes');
+Route::get('dashboard/types/{id}/sort', TypesSort::class)->name('dashboard.sortTypes');
 
 
 

@@ -100,8 +100,21 @@ class SubCategoriesEdit extends Component
         // 1.2: general
         $subCategory->name = $this->instance->name ?? null;
         $subCategory->nameAr = $this->instance->nameAr ?? null;
-        $subCategory->categoryId = $this->instance->categoryId ?? null;
 
+
+
+
+        // 1.3: sort
+        if ($subCategory->categoryId != $this->instance->categoryId)
+            $subCategory->index = (SubCategory::where('categoryId', $this->instance->categoryId)->orderBy('index', 'desc')->first()->index ?? 0) + 1;
+
+
+
+
+
+
+        // 1.4: category
+        $subCategory->categoryId = $this->instance->categoryId ?? null;
 
 
         $subCategory->save();

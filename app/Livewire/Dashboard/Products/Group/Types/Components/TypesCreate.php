@@ -65,6 +65,18 @@ class TypesCreate extends Component
         // 2.1: general
         $type->name = $this->instance->name ?? null;
         $type->nameAr = $this->instance->nameAr ?? null;
+
+
+
+
+        // 2.3: sort
+        $type->index = (Type::where('subCategoryId', $this->instance->subCategoryId)->orderBy('index', 'desc')->first()->index ?? 0) + 1;
+
+
+
+
+
+        // 2.4: category - subCategory
         $type->categoryId = $subCategory->categoryId ?? null;
         $type->subCategoryId = $this->instance->subCategoryId ?? null;
 

@@ -46,6 +46,18 @@ class SubCategoriesCreate extends Component
         // 1.2: general
         $subCategory->name = $this->instance->name ?? null;
         $subCategory->nameAr = $this->instance->nameAr ?? null;
+
+
+
+
+
+        // 1.3: sort
+        $subCategory->index = (SubCategory::where('categoryId', $this->instance->categoryId)->orderBy('index', 'desc')->first()->index ?? 0) + 1;
+
+
+
+
+        // 1.4: category
         $subCategory->categoryId = $this->instance->categoryId ?? null;
 
 
