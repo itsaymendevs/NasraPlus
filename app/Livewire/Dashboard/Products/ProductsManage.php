@@ -275,9 +275,6 @@ class ProductsManage extends Component
         // 1: dependencies
         $companies = Company::all();
         $categories = Category::all();
-        $subCategories = [];
-        $types = [];
-
 
         $products = Product::where('name', 'LIKE', '%' . $this->searchProduct . '%')
             ->orWhere('nameAr', 'LIKE', '%' . $this->searchProduct . '%')->get();
@@ -390,7 +387,7 @@ class ProductsManage extends Component
         $this->dispatch('initTooltips');
 
 
-        return view('livewire.dashboard.products.products-manage', compact('categories', 'subCategories', 'types', 'products', 'companies'));
+        return view('livewire.dashboard.products.products-manage', compact('categories', 'products', 'companies'));
 
 
 

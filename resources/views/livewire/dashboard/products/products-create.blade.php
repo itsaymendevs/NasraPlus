@@ -208,8 +208,8 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select id='category-select-1' class="form-select form--select"
-                            data-instance='instance.categoryId' required>
+                        <select id='category-select-1' class="form-select form--select level--select level--one"
+                            data-level='category' data-instance='instance.categoryId' required>
                             <option value=""></option>
 
                             @foreach ($categories ?? [] as $category)
@@ -228,9 +228,8 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select id='subCategory-select-1' class="form-select form--select"
-                            data-instance='instance.subCategoryId'>
-                            <option value=""></option>
+                        <select id='subCategory-select-1' class="form-select form--select level--select level--two"
+                            data-level='subCategory' data-instance='instance.subCategoryId' required>
                         </select>
                     </div>
                 </div>
@@ -242,7 +241,8 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select id='type-select-1' class="form-select form--select" data-instance='instance.typeId'>
+                        <select id='type-select-1' class="form-select form--select level--select level--three"
+                            data-level='type' data-instance='instance.typeId' required>
                             <option value=""></option>
                         </select>
                     </div>
@@ -810,6 +810,35 @@
       }); //end function
     </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- levelSelectHandle --}}
+    <script>
+        $(".level--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         levelType = $(this).attr('data-level');
+
+
+         @this.levelSelect(levelType, selectValue);
+
+
+      }); //end function
+    </script>
 
 
 

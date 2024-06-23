@@ -274,8 +274,6 @@ class Products extends Component
         // 1: dependencies
         $companies = Company::all();
         $categories = Category::all();
-        $subCategories = [];
-        $types = [];
 
 
         $products = Product::where('name', 'LIKE', '%' . $this->searchProduct . '%')
@@ -356,6 +354,16 @@ class Products extends Component
 
 
 
+
+
+        // -------------------------------------------------
+        // -------------------------------------------------
+
+
+
+
+
+
         // 1.3: getProducts
         $products = Product::orderBy('created_at', 'desc')
             ->whereIn('id', $filtered?->pluck('id')?->toArray() ?? [])
@@ -373,7 +381,8 @@ class Products extends Component
         $this->dispatch('initTooltips');
 
 
-        return view('livewire.dashboard.products', compact('categories', 'subCategories', 'types', 'products', 'companies'));
+
+        return view('livewire.dashboard.products', compact('categories', 'products', 'companies'));
 
 
 

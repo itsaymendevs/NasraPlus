@@ -209,7 +209,8 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select" data-instance='searchCategory' data-clear='true'>
+                        <select class="form--select level--select level--one" data-level='category'
+                            data-instance='searchCategory' data-clear='true'>
                             <option value=""></option>
 
 
@@ -236,17 +237,8 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select" data-instance='searchSubCategory' data-clear='true'>
-                            <option value=""></option>
-
-                            {{-- loop - subCategories --}}
-                            @foreach ($subCategories ?? [] as $subCategory)
-
-                            <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
-
-                            @endforeach
-                            {{-- end loop --}}
-
+                        <select class="form--select level--select level--two" data-level='subCategory'
+                            data-instance='searchSubCategory' data-clear='true'>
                         </select>
                     </div>
                 </div>
@@ -261,17 +253,8 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select" data-instance='searchType' data-clear='true'>
-                            <option value=""></option>
-
-                            {{-- loop - types --}}
-                            @foreach ($types ?? [] as $type)
-
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-
-                            @endforeach
-                            {{-- end loop --}}
-
+                        <select class="form--select level--select level--three" data-level='type'
+                            data-instance='searchType' data-clear='true'>
                         </select>
                     </div>
                 </div>
@@ -639,6 +622,35 @@
 
          @this.set(instance, selectValue);
          @this.rerender();
+
+
+      }); //end function
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- levelSelectHandle --}}
+    <script>
+        $(".level--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         levelType = $(this).attr('data-level');
+
+
+         @this.levelSelect(levelType, selectValue);
 
 
       }); //end function

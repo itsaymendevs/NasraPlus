@@ -6,6 +6,8 @@ use App\Livewire\Forms\ProductForm;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\Type;
 use App\Models\Unit;
 use App\Traits\HelperTrait;
 use Livewire\Component;
@@ -340,22 +342,35 @@ class ProductsEdit extends Component
 
 
         // 1: dependencies
+        $units = Unit::all();
         $companies = Company::all();
         $categories = Category::all();
-        $subCategories = [];
-        $types = [];
-
-        $units = Unit::all();
         $dynamicSizes = [0.25, 0.5, 1.0];
 
 
 
 
 
+        // 1.2: getSubCategory - types
+        $subCategories = $this->instance->categoryId ?
+            SubCategory::where('categoryId', $this->instance->categoryId)->get() : [];
+
+        $types = $this->instance->subCategoryId ?
+            Type::where('subCategoryId', $this->instance->subCategoryId)->get() : [];
 
 
-        // 1.2: calculateQuantity
+
+
+
+
+
+
+
+
+        // 1.3: calculateQuantity
         $this->instance->quantity = ($this->instance?->units > 0 ? $this->instance->units : 0) * ($this->instance?->quantityPerUnit ? $this->instance->quantityPerUnit : 0);
+
+
 
 
 

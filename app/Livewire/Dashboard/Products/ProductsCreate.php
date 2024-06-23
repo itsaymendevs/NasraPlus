@@ -255,12 +255,9 @@ class ProductsCreate extends Component
 
 
         // 1: dependencies
+        $units = Unit::all();
         $companies = Company::all();
         $categories = Category::all();
-        $subCategories = [];
-        $types = [];
-
-        $units = Unit::all();
         $dynamicSizes = [0.25, 0.5, 1.0];
 
 
@@ -273,7 +270,7 @@ class ProductsCreate extends Component
 
 
 
-        return view('livewire.dashboard.products.products-create', compact('units', 'companies', 'categories', 'subCategories', 'types', 'dynamicSizes'));
+        return view('livewire.dashboard.products.products-create', compact('units', 'companies', 'categories', 'dynamicSizes'));
 
 
 

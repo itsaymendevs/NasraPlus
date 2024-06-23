@@ -6,6 +6,8 @@ use App\Models\CityDeliveryTime;
 use App\Models\CityDistrict;
 use App\Models\DeliveryRegion;
 use App\Models\State;
+use App\Models\SubCategory;
+use App\Models\Type;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -565,9 +567,64 @@ trait HelperTrait
 
         // ----------------------------------------------------
         // ----------------------------------------------------
+        // ----------------------------------------------------
 
 
 
+
+
+
+
+
+
+        // 2: category - subCategory - type
+        if ($levelType == 'category') {
+
+
+
+            // A: getSubcategory
+            $subCategories = SubCategory::where('categoryId', $value)->get(['id', 'name as text'])?->toArray() ?? [];
+
+
+
+            // B: validateEmpty
+            count($subCategories ?? []) ? array_unshift($subCategories, ['id' => '', 'text' => '']) : null;
+
+
+
+
+            // C: refreshSelect
+            $this->dispatch('refreshSelect', id: '.level--two', data: $subCategories);
+            $this->dispatch('refreshSelect', id: '.level--three', data: ['id' => '', 'text' => '']);
+
+
+
+
+
+        } elseif ($levelType == 'subCategory') {
+
+
+
+
+            // A: getTypes
+            $types = Type::where('subCategoryId', $value)->get(['id', 'name as text'])?->toArray() ?? [];
+
+
+
+            // B: validateEmpty
+            count($types ?? []) ? array_unshift($types, ['id' => '', 'text' => '']) : null;
+
+
+
+
+            // C: refreshSelect
+            $this->dispatch('refreshSelect', id: '.level--three', data: $types);
+
+
+
+
+
+        } // end if
 
 
 
