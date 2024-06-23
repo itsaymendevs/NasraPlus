@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Country;
-use App\Models\DeliveryArea;
+use App\Models\deliveryRegion;
 use App\Models\GeneralSetting;
 use App\Models\Product;
 use App\Models\State;
