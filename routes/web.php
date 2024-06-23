@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\Products\Group\Categories\CategoriesSort;
 use App\Livewire\Dashboard\Products\ProductsManage;
 use App\Livewire\Dashboard\Regions;
 use App\Livewire\Dashboard\Regions\RegionsCreate;
@@ -165,6 +166,7 @@ Route::get('dashboard/products/{id}/edit', ProductsEdit::class)->name('dashboard
 
 // 1.3: categories - create - edit
 Route::get('dashboard/categories', Categories::class)->name('dashboard.categories');
+Route::get('dashboard/categories/sort', CategoriesSort::class)->name('dashboard.sortCategories');
 
 
 

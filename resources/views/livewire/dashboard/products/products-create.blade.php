@@ -384,8 +384,7 @@
                 <div class="col-3 mb-4 @if ($instance->weightOption != 'Dynamic') d-none @endif">
                     <label class="form-label form--label">Min. Size / Weight</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select" data-instance='instance.weight'
-                            value='{{ $product->weight }}'>
+                        <select class="form-select form--select" data-instance='instance.weight'>
                             <option value=""></option>
 
 

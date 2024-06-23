@@ -79,6 +79,12 @@ class CategoriesCreate extends Component
         $category->imageFile = $this->instance->imageFileName ?? null;
 
 
+
+        // 2.2: sort
+        $category->index = Category::count() + 1;
+
+
+
         $category->save();
 
 
