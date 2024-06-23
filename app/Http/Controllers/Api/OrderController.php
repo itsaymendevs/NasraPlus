@@ -194,7 +194,7 @@ class OrderController extends Controller
 
 
             // 2.2.2: DeliveryAreaBlocked || deliveryPrice != Match
-            if (! boolval($user->deliveryArea->isActive) || ($user->deliveryArea->price != $request->deliveryOrder->deliveryPrice)) {
+            if (! boolval($user->deliveryRegion->isActive) || ($user->deliveryRegion->price != $request->deliveryOrder->deliveryPrice)) {
 
 
                 // :: return userAddress
@@ -206,11 +206,11 @@ class OrderController extends Controller
                 $response->unMatchedInformation->userAddress->userRegionId = strval($user->deliveryAreaId);
                 $response->unMatchedInformation->userAddress->addressDescription = $user->address;
 
-                $response->unMatchedInformation->userAddress->deliveryEstimatedTime = $user->deliveryArea->deliveryTime->content;
-                $response->unMatchedInformation->userAddress->deliveryEstimatedTimeAr = $user->deliveryArea->deliveryTime->contentAr;
+                $response->unMatchedInformation->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+                $response->unMatchedInformation->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
-                $response->unMatchedInformation->userAddress->regionDeliveryPrice = strval($user->deliveryArea->price);
-                $response->unMatchedInformation->userAddress->isDeliveryBlocked = ! boolval($user->deliveryArea->isActive);
+                $response->unMatchedInformation->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
+                $response->unMatchedInformation->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
 
 
                 return response()->json($response);
@@ -731,9 +731,9 @@ class OrderController extends Controller
             $newOrder->deliveryAreaId = $user->deliveryAreaId;
 
 
-            $newOrder->deliveryPrice = $user->deliveryArea->price;
-            $newOrder->deliveryEstimatedTime = $user->deliveryArea->deliveryTime->content;
-            $newOrder->deliveryEstimatedTimeAr = $user->deliveryArea->deliveryTime->contentAr;
+            $newOrder->deliveryPrice = $user->deliveryRegion->price;
+            $newOrder->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+            $newOrder->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
 
 

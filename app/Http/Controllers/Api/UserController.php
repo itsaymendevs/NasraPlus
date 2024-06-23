@@ -131,11 +131,11 @@ class UserController extends Controller
         $content->userAddress->userRegionId = strval($user->deliveryAreaId);
 
         $content->userAddress->addressDescription = $user->address;
-        $content->userAddress->deliveryEstimatedTime = $user->deliveryArea->deliveryTime->content;
-        $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryArea->deliveryTime->contentAr;
+        $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+        $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
-        $content->userAddress->regionDeliveryPrice = strval($user->deliveryArea->price);
-        $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryArea->isActive);
+        $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
+        $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
 
 
 
@@ -799,24 +799,24 @@ class UserController extends Controller
             $content->userAddress->addressDescription = $user->address;
 
 
-            $content->userAddress->deliveryEstimatedTime = $user->deliveryArea->deliveryTime->content;
-            $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryArea->deliveryTime->contentAr;
+            $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+            $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
             //they say that's all not needed
 
             // // ::deliveryTime Object
             // $content->userAddress->deliveryEstimatedTime = new stdClass();
 
-            // $content->userAddress->deliveryEstimatedTime->title = $user->deliveryArea->deliveryTime->title;
-            // $content->userAddress->deliveryEstimatedTime->titleAr = $user->deliveryArea->deliveryTime->titleAr;
-            // $content->userAddress->deliveryEstimatedTime->content = $user->deliveryArea->deliveryTime->content;
-            // $content->userAddress->deliveryEstimatedTime->contentAr = $user->deliveryArea->deliveryTime->contentAr;
+            // $content->userAddress->deliveryEstimatedTime->title = $user->deliveryRegion->deliveryTime->title;
+            // $content->userAddress->deliveryEstimatedTime->titleAr = $user->deliveryRegion->deliveryTime->titleAr;
+            // $content->userAddress->deliveryEstimatedTime->content = $user->deliveryRegion->deliveryTime->content;
+            // $content->userAddress->deliveryEstimatedTime->contentAr = $user->deliveryRegion->deliveryTime->contentAr;
 
 
 
 
-            $content->userAddress->regionDeliveryPrice = strval($user->deliveryArea->price);
-            $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryArea->isActive);
+            $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
+            $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
 
 
 

@@ -178,12 +178,12 @@ class InterUserController extends Controller
 
             $item->receiverAddress->addressDescription = $receiver->address;
 
-            $item->receiverAddress->deliveryEstimatedTime = $receiver->deliveryArea->deliveryTime->content;
+            $item->receiverAddress->deliveryEstimatedTime = $receiver->deliveryRegion->deliveryTime->content;
 
-            $item->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryArea->deliveryTime->contentAr;
+            $item->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryRegion->deliveryTime->contentAr;
 
-            $item->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryArea->price);
-            $item->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryArea->isActive);
+            $item->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryRegion->price);
+            $item->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryRegion->isActive);
 
 
 
@@ -934,12 +934,12 @@ class InterUserController extends Controller
 
                 $item->receiverAddress->addressDescription = $receiver->address;
 
-                $item->receiverAddress->deliveryEstimatedTime = $receiver->deliveryArea->deliveryTime->content;
+                $item->receiverAddress->deliveryEstimatedTime = $receiver->deliveryRegion->deliveryTime->content;
 
-                $item->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryArea->deliveryTime->contentAr;
+                $item->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryRegion->deliveryTime->contentAr;
 
-                $item->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryArea->price);
-                $item->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryArea->isActive);
+                $item->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryRegion->price);
+                $item->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryRegion->isActive);
 
 
                 array_push($content->receivers, $item);

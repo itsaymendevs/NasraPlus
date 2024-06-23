@@ -244,7 +244,7 @@ class InterOrderController extends Controller
 
 
             // 2.2.2: DeliveryAreaBlocked || deliveryPrice != Match
-            if (! boolval($receiver->deliveryArea->isActive) || ($receiver->deliveryArea->price != $request->deliveryOrder->deliveryPrice)) {
+            if (! boolval($receiver->deliveryRegion->isActive) || ($receiver->deliveryRegion->price != $request->deliveryOrder->deliveryPrice)) {
 
 
                 // :: return userAddress
@@ -258,14 +258,14 @@ class InterOrderController extends Controller
 
                 $response->unMatchedInformation->userAddress->addressDescription = $receiver->address;
 
-                $response->unMatchedInformation->userAddress->deliveryEstimatedTime = $receiver->deliveryArea->deliveryTime->content;
+                $response->unMatchedInformation->userAddress->deliveryEstimatedTime = $receiver->deliveryRegion->deliveryTime->content;
 
-                $response->unMatchedInformation->userAddress->deliveryEstimatedTimeAr = $receiver->deliveryArea->deliveryTime->contentAr;
+                $response->unMatchedInformation->userAddress->deliveryEstimatedTimeAr = $receiver->deliveryRegion->deliveryTime->contentAr;
 
 
-                $response->unMatchedInformation->userAddress->regionDeliveryPrice = strval($receiver->deliveryArea->price);
+                $response->unMatchedInformation->userAddress->regionDeliveryPrice = strval($receiver->deliveryRegion->price);
 
-                $response->unMatchedInformation->userAddress->isDeliveryBlocked = ! boolval($receiver->deliveryArea->isActive);
+                $response->unMatchedInformation->userAddress->isDeliveryBlocked = ! boolval($receiver->deliveryRegion->isActive);
 
 
                 $response->unMatchedInformation->receiver = new stdClass();
@@ -283,13 +283,13 @@ class InterOrderController extends Controller
 
                  $response->unMatchedInformation->receiver->receiverAddress->addressDescription = $receiver->address;
 
-                 $response->unMatchedInformation->receiver->receiverAddress->deliveryEstimatedTime = $receiver->deliveryArea->deliveryTime->content;
+                 $response->unMatchedInformation->receiver->receiverAddress->deliveryEstimatedTime = $receiver->deliveryRegion->deliveryTime->content;
 
-                 $response->unMatchedInformation->receiver->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryArea->deliveryTime->contentAr;
+                 $response->unMatchedInformation->receiver->receiverAddress->deliveryEstimatedTimeAr = $receiver->deliveryRegion->deliveryTime->contentAr;
 
-                 $response->unMatchedInformation->receiver->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryArea->price);
+                 $response->unMatchedInformation->receiver->receiverAddress->regionDeliveryPrice = strval($receiver->deliveryRegion->price);
 
-                 $response->unMatchedInformation->receiver->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryArea->isActive);
+                 $response->unMatchedInformation->receiver->receiverAddress->isDeliveryBlocked = ! boolval($receiver->deliveryRegion->isActive);
 
 
                 return response()->json($response);
@@ -821,9 +821,9 @@ class InterOrderController extends Controller
             $newOrder->deliveryAreaId = $receiver->deliveryAreaId;
 
 
-            $newOrder->deliveryPrice = $receiver->deliveryArea->price;
-            $newOrder->deliveryEstimatedTime = $receiver->deliveryArea->deliveryTime->content;
-            $newOrder->deliveryEstimatedTimeAr = $receiver->deliveryArea->deliveryTime->contentAr;
+            $newOrder->deliveryPrice = $receiver->deliveryRegion->price;
+            $newOrder->deliveryEstimatedTime = $receiver->deliveryRegion->deliveryTime->content;
+            $newOrder->deliveryEstimatedTimeAr = $receiver->deliveryRegion->deliveryTime->contentAr;
 
 
 
