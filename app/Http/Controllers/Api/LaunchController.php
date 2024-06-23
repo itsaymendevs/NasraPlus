@@ -630,7 +630,7 @@ class LaunchController extends Controller
 
          // 3.2: insert regions (deliveryAreas)
          $counterOne = 0;
-         foreach ($state->areas as $area) {
+         foreach ($state->regions as $area) {
 
             $content->regions[$counterOne] = new stdClass();
 
