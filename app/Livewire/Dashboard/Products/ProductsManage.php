@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dashboard;
+namespace App\Livewire\Dashboard\Products;
 
 use App\Models\Category;
 use App\Models\Company;
@@ -10,8 +10,9 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Products extends Component
+class ProductsManage extends Component
 {
+
 
 
     use HelperTrait;
@@ -326,7 +327,7 @@ class Products extends Component
 
 
 
-                // 2: groupThree
+                // 2: groupTwo
             } elseif ($this->searchGroup == 'byCompanies') {
 
 
@@ -340,16 +341,32 @@ class Products extends Component
 
 
 
+
+                // 3: groupThree
             } else {
 
 
                 return $toReturn;
+
 
             } // end if
 
 
 
         }); // endFilters
+
+
+
+
+
+
+
+
+
+
+        // -------------------------------------------------
+        // -------------------------------------------------
+
 
 
 
@@ -373,7 +390,7 @@ class Products extends Component
         $this->dispatch('initTooltips');
 
 
-        return view('livewire.dashboard.products', compact('categories', 'subCategories', 'types', 'products', 'companies'));
+        return view('livewire.dashboard.products.products-manage', compact('categories', 'subCategories', 'types', 'products', 'companies'));
 
 
 

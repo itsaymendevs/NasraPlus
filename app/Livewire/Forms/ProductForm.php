@@ -9,6 +9,32 @@ class ProductForm extends Form
 {
 
     #[Validate('required')]
-    public $name;
+    public $serial, $name, $nameAr, $buyPrice, $sellPrice, $weightOption, $units, $quantityPerUnit, $quantity, $maxQuantityPerOrder, $imageFile, $companyId, $categoryId;
 
-}
+
+
+    public $id, $subCategoryId, $typeId, $information, $informationAr, $offerPrice, $index, $weight, $indexMainPage, $indexOffers, $isHidden, $isMainPage, $secondImageFile, $thirdImageFile, $fourthImageFile, $unitId;
+
+
+
+
+    // :: helpers
+    public $imageFileName, $secondImageFileName, $thirdImageFileName, $fourthImageFileName;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+} // end form

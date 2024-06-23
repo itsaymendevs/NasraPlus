@@ -67,20 +67,25 @@
 
 
     {{-- 1: section --}}
-    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4">
+    <section data-aos="fade-left" data-aos-duration="700" id="content--main" class="d-block mt-5 content--main mx-4"
+        wire:ignore.self>
 
 
 
         {{-- form --}}
-        <form class="form--page mb-5">
+        <form wire:submit='store' wire:loading.class='disabled' class="form--page mb-5">
             <div class="row">
+
 
 
                 {{-- serial --}}
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Serial</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="text" required wire:model='instance.serial'>
                 </div>
+
+
+
 
 
 
@@ -91,16 +96,18 @@
 
                     {{-- 1: hideProduct --}}
                     <div class="form-check form--checkbox">
-                        <input class="form-check-input" type="checkbox" id="formCheck-3">
-                        <label class="form-check-label" for="formCheck-3">Hide Product</label>
+                        <input class="form-check-input" type="checkbox" id="toggle-checkbox-1"
+                            wire:model='instance.isHidden'>
+                        <label class="form-check-label" for="toggle-checkbox-1">Hide Product</label>
                     </div>
 
 
 
                     {{-- 2: mainPage --}}
                     <div class="form-check form--checkbox">
-                        <input class="form-check-input" type="checkbox" id="formCheck-2">
-                        <label class="form-check-label" for="formCheck-2">Main Page</label>
+                        <input class="form-check-input" type="checkbox" id="toggle-checkbox-2"
+                            wire:model='instance.isMainPage'>
+                        <label class="form-check-label" for="toggle-checkbox-2">Main Page</label>
                     </div>
                 </div>
 
@@ -108,8 +115,12 @@
 
 
 
+
+
                 {{-- ---------------------------- --}}
                 {{-- ---------------------------- --}}
+
+
 
 
 
@@ -117,8 +128,9 @@
 
 
                 {{-- name --}}
-                <div class="col-6 mb-4"><label class="form-label form--label">Name</label>
-                    <input class="form-control form--input" type="text">
+                <div class="col-6 mb-4">
+                    <label class="form-label form--label">Name</label>
+                    <input class="form-control form--input" type="text" required wire:model='instance.name'>
                 </div>
 
 
@@ -127,7 +139,7 @@
                     <label class="form-label form--label">Name
                         <span class="lang--span">العربية</span>
                     </label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="text" required wire:model='instance.nameAr'>
                 </div>
 
 
@@ -176,9 +188,15 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Company</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select id='company-select-1' class="form-select form--select"
+                            data-instance='instance.companyId' required>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+                            @foreach ($companies ?? [] as $company)
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                            @endforeach
+
+
                         </select>
                     </div>
                 </div>
@@ -187,11 +205,17 @@
 
 
                 {{-- cateogry --}}
-                <div class="col-6 mb-4"><label class="form-label form--label">Category</label>
+                <div class="col-6 mb-4">
+                    <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select id='category-select-1' class="form-select form--select"
+                            data-instance='instance.categoryId' required>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+                            @foreach ($categories ?? [] as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+
                         </select>
                     </div>
                 </div>
@@ -204,9 +228,9 @@
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select id='subCategory-select-1' class="form-select form--select"
+                            data-instance='instance.subCategoryId'>
                             <option value=""></option>
-                            <option value="option">option</option>
                         </select>
                     </div>
                 </div>
@@ -216,11 +240,10 @@
 
                 {{-- type --}}
                 <div class="col-6 mb-4">
-                    <label class="form-label form--label">Inner Type</label>
+                    <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select id='type-select-1' class="form-select form--select" data-instance='instance.typeId'>
                             <option value=""></option>
-                            <option value="option">option</option>
                         </select>
                     </div>
                 </div>
@@ -230,17 +253,26 @@
 
 
 
+                {{-- ------------------------------------ --}}
+                {{-- ------------------------------------ --}}
+
+
+
+
+
                 {{-- buyPrice --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Buy Price</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                        wire:model='instance.buyPrice' required>
                 </div>
 
 
                 {{-- sellPrice --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Sell Price</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                        wire:model='instance.sellPrice' required>
                 </div>
 
 
@@ -252,7 +284,8 @@
                     <label class="form-label form--label">Offer Price
                         <small class="tag--optional">optional</small>
                     </label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                        wire:model='instance.offerPrice'>
                 </div>
 
 
@@ -294,24 +327,27 @@
 
                         {{-- 1: byName --}}
                         <div class="form-check form--radio">
-                            <input class="form-check-input" type="radio" id="formCheck-6">
-                            <label class="form-check-label" for="formCheck-6">By Name</label>
+                            <input class="form-check-input" type="radio" id="unit-checkbox-1"
+                                wire:model.live='instance.weightOption' value='By Name'>
+                            <label class="form-check-label" for="unit-checkbox-1">By Name</label>
                         </div>
 
 
 
                         {{-- 2: fixedSize --}}
                         <div class="form-check form--radio">
-                            <input class="form-check-input" type="radio" id="formCheck-4">
-                            <label class="form-check-label" for="formCheck-4">Fixed Size / Weight</label>
+                            <input class="form-check-input" type="radio" id="unit-checkbox-2"
+                                wire:model.live='instance.weightOption' value='Fixed'>
+                            <label class="form-check-label" for="unit-checkbox-2">Fixed Size / Weight</label>
                         </div>
 
 
 
                         {{-- 3: dynamicSize --}}
                         <div class="form-check form--radio">
-                            <input class="form-check-input" type="radio" id="formCheck-5">
-                            <label class="form-check-label" for="formCheck-5">Dynamic Size / Weight</label>
+                            <input class="form-check-input" type="radio" id="unit-checkbox-3"
+                                wire:model.live='instance.weightOption' value='Dynamic'>
+                            <label class="form-check-label" for="unit-checkbox-3">Dynamic Size / Weight</label>
                         </div>
                     </div>
                 </div>
@@ -322,41 +358,74 @@
 
 
 
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
 
 
-                {{-- sizeWeight --}}
-                <div class="col-3 mb-4">
+
+
+
+
+                {{-- sizeWeight - Fixed --}}
+                <div class="col-3 mb-4 @if ($instance->weightOption != 'Fixed') d-none @endif">
                     <label class="form-label form--label">Size / Weight</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="text" wire:model='instance.weight'>
                 </div>
 
 
 
 
-                {{-- minSizeWeight [Fixed] --}}
-                <div class="col-3 d-none mb-4">
+
+
+
+
+
+                {{-- minSizeWeight - Dynamic --}}
+                <div class="col-3 mb-4 @if ($instance->weightOption != 'Dynamic') d-none @endif">
                     <label class="form-label form--label">Min. Size / Weight</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select class="form-select form--select" data-instance='instance.weight'
+                            value='{{ $product->weight }}'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+
+                            {{-- loop - dynamicSizes --}}
+                            @foreach ($dynamicSizes ?? [] as $dynamicSize)
+                            <option value="{{ $dynamicSize }}">{{ $dynamicSize }}</option>
+                            @endforeach
+                            {{-- end loop --}}
+
+
                         </select>
                     </div>
                 </div>
 
 
 
-                {{-- unit --}}
-                <div class="col-3 mb-4">
+
+
+
+
+
+                {{-- Unit - Both --}}
+                <div class="col-3 mb-4
+                    @if ($instance->weightOption != 'Dynamic' && $instance->weightOption != 'Fixed') d-none @endif">
                     <label class="form-label form--label">Measuring Unit</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select">
+                        <select id='unit-select-1' class="form-select form--select" data-instance='instance.unitId'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+
+                            {{-- loop - units --}}
+                            @foreach ($units ?? [] as $unit)
+                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                            @endforeach
+                            {{-- end loop --}}
+
+
                         </select>
                     </div>
                 </div>
-
 
 
 
@@ -373,10 +442,24 @@
 
 
 
+
+
+
+                {{-- ------------------------------------------- --}}
+                {{-- ------------------------------------------- --}}
+
+
+
+
+
+
+
+
                 {{-- numberOfUnits --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">No. of Units</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                        wire:model.live='instance.units' required>
                 </div>
 
 
@@ -384,7 +467,8 @@
                 {{-- quantityPerUnit --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Quantity / Unit</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" step='0.01' min='0'
+                        wire:model.live='instance.quantityPerUnit' required>
                 </div>
 
 
@@ -392,16 +476,18 @@
                 {{-- totalQuantity --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Total Quantity</label>
-                    <input class="form-control form--input" type="text" readonly="">
+                    <input class="form-control form--input" type="number" readonly="" step='0.01' min='0'
+                        wire:model.live='instance.quantity' required>
                 </div>
 
 
 
 
-                {{-- quantityPerOrder --}}
+                {{-- maxQuantityPerOrder --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Max Quantity / Order</label>
-                    <input class="form-control form--input" type="text">
+                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                        wire:model='instance.maxQuantityPerOrder' required>
                 </div>
 
 
@@ -435,7 +521,8 @@
                     <label class="form-label form--label">Description
                         <small class="tag--optional">optional</small>
                     </label>
-                    <textarea class="form-control form--input form--textarea"></textarea>
+                    <textarea class="form-control form--input form--textarea"
+                        wire:model='instance.information'></textarea>
                 </div>
 
 
@@ -447,7 +534,8 @@
                         <small class="tag--optional">optional</small>
                         <span class="lang--span">العربية</span>
                     </label>
-                    <textarea class="form-control form--input form--textarea"></textarea>
+                    <textarea class="form-control form--input form--textarea"
+                        wire:model='instance.informationAr'></textarea>
                 </div>
 
 
@@ -471,12 +559,40 @@
 
 
 
+
+
+
+
                 {{-- mainPicture --}}
                 <div class="col-6 mb-4">
-                    <label class="form-label form--label">Main Picture</label>
-                    <div class="img--holder">
-                        <img loading="lazy">
-                    </div>
+
+
+                    {{-- subheading --}}
+                    <label class="form-label form--label">Main Pictures</label>
+
+
+                    <label class="img--holder upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                        for="product--file-1" title="Click To Upload">
+
+
+
+
+                        {{-- caption --}}
+                        <span class="upload--caption badge">Main Picture</span>
+
+
+
+
+                        {{-- input --}}
+                        <input class="form-control d-none file--input" id="product--file-1" required
+                            data-preview="product--preview-1" type="file" wire:model='instance.imageFile' />
+
+
+                        {{-- preview --}}
+                        <img class="inventory--image-frame" id="product--preview-1"
+                            src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+                    </label>
                 </div>
 
 
@@ -508,22 +624,113 @@
 
 
 
-                        {{-- 1: second --}}
+
+
+                        {{-- 2: second --}}
                         <div class="col-6 mb-4">
-                            <div class="img--holder"><img loading="lazy"></div>
+                            <label class="img--holder upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                                for="product--file-2" title="Click To Upload">
+
+
+
+                                {{-- caption --}}
+                                <span class="upload--caption badge">Second Picture</span>
+
+
+
+
+                                {{-- input --}}
+                                <input class="form-control d-none file--input" id="product--file-2"
+                                    data-preview="product--preview-2" type="file"
+                                    wire:model='instance.secondImageFile' />
+
+
+                                {{-- preview --}}
+                                <img class="inventory--image-frame" id="product--preview-2"
+                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+                            </label>
                         </div>
+
+
+
+
+
+
+                        {{-- ----------------------------------------- --}}
+                        {{-- ----------------------------------------- --}}
+
+
+
+
 
 
 
                         {{-- 2: third --}}
                         <div class="col-6 mb-4">
-                            <div class="img--holder"><img loading="lazy"></div>
+                            <label class="img--holder upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                                for="product--file-3" title="Click To Upload">
+
+
+
+                                {{-- caption --}}
+                                <span class="upload--caption badge">Third Picture</span>
+
+
+
+
+                                {{-- input --}}
+                                <input class="form-control d-none file--input" id="product--file-3"
+                                    data-preview="product--preview-3" type="file"
+                                    wire:model='instance.thirdImageFile' />
+
+
+                                {{-- preview --}}
+                                <img class="inventory--image-frame" id="product--preview-3"
+                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+                            </label>
                         </div>
 
 
-                        {{-- 3: third --}}
+
+
+
+
+
+
+                        {{-- ----------------------------------------- --}}
+                        {{-- ----------------------------------------- --}}
+
+
+
+
+
+
+                        {{-- 3: fourth --}}
                         <div class="col-6">
-                            <div class="img--holder"><img loading="lazy"></div>
+                            <label class="img--holder upload--wrap" data-bs-toggle="tooltip" data-bss-tooltip=""
+                                for="product--file-4" title="Click To Upload">
+
+
+
+                                {{-- caption --}}
+                                <span class="upload--caption badge">Fourth Picture</span>
+
+
+
+
+                                {{-- input --}}
+                                <input class="form-control d-none file--input" id="product--file-4"
+                                    data-preview="product--preview-4" type="file"
+                                    wire:model='instance.fourthImageFile' />
+
+
+                                {{-- preview --}}
+                                <img class="inventory--image-frame" id="product--preview-4"
+                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -544,8 +751,13 @@
 
                 {{-- submitButton --}}
                 <div class="col-12 text-center mt-3">
-                    <button class="btn btn--theme btn--submit rounded-1" type="button">Save Product</button>
+                    <button class="btn btn--theme btn--submit rounded-1" wire:loading.class='disabled'
+                        wire:target='instance.imageFile, instance.secondImageFile, instance.thirdImageFile, instance.fourthImageFile, store'>
+                        Save Product</button>
                 </div>
+
+
+
             </div>
         </form>
     </section>
@@ -553,6 +765,64 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+
+
+    {{-- selectHandle --}}
+    <script>
+        $(".form--select").on("change", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         instance = $(this).attr('data-instance');
+
+
+         @this.set(instance, selectValue);
+
+
+      }); //end function
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
 
 
 

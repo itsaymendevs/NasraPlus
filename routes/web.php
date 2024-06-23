@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\Products\ProductsManage;
 use App\Livewire\Dashboard\Regions;
 use App\Livewire\Dashboard\Regions\RegionsCreate;
 use App\Livewire\Dashboard\Regions\RegionsEdit;
@@ -135,11 +136,18 @@ Route::get('login', Login::class)->name('dashboard.login');
 
 
 
-// 1.2: products - create - edit
+// 1.2: products - manage - create - edit
 Route::get('dashboard/products', Products::class)->name('dashboard.products');
+Route::get('dashboard/products/manage', ProductsManage::class)->name('dashboard.manageProducts');
+
 
 Route::get('dashboard/products/create', ProductsCreate::class)->name('dashboard.createProduct');
 Route::get('dashboard/products/{id}/edit', ProductsEdit::class)->name('dashboard.editProduct');
+
+
+
+
+
 
 
 

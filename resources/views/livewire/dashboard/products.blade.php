@@ -132,8 +132,9 @@
 
                 {{-- rightCol --}}
                 <div class="col-6 text-end">
-                    <a class="btn btn--export active scale--3 px-4" role="button" href="edit-products.html"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                    <a class="btn btn--export active scale--3 px-4" role="button"
+                        href="{{ route('dashboard.manageProducts') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-pencil-square me-2">
                             <path
                                 d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
@@ -172,18 +173,18 @@
             {{-- groupFilter --}}
             <div class="filters--radio-wrap">
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="type-checkbox-1" value='byGeneralType'
-                        wire:model='searchGroup' />
+                    <input class="form-check-input" type="radio" id="type-checkbox-1" value='byGeneralTypes'
+                        wire:model.live='searchGroup' wire:change='switchFilterGroup' />
                     <label class="form-check-label" for="type-checkbox-1">By General Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="type-checkbox-2" value='byProductType'
-                        wire:model='searchGroup' />
+                    <input class="form-check-input" type="radio" id="type-checkbox-2" value='byProductTypes'
+                        wire:model.live='searchGroup' wire:change='switchFilterGroup' />
                     <label class="form-check-label" for="type-checkbox-2">By Product Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="type-checkbox-3" value='byCompany'
-                        wire:model='searchGroup' />
+                    <input class="form-check-input" type="radio" id="type-checkbox-3" value='byCompanies'
+                        wire:model.live='searchGroup' wire:change='switchFilterGroup' />
                     <label class="form-check-label" for="type-checkbox-3">By Company Name</label>
                 </div>
             </div>
@@ -195,6 +196,13 @@
 
             {{-- row --}}
             <div class="row align-items-end">
+
+
+
+                {{-- 1: group --}}
+                @if ($searchGroup == 'byGeneralTypes')
+
+
 
 
                 {{-- category --}}
@@ -269,6 +277,10 @@
                 </div>
 
 
+                @endif
+                {{-- end if - generalTypes --}}
+
+
 
 
 
@@ -276,6 +288,72 @@
 
                 {{-- ---------------------------------- --}}
                 {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
+
+
+
+
+
+
+
+
+                {{-- 2: group --}}
+                @if ($searchGroup == 'byCompanies')
+
+
+
+                {{-- company --}}
+                <div class="col-4 mb-4">
+                    <label class="form-label form--label">Company</label>
+                    <div class="select--single-wrapper" wire:ignore>
+                        <select class="form--select" data-instance='searchCompany' data-clear='true'>
+                            <option value=""></option>
+
+                            {{-- loop - companies --}}
+                            @foreach ($companies ?? [] as $company)
+
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+
+                            @endforeach
+                            {{-- end loop --}}
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+
+                {{-- empty --}}
+                <div class="col-12"></div>
+
+
+
+
+                @endif
+                {{-- end if --}}
+
+
+
+
+
+
+
+
+
+
+
+
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
+
+
+
 
 
 
@@ -457,19 +535,24 @@
 
 
                             {{-- 1: edit --}}
-                            <a class="dropdown-item" href="javascript:void(0);">Edit Product</a>
+                            <a class="dropdown-item" href="{{ route('dashboard.editProduct', [$product->id]) }}">Edit
+                                Product</a>
 
 
 
                             {{-- 2: toggleActive --}}
                             <a class="dropdown-item" href="javascript:void(0);"
-                                wire:click='toggleActive({{ $product->id }})'>Hide Product</a>
+                                wire:click='toggleHidden({{ $product->id }})'>
+                                @if ($product->isHidden) Show Product @else Hide Product @endif
+                            </a>
 
 
 
                             {{-- 3: toggleMainPage --}}
                             <a class="dropdown-item" href="javascript:void(0);"
-                                wire:click='toggleMainPage({{ $product->id }})'>Remove From Home</a>
+                                wire:click='toggleMainPage({{ $product->id }})'>
+                                @if ($product->isMainPage) Remove From Home @else Show on Home @endif
+                            </a>
                         </div>
                         {{-- endButtons --}}
 
@@ -485,12 +568,130 @@
 
 
 
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $products?->links() }}</div>
+            </div>
+
+
+
+
+
+
+
         </div>
         {{-- endResultRow --}}
 
-
-
     </section>
+    {{-- endSection --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+
+
+    {{-- selectHandle --}}
+    <script>
+        $(document).on('change', ".form--select", function(event) {
+
+
+
+         // 1.1: getValue - instance
+         selectValue = $(this).select2('val');
+         instance = $(this).attr('data-instance');
+
+
+         @this.set(instance, selectValue);
+         @this.rerender();
+
+
+      }); //end function
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+
+
+    {{-- modals --}}
+    @section('modals')
+
+
+
+
+
+
+
+
+    @endsection
+    {{-- endModals --}}
+
+
+
+
+
+
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
 
 
 
