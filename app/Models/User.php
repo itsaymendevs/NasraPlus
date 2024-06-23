@@ -14,6 +14,13 @@ class User extends Authenticatable
 
 
 
+    public function fullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+
+
     public function devices()
     {
         return $this->hasMany(UserDevice::class, 'userId');

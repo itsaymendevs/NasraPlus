@@ -25,6 +25,32 @@ class Login extends Component
 
 
 
+    public function mount()
+    {
+
+
+        // 1: reset
+        Session::forget(['employeeId', 'employeeName', 'employeeNameAr']);
+
+
+    } // end function
+
+
+
+
+
+
+
+    // --------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
     public function check()
     {
 
