@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Exports\ProductExport;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Product;
@@ -9,6 +10,7 @@ use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Products extends Component
 {
@@ -45,7 +47,9 @@ class Products extends Component
 
 
 
+
     // ---------------------------------------------------------------------------
+
 
 
 
@@ -247,6 +251,146 @@ class Products extends Component
     {
 
         $this->render();
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+    public function export($lang)
+    {
+
+
+        // 1: prepExport
+
+
+
+
+        // 1.2: dependencies
+        $products = Product::where('name', 'LIKE', '%' . $this->searchProduct . '%')
+            ->orWhere('nameAr', 'LIKE', '%' . $this->searchProduct . '%')->get();
+
+
+
+
+
+
+
+        // -------------------------------------------------
+        // -------------------------------------------------
+
+
+
+
+
+
+
+        // 1.3: filterProducts
+        $filtered = $products->filter(function ($item) {
+
+            $toReturn = true;
+
+
+
+            // 1: groupOne
+            if ($this->searchGroup == 'byGeneralTypes') {
+
+
+                // 1.2: category
+                $this->searchCategory ? $item?->categoryId != $this->searchCategory ? $toReturn = false : null : null;
+
+
+                // 1.3: subCategory
+                $this->searchSubCategory ? $item?->subCategoryId != $this->searchSubCategory ? $toReturn = false : null : null;
+
+
+                // 1.4: type
+                $this->searchType ? $item?->typeId != $this->searchType ? $toReturn = false : null : null;
+
+
+                return $toReturn;
+
+
+
+
+
+
+                // 2: groupThree
+            } elseif ($this->searchGroup == 'byCompanies') {
+
+
+                // 2.1: company
+                $this->searchCompany ? $item?->companyId != $this->searchCompany ? $toReturn = false : null : null;
+
+
+
+                return $toReturn;
+
+
+
+
+            } else {
+
+
+                return $toReturn;
+
+            } // end if
+
+
+
+        }); // endFilters
+
+
+
+
+
+
+
+
+        // -------------------------------------------------
+        // -------------------------------------------------
+
+
+
+
+
+
+        // 1.4: getProducts
+        $products = Product::orderBy('created_at', 'desc')
+            ->whereIn('id', $filtered?->pluck('id')?->toArray() ?? [])
+            ->paginate(env('PAGINATE_XXL'));
+
+
+
+
+
+
+
+
+
+
+        // 2: makeExport
+        return Excel::download(new ProductExport($products), 'products.xlsx');
+
+
+
+
+
 
     } // end function
 

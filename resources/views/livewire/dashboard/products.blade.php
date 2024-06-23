@@ -82,7 +82,8 @@
 
 
                     {{-- 1: exportExcel --}}
-                    <a class="btn btn--export scale--3 px-4" role="button" href="#">
+                    <a class="btn btn--export scale--3 px-4" role="button" href="javascript:void(0);"
+                        wire:click="export('en')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
                             <path fill-rule="evenodd"
@@ -99,7 +100,8 @@
 
 
                     {{-- exportExcelArabic --}}
-                    <a class="btn btn--export scale--3 px-4 ms-2" role="button" href="#">
+                    <a class="btn btn--export scale--3 px-4 ms-2" role="button" href="javascript:void(0);"
+                        wire:click="export('ar')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
                             <path fill-rule="evenodd"
