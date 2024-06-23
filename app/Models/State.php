@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
-{
+class State extends Model {
     use HasFactory;
 
 
-    public function country()
-    {
-
+    public function country() {
         return $this->belongsTo(Country::class, 'countryId');
+    }
 
-    } // end function
+
+    public function areas() {
+        return $this->hasMany(StateProvince::class, 'stateId');
+    }
 
 
 
