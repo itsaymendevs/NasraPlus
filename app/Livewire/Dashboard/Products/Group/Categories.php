@@ -15,41 +15,41 @@ class Categories extends Component
 {
 
 
-    use HelperTrait;
-    use WithPagination;
-    use WithFileUploads;
+   use HelperTrait;
+   use WithPagination;
+   use WithFileUploads;
 
 
 
 
 
-    // :: variables
-    public CategoryPictureForm $instance;
-    public $searchCategory;
+   // :: variables
+   public CategoryPictureForm $instance;
+   public $searchCategory;
 
 
 
 
 
 
-    public function mount()
-    {
+   public function mount()
+   {
 
 
 
-        // 1: get instance
-        $categoryPicture = CategoryPicture::first();
+      // 1: get instance
+      $categoryPicture = CategoryPicture::first();
 
 
-        foreach ($categoryPicture->toArray() as $key => $value)
-            $this->instance->{$key} = $value;
+      foreach ($categoryPicture->toArray() as $key => $value)
+         $this->instance->{$key} = $value;
 
 
 
 
-        // 1.2: cloneFiles
-        $this->instance->imageFileName = $this->instance->imageFile ?? null;
-        $this->instance->imageFileNameAr = $this->instance->imageFileAr ?? null;
+      // 1.2: cloneFiles
+      $this->instance->imageFileName = $this->instance->imageFile ?? null;
+      $this->instance->imageFileNameAr = $this->instance->imageFileAr ?? null;
 
 
 
@@ -61,25 +61,25 @@ class Categories extends Component
 
 
 
-        // -----------------------------------
-        // -----------------------------------
+      // -----------------------------------
+      // -----------------------------------
 
 
 
 
 
 
-        // 2: setFilePreview
-        $preview = $this->instance->imageFile ?
-            asset('storage/categories/covers/' . $this->instance->imageFile) : $this->getDefaultPreview();
+      // 2: setFilePreview
+      $preview = $this->instance->imageFile ?
+         url('storage/categories/covers/' . $this->instance->imageFile) : $this->getDefaultPreview();
 
-        $this->dispatch('setFilePreview', filePreview: 'cover--preview-1', defaultPreview: $preview);
+      $this->dispatch('setFilePreview', filePreview: 'cover--preview-1', defaultPreview: $preview);
 
 
-        $preview = $this->instance->imageFileAr ?
-            asset('storage/categories/covers/' . $this->instance->imageFileAr) : $this->getDefaultPreview();
+      $preview = $this->instance->imageFileAr ?
+         url('storage/categories/covers/' . $this->instance->imageFileAr) : $this->getDefaultPreview();
 
-        $this->dispatch('setFilePreview', filePreview: 'cover--preview-2', defaultPreview: $preview);
+      $this->dispatch('setFilePreview', filePreview: 'cover--preview-2', defaultPreview: $preview);
 
 
 
@@ -88,7 +88,7 @@ class Categories extends Component
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -98,7 +98,7 @@ class Categories extends Component
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -109,22 +109,22 @@ class Categories extends Component
 
 
 
-    public function updateCover()
-    {
+   public function updateCover()
+   {
 
 
 
 
 
-        // 1.2: uploadFile
-        if ($this->instance->imageFile != $this->instance->imageFileName)
-            $this->instance->imageFileName = $this->replaceFile($this->instance->imageFile, 'categories/covers', $this->instance->imageFileName, 'STO');
+      // 1.2: uploadFile
+      if ($this->instance->imageFile != $this->instance->imageFileName)
+         $this->instance->imageFileName = $this->replaceFile($this->instance->imageFile, 'categories/covers', $this->instance->imageFileName, 'STO');
 
 
 
-        // 1.3: uploadFile
-        if ($this->instance->imageFileAr != $this->instance->imageFileNameAr)
-            $this->instance->imageFileNameAr = $this->replaceFile($this->instance->imageFileAr, 'categories/covers', $this->instance->imageFileNameAr, 'STO');
+      // 1.3: uploadFile
+      if ($this->instance->imageFileAr != $this->instance->imageFileNameAr)
+         $this->instance->imageFileNameAr = $this->replaceFile($this->instance->imageFileAr, 'categories/covers', $this->instance->imageFileNameAr, 'STO');
 
 
 
@@ -134,8 +134,8 @@ class Categories extends Component
 
 
 
-        // ---------------------------------------------------
-        // ---------------------------------------------------
+      // ---------------------------------------------------
+      // ---------------------------------------------------
 
 
 
@@ -145,20 +145,20 @@ class Categories extends Component
 
 
 
-        // 2: create instance
-        $categoryPicture = CategoryPicture::first();
+      // 2: create instance
+      $categoryPicture = CategoryPicture::first();
 
 
 
 
 
 
-        // 2.1: general
-        $categoryPicture->imageFile = $this->instance->imageFileName ?? null;
-        $categoryPicture->imageFileAr = $this->instance->imageFileNameAr ?? null;
+      // 2.1: general
+      $categoryPicture->imageFile = $this->instance->imageFileName ?? null;
+      $categoryPicture->imageFileAr = $this->instance->imageFileNameAr ?? null;
 
 
-        $categoryPicture->save();
+      $categoryPicture->save();
 
 
 
@@ -167,8 +167,8 @@ class Categories extends Component
 
 
 
-        // :: alert
-        $this->makeAlert('success', 'Covers has been updated');
+      // :: alert
+      $this->makeAlert('success', 'Covers has been updated');
 
 
 
@@ -177,7 +177,7 @@ class Categories extends Component
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -189,11 +189,11 @@ class Categories extends Component
 
 
 
-    // ---------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -204,16 +204,16 @@ class Categories extends Component
 
 
 
-    public function edit($id)
-    {
+   public function edit($id)
+   {
 
 
-        // 1: dispatchEvent
-        $this->dispatch('editCategory', $id);
+      // 1: dispatchEvent
+      $this->dispatch('editCategory', $id);
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -225,7 +225,7 @@ class Categories extends Component
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -234,18 +234,18 @@ class Categories extends Component
 
 
 
-    public function remove($id)
-    {
+   public function remove($id)
+   {
 
 
-        // 1: params - confirmationBox
-        $this->removeId = $id;
+      // 1: params - confirmationBox
+      $this->removeId = $id;
 
-        $this->makeAlert('remove', null, 'confirmCategoryRemove');
+      $this->makeAlert('remove', null, 'confirmCategoryRemove');
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -256,7 +256,7 @@ class Categories extends Component
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -264,37 +264,37 @@ class Categories extends Component
 
 
 
-    #[On('confirmCategoryRemove')]
-    public function confirmRemove()
-    {
+   #[On('confirmCategoryRemove')]
+   public function confirmRemove()
+   {
 
 
 
-        // 1: checkExisting
-        if ($this->removeId) {
+      // 1: checkExisting
+      if ($this->removeId) {
 
 
 
-            // 1.2: remove instance
-            Category::find($this->removeId)->delete();
+         // 1.2: remove instance
+         Category::find($this->removeId)->delete();
 
-            $this->makeAlert('info', 'Category has been removed');
+         $this->makeAlert('info', 'Category has been removed');
 
 
-        } // end if
+      } // end if
 
 
 
 
 
 
-        // :: re-render
-        $this->render();
+      // :: re-render
+      $this->render();
 
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -307,7 +307,7 @@ class Categories extends Component
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -317,19 +317,19 @@ class Categories extends Component
 
 
 
-    #[On('refreshCategories')]
-    public function render()
-    {
+   #[On('refreshCategories')]
+   public function render()
+   {
 
 
 
 
 
-        // 1: dependencies
-        $categories = Category::where('name', 'LIKE', '%' . $this->searchCategory . '%')
-            ->orWhere('nameAr', 'LIKE', '%' . $this->searchCategory . '%')
-            ->orderBy('created_at', 'desc')
-            ->paginate(env('PAGINATE_XXL'));
+      // 1: dependencies
+      $categories = Category::where('name', 'LIKE', '%' . $this->searchCategory . '%')
+         ->orWhere('nameAr', 'LIKE', '%' . $this->searchCategory . '%')
+         ->orderBy('created_at', 'desc')
+         ->paginate(env('PAGINATE_XXL'));
 
 
 
@@ -337,16 +337,16 @@ class Categories extends Component
 
 
 
-        // :: initTooltips
-        $this->dispatch('initTooltips');
+      // :: initTooltips
+      $this->dispatch('initTooltips');
 
 
 
-        return view('livewire.dashboard.products.group.categories', compact('categories'));
+      return view('livewire.dashboard.products.group.categories', compact('categories'));
 
 
 
-    } // end function
+   } // end function
 
 
 

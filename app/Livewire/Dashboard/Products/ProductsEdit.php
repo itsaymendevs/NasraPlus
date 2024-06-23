@@ -83,7 +83,7 @@ class ProductsEdit extends Component
 
         // 2: setFilePreview
         $preview = $this->instance->imageFile ?
-            asset('storage/products/' . $this->instance->imageFile) : $this->getDefaultPreview();
+            url('storage/products/' . $this->instance->imageFile) : $this->getDefaultPreview();
 
         $this->dispatch('setFilePreview', filePreview: 'product--preview-1', defaultPreview: $preview);
 
@@ -91,20 +91,20 @@ class ProductsEdit extends Component
 
 
         $preview = $this->instance->secondImageFile ?
-            asset('storage/products/' . $this->instance->secondImageFile) : $this->getDefaultPreview();
+            url('storage/products/' . $this->instance->secondImageFile) : $this->getDefaultPreview();
 
         $this->dispatch('setFilePreview', filePreview: 'product--preview-2', defaultPreview: $preview);
 
 
 
         $preview = $this->instance->thirdImageFile ?
-            asset('storage/products/' . $this->instance->thirdImageFile) : $this->getDefaultPreview();
+            url('storage/products/' . $this->instance->thirdImageFile) : $this->getDefaultPreview();
 
         $this->dispatch('setFilePreview', filePreview: 'product--preview-3', defaultPreview: $preview);
 
 
         $preview = $this->instance->fourthImageFile ?
-            asset('storage/products/' . $this->instance->fourthImageFile) : $this->getDefaultPreview();
+            url('storage/products/' . $this->instance->fourthImageFile) : $this->getDefaultPreview();
 
         $this->dispatch('setFilePreview', filePreview: 'product--preview-4', defaultPreview: $preview);
 

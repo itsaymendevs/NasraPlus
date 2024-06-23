@@ -321,15 +321,15 @@
 
                         {{-- --}}
                         <button class="btn btn--export btn--currency scale--3 px-4 active" type="button">
-                           <img class="me-2" src="{{asset('assets/img/Flags/sd.png')}}" />SDN</button>
+                           <img class="me-2" src="{{url('assets/img/Flags/sd.png')}}" />SDN</button>
 
 
                         <button class="btn btn--export btn--currency scale--3 px-4 ms-2 d-none" type="button">
-                           <img class="me-2" src="{{asset('assets/img/Flags/euro.png')}}" />EUR</button>
+                           <img class="me-2" src="{{url('assets/img/Flags/euro.png')}}" />EUR</button>
 
 
                         <button class="btn btn--export btn--currency scale--3 px-4 ms-2" type="button">
-                           <img class="me-2" src="{{asset('assets/img/Flags/uk.png')}}" />GBP
+                           <img class="me-2" src="{{url('assets/img/Flags/uk.png')}}" />GBP
                         </button>
                      </div>
 

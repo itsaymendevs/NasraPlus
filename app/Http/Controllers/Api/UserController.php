@@ -29,60 +29,60 @@ class UserController extends Controller
 
 
 
-    public function login(Request $request)
-    {
+   public function login(Request $request)
+   {
 
 
-        // 1: get use -> phone
-        $response = new stdClass();
-        $response->errors = array();
+      // 1: get use -> phone
+      $response = new stdClass();
+      $response->errors = array();
 
-        $user = User::where('phone', $request->phoneNumber)->first();
+      $user = User::where('phone', $request->phoneNumber)->first();
 
 
 
 
 
-        // 2: Check For Errors
+      // 2: Check For Errors
 
-        // 2.1: Phone
-        if (empty($request->phoneNumber)) {
+      // 2.1: Phone
+      if (empty($request->phoneNumber)) {
 
-            $response->errors[0] = '10';
-            return response()->json($response);
+         $response->errors[0] = '10';
+         return response()->json($response);
 
-        } // end if
+      } // end if
 
 
 
-        // 2.2: Password
-        if (empty($request->password)) {
+      // 2.2: Password
+      if (empty($request->password)) {
 
-            $response->errors[0] = '10';
-            return response()->json($response);
+         $response->errors[0] = '10';
+         return response()->json($response);
 
-        } // end if
+      } // end if
 
 
 
 
-        // 2.3: Credit Incorrect
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+      // 2.3: Credit Incorrect
+      if (! $user || ! Hash::check($request->password, $user->password)) {
 
-            $response->errors[0] = '10';
-            return response()->json($response);
+         $response->errors[0] = '10';
+         return response()->json($response);
 
-        } // end if
+      } // end if
 
 
 
-        // 2.4: Account Not-active
-        if (boolval($user->isActive) === false) {
+      // 2.4: Account Not-active
+      if (boolval($user->isActive) === false) {
 
-            $response->errors[0] = '15';
-            return response()->json($response);
+         $response->errors[0] = '15';
+         return response()->json($response);
 
-        } // end if
+      } // end if
 
 
 
@@ -92,66 +92,66 @@ class UserController extends Controller
 
 
 
-        // 3: Delete Old-Tokens
-        try {
+      // 3: Delete Old-Tokens
+      try {
 
-            $user->tokens()->delete();
+         $user->tokens()->delete();
 
-        } catch (Throwable $event) {
-        }
+      } catch (Throwable $event) {
+      }
 
 
 
-        // 3.1: Create Token
-        $token = $user->createToken('AppToken', ['role:user'])->plainTextToken;
+      // 3.1: Create Token
+      $token = $user->createToken('AppToken', ['role:user'])->plainTextToken;
 
 
 
 
-        // info to send with user
-        $content = new stdClass();
-        $content->id = strval($user->id);
+      // info to send with user
+      $content = new stdClass();
+      $content->id = strval($user->id);
 
 
 
-        $content->firstName = $user->firstName;
-        $content->lastName = $user->lastName;
-        $content->emailAddress = $user->email;
+      $content->firstName = $user->firstName;
+      $content->lastName = $user->lastName;
+      $content->emailAddress = $user->email;
 
-        //remove 249 from phone number
-        $phone = substr($user->phone, 3);
+      //remove 249 from phone number
+      $phone = substr($user->phone, 3);
 
-        $content->phoneNumber = strval($phone);
+      $content->phoneNumber = strval($phone);
 
 
 
-        $content->userAddress = new stdClass();
+      $content->userAddress = new stdClass();
 
-        $content->userAddress->userStateId = strval($user->stateId);
-        $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+      $content->userAddress->userStateId = strval($user->stateId);
+      $content->userAddress->userRegionId = strval($user->deliveryAreaId);
 
-        $content->userAddress->addressDescription = $user->address;
-        $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
-        $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
+      $content->userAddress->addressDescription = $user->address;
+      $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+      $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
-        $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
-        $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
+      $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
+      $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
 
 
 
 
 
-        // ::prepare response
-        $response = new stdClass();
-        $response->user = $content;
-        $response->token = $token;
+      // ::prepare response
+      $response = new stdClass();
+      $response->user = $content;
+      $response->token = $token;
 
 
 
 
 
-        // ==================================
-        // ==================================
+      // ==================================
+      // ==================================
 
 
 
@@ -161,23 +161,135 @@ class UserController extends Controller
 
 
 
-        // 4: fetch productsID List / Save Device (if New)
-        $isDuplicated = UserDevice::where('userId', $user->id)
-            ->where('serial', $request->deviceID)->count();
+      // 4: fetch productsID List / Save Device (if New)
+      $isDuplicated = UserDevice::where('userId', $user->id)
+         ->where('serial', $request->deviceID)->count();
 
 
-        // 4.1: fetch products
-        $products = Product::whereIn('id', $request->productsID)->get();
-        $contentArray = array();
+      // 4.1: fetch products
+      $products = Product::whereIn('id', $request->productsID)->get();
+      $contentArray = array();
 
 
 
-        // 4.1.2: ProductsID is returned (in both options)
-        foreach ($products as $product) {
+      // 4.1.2: ProductsID is returned (in both options)
+      foreach ($products as $product) {
+
+         $content = new stdClass();
+         $content->id = strval($product->id);
+         $content->categoryId = strval($product->mainCategoryId);
+         $content->subCategoryId = strval($product->subCategoryId);
+         $content->typeId = strval($product->typeId);
+         $content->companyId = strval($product->companyId);
+
+
+         $content->name = $product->name;
+         $content->nameAr = $product->nameAr;
+
+         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->additionalPics = null;
+
+
+
+
+         // ::determine productType (byName - fixedSize - dynamicSize)
+         $content->productType = $product->weightOption;
+
+
+         $content->measuringUnitId = strval($product->unitId);
+         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+
+         // :: determine packSize
+         $content->packSize = $product->weightOption == 'FIXED' ? strval($product->weight) : null;
+
+
+         $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
+         $content->maxQuantityToOrder = strval(number_format($product->maxQuantityPerOrder, 2, '.', ''));
+         $content->originalPrice = strval($product->sellPrice);
+         $content->offerPrice = strval($product->offerPrice);
+
+         $content->desc = $product->desc;
+         $content->descAr = $product->descAr;
+
+
+         array_push($contentArray, $content);
+
+      } // end loop
+
+
+
+
+
+
+
+
+
+      // 4.2: determine deviceID / FavoriteList actions
+      if ($isDuplicated > 0) {
+
+
+
+         // 4.2.1: remove previous favorites / update with ProductsIDs
+         UserFavorite::where('userId', $user->id)->delete();
+
+         foreach ($products as $product) {
+
+            $userFavorite = new UserFavorite();
+            $userFavorite->userId = $user->id;
+            $userFavorite->productId = $product->id;
+
+            $userFavorite->save();
+
+         } // end loop
+
+
+
+
+      } else {
+
+
+         // ::root -> Save deviceID
+         $userDevice = new UserDevice();
+         $userDevice->userId = $user->id;
+         $userDevice->serial = $request->deviceID;
+
+         $userDevice->save();
+
+
+
+
+
+         // 4.2.2: Favorites is returned / appended later on to returned
+         $favoritesID = UserFavorite::where('userId', $user->id)->get(['productId'])->toArray();
+         $favoriteProducts = Product::whereIn('id', $favoritesID)->get();
+
+
+
+
+
+         // 4.2.3: ProductsIDs appended in favorites
+         foreach ($products->whereNotIn('id', $favoritesID) as $product) {
+
+            $userFavorite = new UserFavorite();
+            $userFavorite->userId = $user->id;
+            $userFavorite->productId = $product->id;
+
+            $userFavorite->save();
+
+         } // end loop
+
+
+
+
+
+
+
+         // 4.2.4: favorites appended in returned
+         foreach ($favoriteProducts as $product) {
 
             $content = new stdClass();
             $content->id = strval($product->id);
-            $content->categoryId =strval( $product->mainCategoryId);
+            $content->categoryId = strval($product->mainCategoryId);
             $content->subCategoryId = strval($product->subCategoryId);
             $content->typeId = strval($product->typeId);
             $content->companyId = strval($product->companyId);
@@ -186,7 +298,7 @@ class UserController extends Controller
             $content->name = $product->name;
             $content->nameAr = $product->nameAr;
 
-            $content->mainPic = asset('storage/products') . '/' . $product->image;
+            $content->mainPic = url('storage/products') . '/' . $product->image;
             $content->additionalPics = null;
 
 
@@ -214,627 +326,510 @@ class UserController extends Controller
 
             array_push($contentArray, $content);
 
-        } // end loop
+         } // end loop
 
 
 
+      } // end else
 
 
 
 
 
 
-        // 4.2: determine deviceID / FavoriteList actions
-        if ($isDuplicated > 0) {
 
+      // ::prepare response
+      $response->favProducts = $contentArray;
 
 
-            // 4.2.1: remove previous favorites / update with ProductsIDs
-            UserFavorite::where('userId', $user->id)->delete();
+      return response()->json($response);
 
-            foreach ($products as $product) {
 
-                $userFavorite = new UserFavorite();
-                $userFavorite->userId = $user->id;
-                $userFavorite->productId = $product->id;
+   } // end function
 
-                $userFavorite->save();
 
-            } // end loop
 
 
 
 
-        } else {
+   // -----------------------------------------------------------------
 
 
-            // ::root -> Save deviceID
-            $userDevice = new UserDevice();
-            $userDevice->userId = $user->id;
-            $userDevice->serial = $request->deviceID;
 
-            $userDevice->save();
 
 
 
 
 
-            // 4.2.2: Favorites is returned / appended later on to returned
-            $favoritesID = UserFavorite::where('userId', $user->id)->get(['productId'])->toArray();
-            $favoriteProducts = Product::whereIn('id', $favoritesID)->get();
 
+   public function register(Request $request)
+   {
 
 
+      // :: root
+      $response = new stdClass();
+      $expireTime = 1;
+      $expireDelete = false;
 
 
-            // 4.2.3: ProductsIDs appended in favorites
-            foreach ($products->whereNotIn('id', $favoritesID) as $product) {
+      // ::root - convert array to objects
+      $request = (object) $request->all();
+      $request->newUserData = (object) $request->newUserData;
 
-                $userFavorite = new UserFavorite();
-                $userFavorite->userId = $user->id;
-                $userFavorite->productId = $product->id;
+      $request->isArSMS == true ? $lang = "arabic" : $lang = "english";
 
-                $userFavorite->save();
 
-            } // end loop
 
 
+      // 1.1: Phone / checkValid
+      $userPhone = strval($request->newUserData->phoneNumber);
+      $isPhoneValid = $this->checkPhone($userPhone);
 
+      // 1.1: Email / checkValid
+      $userEmail = strval($request->newUserData->emailAddress);
 
+      // =============================
+      // =============================
 
 
 
-            // 4.2.4: favorites appended in returned
-            foreach ($favoriteProducts as $product) {
 
-                $content = new stdClass();
-                $content->id = strval($product->id);
-                $content->categoryId = strval($product->mainCategoryId);
-                $content->subCategoryId = strval($product->subCategoryId);
-                $content->typeId = strval($product->typeId);
-                $content->companyId = strval($product->companyId);
+      // 2: check if duplicated (In Use)
+      $isDuplicated = User::where('phone', $userPhone)->count();
 
 
-                $content->name = $product->name;
-                $content->nameAr = $product->nameAr;
 
-                $content->mainPic = asset('storage/products') . '/' . $product->image;
-                $content->additionalPics = null;
+      // 2.5: check if email duplicated (In Use)
+      $isEmailDuplicated = User::where('email', $userEmail)->count();
 
 
 
 
-                // ::determine productType (byName - fixedSize - dynamicSize)
-                $content->productType = $product->weightOption;
 
+      // 2.1: check if duplicated (In UserTemp) / (if exist check minutes difference)
+      $isDuplicatedTemp = UserLead::where('phone', $userPhone)->count();
 
-                $content->measuringUnitId = strval($product->unitId);
-                $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
-                // :: determine packSize
-                $content->packSize = $product->weightOption == 'FIXED' ? strval($product->weight) : null;
+      if ($isDuplicatedTemp >= 1) {
 
+         // 2.1.1: check if expired or not
+         $userLead = UserLead::where('phone', $userPhone)->first();
 
-                $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
-                $content->maxQuantityToOrder = strval(number_format($product->maxQuantityPerOrder, 2, '.', ''));
-                $content->originalPrice = strval($product->sellPrice);
-                $content->offerPrice = strval($product->offerPrice);
 
-                $content->desc = $product->desc;
-                $content->descAr = $product->descAr;
 
+         // 2.1.2: prepare timing difference
+         $todayDate = new DateTime();
 
-                array_push($contentArray, $content);
+         $previousDate = $userLead->created_at;
+         $timeDifference = $todayDate->diff($previousDate);
 
-            } // end loop
+         // get the minutes
+         $minutes = $timeDifference->days * 24 * 60;
+         $minutes += $timeDifference->h * 60;
+         $minutes += $timeDifference->i;
 
+         if ($minutes > $expireTime) {
 
+            // :Flag to delete expired UserLead / :Reset Flag to Continue with register
+            $expireDelete = true;
+            $isDuplicatedTemp = 0;
 
-        } // end else
+         } // otp expired
 
+      } //there's a similar number in db temp
 
 
 
 
 
 
-        // ::prepare response
-        $response->favProducts = $contentArray;
 
+      // 3: Register Filters
+      $errorKeys = $this->registerFilters($request, $isDuplicated, $isEmailDuplicated, $isDuplicatedTemp, $isPhoneValid);
 
-        return response()->json($response);
 
 
-    } // end function
+      // ::prepare response with Errors
+      if (count($errorKeys->errors) > 0) {
 
+         return response()->json($errorKeys);
 
+      } // end if
 
 
 
 
-    // -----------------------------------------------------------------
 
 
+      // =============================
+      // =============================
 
 
 
+      // 4: Send OTP
+      $otpResponse = $this->sendOTP($userPhone, $lang, $expireDelete);
 
 
 
 
-    public function register(Request $request)
-    {
 
 
-        // :: root
-        $response = new stdClass();
-        $expireTime = 1;
-        $expireDelete = false;
+      // 4.2: handle otp - errors / success response
+      if (! empty($otpResponse->errors)) {
 
+         $response->errors = $otpResponse->errors;
 
-        // ::root - convert array to objects
-        $request = (object) $request->all();
-        $request->newUserData = (object) $request->newUserData;
+      } else {
 
-        $request->isArSMS == true ? $lang = "arabic" : $lang = "english";
 
+         $response = new stdClass();
+         $response->verificationCode = strval($otpResponse->otp);
 
+      } // end if
 
 
-        // 1.1: Phone / checkValid
-        $userPhone = strval($request->newUserData->phoneNumber);
-        $isPhoneValid = $this->checkPhone($userPhone);
 
-         // 1.1: Email / checkValid
-         $userEmail = strval($request->newUserData->emailAddress);
+      // return response in json
+      return response()->json($response);
 
-        // =============================
-        // =============================
 
+   } //end of register function
 
 
 
-        // 2: check if duplicated (In Use)
-        $isDuplicated = User::where('phone', $userPhone)->count();
 
 
 
-         // 2.5: check if email duplicated (In Use)
-         $isEmailDuplicated = User::where('email', $userEmail)->count();
 
 
 
 
 
-        // 2.1: check if duplicated (In UserTemp) / (if exist check minutes difference)
-        $isDuplicatedTemp = UserLead::where('phone', $userPhone)->count();
 
 
-        if ($isDuplicatedTemp >= 1) {
 
-            // 2.1.1: check if expired or not
-            $userLead = UserLead::where('phone', $userPhone)->first();
 
+   // -----------------------------------------------------------------
 
 
-            // 2.1.2: prepare timing difference
-            $todayDate = new DateTime();
 
-            $previousDate = $userLead->created_at;
-            $timeDifference = $todayDate->diff($previousDate);
 
-            // get the minutes
-            $minutes = $timeDifference->days * 24 * 60;
-            $minutes += $timeDifference->h * 60;
-            $minutes += $timeDifference->i;
 
-            if ($minutes > $expireTime) {
 
-                // :Flag to delete expired UserLead / :Reset Flag to Continue with register
-                $expireDelete = true;
-                $isDuplicatedTemp = 0;
 
-            } // otp expired
 
-        } //there's a similar number in db temp
 
 
+   public function registerResend(Request $request)
+   {
 
 
 
+      // :: root
+      $response = new stdClass();
+      $response->errors = array();
+      $expireTime = 1;
 
 
-        // 3: Register Filters
-        $errorKeys = $this->registerFilters($request, $isDuplicated, $isEmailDuplicated, $isDuplicatedTemp, $isPhoneValid);
+      // ::root - convert array to objects
+      $request = (object) $request->all();
+      $request->isArSMS == true ? $lang = "arabic" : $lang = "english";
 
 
 
-        // ::prepare response with Errors
-        if (count($errorKeys->errors) > 0) {
 
-            return response()->json($errorKeys);
 
-        } // end if
 
+      // 1.1: Phone / checkValid
+      $userPhone = strval($request->phoneNumber);
 
 
 
 
 
-        // =============================
-        // =============================
+      // =============================
+      // =============================
 
 
 
-        // 4: Send OTP
-        $otpResponse = $this->sendOTP($userPhone, $lang, $expireDelete);
 
+      // 2: check otp-expired
+      $userLead = UserLead::where('phone', $userPhone)->first();
 
 
+      //change it to not empty
+      if (! empty($userLead)) {
 
 
+         $todayDate = new DateTime();
+         $previousDate = $userLead->created_at;
+         $timeDiff = $todayDate->diff($previousDate);
 
-        // 4.2: handle otp - errors / success response
-        if (! empty($otpResponse->errors)) {
+         // ::get minutes
+         $minutes = $timeDiff->days * 24 * 60;
+         $minutes += $timeDiff->h * 60;
+         $minutes += $timeDiff->i;
 
-            $response->errors = $otpResponse->errors;
 
-        } else {
+         // 2.1: if expired / remove from DB
+         if ($minutes > $expireTime) {
 
-
-            $response = new stdClass();
-            $response->verificationCode = strval($otpResponse->otp);
-
-        } // end if
-
-
-
-        // return response in json
-        return response()->json($response);
-
-
-    } //end of register function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // -----------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-    public function registerResend(Request $request)
-    {
-
-
-
-        // :: root
-        $response = new stdClass();
-        $response->errors = array();
-        $expireTime = 1;
-
-
-        // ::root - convert array to objects
-        $request = (object) $request->all();
-        $request->isArSMS == true ? $lang = "arabic" : $lang = "english";
-
-
-
-
-
-
-        // 1.1: Phone / checkValid
-        $userPhone = strval($request->phoneNumber);
-
-
-
-
-
-        // =============================
-        // =============================
-
-
-
-
-        // 2: check otp-expired
-        $userLead = UserLead::where('phone', $userPhone)->first();
-
-
-       //change it to not empty
-       if (!empty($userLead)) {
-
-
-            $todayDate = new DateTime();
-            $previousDate = $userLead->created_at;
-            $timeDiff = $todayDate->diff($previousDate);
-
-            // ::get minutes
-            $minutes = $timeDiff->days * 24 * 60;
-            $minutes += $timeDiff->h * 60;
-            $minutes += $timeDiff->i;
-
-
-            // 2.1: if expired / remove from DB
-            if ($minutes > $expireTime) {
-
-                UserLead::where('phone', $userPhone)->delete();
-
-                $response->errors[0] = "12";
-                return response()->json($response);
-
-            } // end if
-
-
-
-
-        } else {
+            UserLead::where('phone', $userPhone)->delete();
 
             $response->errors[0] = "12";
             return response()->json($response);
 
-        } // end if
+         } // end if
 
 
 
 
+      } else {
 
+         $response->errors[0] = "12";
+         return response()->json($response);
 
+      } // end if
 
 
 
-        // =============================
-        // =============================
 
 
 
-        // 3: resend Otp
-        $otpResponse = $this->resendOTP($userPhone, $lang);
 
 
 
-        // 4: handle Otp Response
-        if (! empty($otpResponse->errors)) {
+      // =============================
+      // =============================
 
-            $response->errors = $otpResponse->errors;
 
-        } else {
 
-            $response = new stdClass();
-            $response->verificationCode = strval($otpResponse->otp);
+      // 3: resend Otp
+      $otpResponse = $this->resendOTP($userPhone, $lang);
 
-        } // end if
 
 
+      // 4: handle Otp Response
+      if (! empty($otpResponse->errors)) {
 
+         $response->errors = $otpResponse->errors;
 
+      } else {
 
+         $response = new stdClass();
+         $response->verificationCode = strval($otpResponse->otp);
 
-        // ::prepare response
-        return response()->json($response);
+      } // end if
 
 
-    } //end of register function
 
 
 
 
+      // ::prepare response
+      return response()->json($response);
 
 
+   } //end of register function
 
-    // -----------------------------------------------------------------
 
 
 
 
 
 
+   // -----------------------------------------------------------------
 
 
 
-    public function confirmRegister(Request $request)
-    {
 
 
-        // :: root
-        $response = new stdClass();
-        $response->errors = array();
 
-        $expireTime = 1;
-        $isOtpConfirmed = false;
 
 
-        // ::root - convert array to objects
-        $request = (object) $request->all();
-        $request->newUserData = (object) $request->newUserData;
 
+   public function confirmRegister(Request $request)
+   {
 
 
+      // :: root
+      $response = new stdClass();
+      $response->errors = array();
 
+      $expireTime = 1;
+      $isOtpConfirmed = false;
 
 
+      // ::root - convert array to objects
+      $request = (object) $request->all();
+      $request->newUserData = (object) $request->newUserData;
 
-        // 1.1: Phone / checkValid
-        $userPhone = strval($request->newUserData->phoneNumber);
 
 
-        // 1.2: otp
-        $userOtp = $request->enteredVerificationCode;
 
 
 
 
+      // 1.1: Phone / checkValid
+      $userPhone = strval($request->newUserData->phoneNumber);
 
-        // 1.3: check-user
-        $userLead = UserLead::where('phone', $userPhone)->first();
 
+      // 1.2: otp
+      $userOtp = $request->enteredVerificationCode;
 
-        // 1.4: check otp-expired
-        if ($userLead) {
 
 
-            $todayDate = new DateTime();
-            $previousDate = $userLead->created_at;
-            $timeDiff = $todayDate->diff($previousDate);
 
 
-            // :: get the minutes
-            $minutes = $timeDiff->days * 24 * 60;
-            $minutes += $timeDiff->h * 60;
-            $minutes += $timeDiff->i;
+      // 1.3: check-user
+      $userLead = UserLead::where('phone', $userPhone)->first();
 
-            // 1.4.1: otp expired - delete it
-            if ($minutes > $expireTime) {
 
-                UserLead::where('phone', $userPhone)->delete();
+      // 1.4: check otp-expired
+      if ($userLead) {
 
-                $response->errors[0] = "12";
-                return response()->json($response);
 
-            } // end if
+         $todayDate = new DateTime();
+         $previousDate = $userLead->created_at;
+         $timeDiff = $todayDate->diff($previousDate);
 
 
+         // :: get the minutes
+         $minutes = $timeDiff->days * 24 * 60;
+         $minutes += $timeDiff->h * 60;
+         $minutes += $timeDiff->i;
 
-            // 1.5: not found
-        } else {
+         // 1.4.1: otp expired - delete it
+         if ($minutes > $expireTime) {
+
+            UserLead::where('phone', $userPhone)->delete();
 
             $response->errors[0] = "12";
             return response()->json($response);
 
-        } // end if
+         } // end if
 
 
 
+         // 1.5: not found
+      } else {
 
+         $response->errors[0] = "12";
+         return response()->json($response);
 
+      } // end if
 
-        // ==========================
-        // ==========================
 
 
 
 
 
-        // 2: otp mismatch
-        if ($userOtp == $userLead->otp) {
+      // ==========================
+      // ==========================
 
-            $isOtpConfirmed = true;
 
-        } else {
 
-            $response->errors[0] = "13";
-            return response()->json($response);
 
-        } // end if
 
+      // 2: otp mismatch
+      if ($userOtp == $userLead->otp) {
 
+         $isOtpConfirmed = true;
 
+      } else {
 
+         $response->errors[0] = "13";
+         return response()->json($response);
 
+      } // end if
 
-        // 3: otp confirmed - Return UserModal
-        if ($isOtpConfirmed === true) {
 
-            // 3.1: create user
-            $user = new User();
 
-            $user->firstName = $request->newUserData->firstName;
-            $user->lastName = $request->newUserData->lastName;
 
-            $user->email = $request->newUserData->emailAddress;
-            $user->phone = $request->newUserData->phoneNumber;
-            $user->address = $request->newUserData->addressDescription;
 
-            $user->password = Hash::make($request->newUserData->password);
 
-            $user->countryId = 1;
-            $user->stateId = $request->newUserData->userStateId;
-            $user->deliveryAreaId = $request->newUserData->userRegionId;
+      // 3: otp confirmed - Return UserModal
+      if ($isOtpConfirmed === true) {
 
-            $user->save();
+         // 3.1: create user
+         $user = new User();
 
+         $user->firstName = $request->newUserData->firstName;
+         $user->lastName = $request->newUserData->lastName;
 
+         $user->email = $request->newUserData->emailAddress;
+         $user->phone = $request->newUserData->phoneNumber;
+         $user->address = $request->newUserData->addressDescription;
 
+         $user->password = Hash::make($request->newUserData->password);
 
+         $user->countryId = 1;
+         $user->stateId = $request->newUserData->userStateId;
+         $user->deliveryAreaId = $request->newUserData->userRegionId;
 
-            // 3.2: create token / User
-            $token = $user->createToken('AppToken', ['role:user'])->plainTextToken;
+         $user->save();
 
 
-            $content = new stdClass();
-            $content->id = strval($user->id);
 
-            $content->firstName = $user->firstName;
-            $content->lastName = $user->lastName;
-            $content->emailAddress = $user->email;
 
-            //remove 249 from phone number
-            $phone = substr($user->phone, 3);
 
-            $content->phoneNumber = strval($phone);
+         // 3.2: create token / User
+         $token = $user->createToken('AppToken', ['role:user'])->plainTextToken;
 
 
+         $content = new stdClass();
+         $content->id = strval($user->id);
 
-            $content->userAddress = new stdClass();
+         $content->firstName = $user->firstName;
+         $content->lastName = $user->lastName;
+         $content->emailAddress = $user->email;
 
-            $content->userAddress->userStateId = strval($user->stateId);
-            $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+         //remove 249 from phone number
+         $phone = substr($user->phone, 3);
 
-            $content->userAddress->addressDescription = $user->address;
+         $content->phoneNumber = strval($phone);
 
 
-            $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
-            $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
-            //they say that's all not needed
+         $content->userAddress = new stdClass();
 
-            // // ::deliveryTime Object
-            // $content->userAddress->deliveryEstimatedTime = new stdClass();
+         $content->userAddress->userStateId = strval($user->stateId);
+         $content->userAddress->userRegionId = strval($user->deliveryAreaId);
 
-            // $content->userAddress->deliveryEstimatedTime->title = $user->deliveryRegion->deliveryTime->title;
-            // $content->userAddress->deliveryEstimatedTime->titleAr = $user->deliveryRegion->deliveryTime->titleAr;
-            // $content->userAddress->deliveryEstimatedTime->content = $user->deliveryRegion->deliveryTime->content;
-            // $content->userAddress->deliveryEstimatedTime->contentAr = $user->deliveryRegion->deliveryTime->contentAr;
+         $content->userAddress->addressDescription = $user->address;
 
 
+         $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
+         $content->userAddress->deliveryEstimatedTimeAr = $user->deliveryRegion->deliveryTime->contentAr;
 
+         //they say that's all not needed
 
-            $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
-            $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
+         // // ::deliveryTime Object
+         // $content->userAddress->deliveryEstimatedTime = new stdClass();
 
+         // $content->userAddress->deliveryEstimatedTime->title = $user->deliveryRegion->deliveryTime->title;
+         // $content->userAddress->deliveryEstimatedTime->titleAr = $user->deliveryRegion->deliveryTime->titleAr;
+         // $content->userAddress->deliveryEstimatedTime->content = $user->deliveryRegion->deliveryTime->content;
+         // $content->userAddress->deliveryEstimatedTime->contentAr = $user->deliveryRegion->deliveryTime->contentAr;
 
 
-            // 3.3: join response
-            $response = new stdClass();
-            $response->user = $content;
-            $response->token = $token;
 
 
+         $content->userAddress->regionDeliveryPrice = strval($user->deliveryRegion->price);
+         $content->userAddress->isDeliveryBlocked = ! boolval($user->deliveryRegion->isActive);
 
 
-            // 3.4: Delete UserLeads
-            UserLead::where('phone', $userPhone)->delete();
 
+         // 3.3: join response
+         $response = new stdClass();
+         $response->user = $content;
+         $response->token = $token;
 
 
 
 
+         // 3.4: Delete UserLeads
+         UserLead::where('phone', $userPhone)->delete();
 
 
 
@@ -843,59 +838,59 @@ class UserController extends Controller
 
 
 
-            // ==================================
-            // ==================================
 
 
 
-            // ::root -> Save deviceID
-            $userDevice = new UserDevice();
-            $userDevice->userId = $user->id;
-            $userDevice->serial = $request->deviceID;
 
-            $userDevice->save();
 
+         // ==================================
+         // ==================================
 
 
 
+         // ::root -> Save deviceID
+         $userDevice = new UserDevice();
+         $userDevice->userId = $user->id;
+         $userDevice->serial = $request->deviceID;
 
+         $userDevice->save();
 
 
 
 
-            // 4.1: ProductsIDs appended in favorites
-            $products = Product::whereIn('id', $request->productsID)->get();
 
-            foreach ($products as $product) {
 
-                $userFavorite = new UserFavorite();
-                $userFavorite->userId = $user->id;
-                $userFavorite->productId = $product->id;
 
-                $userFavorite->save();
 
-            } // end loop
 
+         // 4.1: ProductsIDs appended in favorites
+         $products = Product::whereIn('id', $request->productsID)->get();
 
+         foreach ($products as $product) {
 
+            $userFavorite = new UserFavorite();
+            $userFavorite->userId = $user->id;
+            $userFavorite->productId = $product->id;
 
+            $userFavorite->save();
 
+         } // end loop
 
 
-            // ::prepare response
-            return response()->json($response);
 
 
-        } //end of it
 
 
 
-    } //end of function
+         // ::prepare response
+         return response()->json($response);
 
 
+      } //end of it
 
 
 
+   } //end of function
 
 
 
@@ -903,185 +898,185 @@ class UserController extends Controller
 
 
 
-    // -----------------------------------------------------------------
 
 
 
 
 
+   // -----------------------------------------------------------------
 
 
 
 
 
 
-    public function logout(Request $request)
-    {
 
-        $request->user()->currentAccessToken()->delete();
 
 
-        // ::prepare response
-        $response = new stdClass();
-        $response->message = 'Logged Out!';
 
-        return response()->json($response);
 
-    } // end function
+   public function logout(Request $request)
+   {
 
+      $request->user()->currentAccessToken()->delete();
 
 
+      // ::prepare response
+      $response = new stdClass();
+      $response->message = 'Logged Out!';
 
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
+      return response()->json($response);
 
+   } // end function
 
 
 
 
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
+   // -----------------------------------------------------------------
 
 
 
 
 
-    protected function registerFilters($request, $isDuplicated, $isEmailDuplicated, $isDuplicatedTemp, $isPhoneValid)
-    {
 
-        $counter = 0;
-        $errorKeys = new stdClass();
-        $errorKeys->errors = array();
 
 
-        // 1: firstName
-        if (empty($request->newUserData->firstName)) {
 
-            $errorKeys->errors[$counter] = "1";
-            $counter++;
 
-        } // end if
+   protected function registerFilters($request, $isDuplicated, $isEmailDuplicated, $isDuplicatedTemp, $isPhoneValid)
+   {
 
+      $counter = 0;
+      $errorKeys = new stdClass();
+      $errorKeys->errors = array();
 
 
-        // 2: lastName
-        if (empty($request->newUserData->lastName)) {
+      // 1: firstName
+      if (empty($request->newUserData->firstName)) {
 
-            $errorKeys->errors[$counter] = "2";
-            $counter++;
+         $errorKeys->errors[$counter] = "1";
+         $counter++;
 
-        } // end if
+      } // end if
 
 
 
+      // 2: lastName
+      if (empty($request->newUserData->lastName)) {
 
+         $errorKeys->errors[$counter] = "2";
+         $counter++;
 
-        // 3: Phone / Phone match
-        if (empty($request->newUserData->phoneNumber)) {
+      } // end if
 
-            $errorKeys->errors[$counter] = "3";
-            $counter++;
 
 
-        } elseif ($isPhoneValid === false) {
 
-            $errorKeys->errors[$counter] = "3";
-            $counter++;
 
+      // 3: Phone / Phone match
+      if (empty($request->newUserData->phoneNumber)) {
 
-        } elseif ($isDuplicated >= 1) {
+         $errorKeys->errors[$counter] = "3";
+         $counter++;
 
-            $errorKeys->errors[$counter] = "4";
-            $counter++;
 
-        } elseif ($isDuplicatedTemp >= 1) {
+      } elseif ($isPhoneValid === false) {
 
-            $errorKeys->errors[$counter] = "14";
-            $counter++;
+         $errorKeys->errors[$counter] = "3";
+         $counter++;
 
-        } // end if
 
+      } elseif ($isDuplicated >= 1) {
 
+         $errorKeys->errors[$counter] = "4";
+         $counter++;
 
-        // 4: Email
-        if (empty($request->newUserData->emailAddress)) {
+      } elseif ($isDuplicatedTemp >= 1) {
 
-            $errorKeys->errors[$counter] = "5";
-            $counter++;
+         $errorKeys->errors[$counter] = "14";
+         $counter++;
 
-        }elseif( $isEmailDuplicated > 0){
+      } // end if
 
-            $errorKeys->errors[$counter] = "5";
-            $counter++;
 
-        } // end if // end if
 
+      // 4: Email
+      if (empty($request->newUserData->emailAddress)) {
 
-        // 5: Password + regionId + stateId
-        if (empty($request->newUserData->password) || empty($request->newUserData->userRegionId) || empty($request->newUserData->userStateId)) {
+         $errorKeys->errors[$counter] = "5";
+         $counter++;
 
-            $errorKeys->errors[$counter] = "17";
-            $counter++;
+      } elseif ($isEmailDuplicated > 0) {
 
-        } // end if
+         $errorKeys->errors[$counter] = "5";
+         $counter++;
 
+      } // end if // end if
 
-        // 6: address description invalid
-        if (empty($request->newUserData->addressDescription)) {
 
-            $errorKeys->errors[$counter] = "9";
-            $counter++;
+      // 5: Password + regionId + stateId
+      if (empty($request->newUserData->password) || empty($request->newUserData->userRegionId) || empty($request->newUserData->userStateId)) {
 
-        } // end if
+         $errorKeys->errors[$counter] = "17";
+         $counter++;
 
+      } // end if
 
 
+      // 6: address description invalid
+      if (empty($request->newUserData->addressDescription)) {
 
-        // :: Return List
-        return $errorKeys;
+         $errorKeys->errors[$counter] = "9";
+         $counter++;
 
+      } // end if
 
-    } // end function
 
 
 
+      // :: Return List
+      return $errorKeys;
 
 
+   } // end function
 
 
 
 
-    // -----------------------------------------------------------------
 
 
 
 
 
+   // -----------------------------------------------------------------
 
-    protected function checkPhone($userPhone)
-    {
 
-        // ::root
-        $userPhone = strval($userPhone);
 
 
 
-        // 1: check length => (must be 12 - eg : 249 99 959 0002)
-        if (strlen($userPhone) != 12)
-            return false;
-        else
-            return true;
 
+   protected function checkPhone($userPhone)
+   {
 
-    } //end of check phone
+      // ::root
+      $userPhone = strval($userPhone);
 
 
 
+      // 1: check length => (must be 12 - eg : 249 99 959 0002)
+      if (strlen($userPhone) != 12)
+         return false;
+      else
+         return true;
 
 
+   } //end of check phone
 
 
 
@@ -1091,146 +1086,152 @@ class UserController extends Controller
 
 
 
-    // -----------------------------------------------------------------
 
 
 
 
 
+   // -----------------------------------------------------------------
 
 
 
 
-    public function sendOTP($userPhone, $lang, $expireDelete)
-    {
 
 
-        // :: root
-        $otpResponse = new stdClass();
-        $otpCode = mt_rand(1000, 9999);
-        $token = env('SMS_TOKEN');
 
-        $otpMessage = Message::where('isFor', 'PHONE')->first();
 
 
-        // 1: check if otp unique
-        while (true) {
+   public function sendOTP($userPhone, $lang, $expireDelete)
+   {
 
-            $otpDuplicated = UserLead::where('otp', $otpCode)->count();
 
-            // 1.2: re-generate
-            if ($otpDuplicated > 0)
-                $otpCode = mt_rand(1000, 9999);
-            else
-                break;
+      // :: root
+      $otpResponse = new stdClass();
+      $otpCode = mt_rand(1000, 9999);
+      $token = env('SMS_TOKEN');
 
-        } // end while
+      $otpMessage = Message::where('isFor', 'PHONE')->first();
 
 
-        $messageBody = $this->addCodeToContent($otpMessage, $otpCode, $lang);
+      // 1: check if otp unique
+      while (true) {
 
-        $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Basic ' . $token
-            ])->post('https://api.bulksms.com/v1/messages?auto-unicode=true&longMessageMaxParts=30', [
-                        'from' => 'Nasra', // 11 char max
-                        'to' => '+' . $userPhone, // 249 99 959 0002 (like this) separated by (;) no space
-                        'body' => $messageBody, // 70 char per message - 160 (latin)
-                    ]);
+         $otpDuplicated = UserLead::where('otp', $otpCode)->count();
 
+         // 1.2: re-generate
+         if ($otpDuplicated > 0)
+            $otpCode = mt_rand(1000, 9999);
+         else
+            break;
 
+      } // end while
 
 
-        // 3: Delete User from Lead
-        if ($expireDelete === true) {
+      $messageBody = $this->addCodeToContent($otpMessage, $otpCode, $lang);
 
-            UserLead::where('phone', $userPhone)->delete();
+      $response = Http::withHeaders([
+         'Content-Type' => 'application/json',
+         'Authorization' => 'Basic ' . $token
+      ])->post('https://api.bulksms.com/v1/messages?auto-unicode=true&longMessageMaxParts=30', [
+               'from' => 'Nasra', // 11 char max
+               'to' => '+' . $userPhone, // 249 99 959 0002 (like this) separated by (;) no space
+               'body' => $messageBody, // 70 char per message - 160 (latin)
+            ]);
 
-        } // end if
 
 
 
+      // 3: Delete User from Lead
+      if ($expireDelete === true) {
 
+         UserLead::where('phone', $userPhone)->delete();
 
-        // 1: Add Lead to DB
-        $userLead = new UserLead();
+      } // end if
 
-        $userLead->phone = $userPhone;
-        $userLead->otp = $otpCode;
 
-        $userLead->save();
 
 
 
-        // ::prepare response
-        $otpResponse->otp = $otpCode;
+      // 1: Add Lead to DB
+      $userLead = new UserLead();
 
-        return $otpResponse;
+      $userLead->phone = $userPhone;
+      $userLead->otp = $otpCode;
 
+      $userLead->save();
 
-    } // end function
 
 
+      // ::prepare response
+      $otpResponse->otp = $otpCode;
 
-    // -----------------------------------------------------------------
+      return $otpResponse;
 
 
+   } // end function
 
-    public function resendOTP($userPhone, $lang)
-    {
 
-        // ::root
-        $otpResponse = new stdClass();
-        $token = env('SMS_TOKEN');
-        $otpMessage = Message::where('isFor', 'PHONE')->first();
 
+   // -----------------------------------------------------------------
 
-        // 1: get Otp-code
-        $userLead = UserLead::where('phone', $userPhone)->first();
-        $otpCode = $userLead->otp;
 
 
+   public function resendOTP($userPhone, $lang)
+   {
 
-        $messageBody = $this->addCodeToContent($otpMessage, $otpCode, $lang);
+      // ::root
+      $otpResponse = new stdClass();
+      $token = env('SMS_TOKEN');
+      $otpMessage = Message::where('isFor', 'PHONE')->first();
 
 
+      // 1: get Otp-code
+      $userLead = UserLead::where('phone', $userPhone)->first();
+      $otpCode = $userLead->otp;
 
-        $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Basic ' . $token
-            ])->post('https://api.bulksms.com/v1/messages?auto-unicode=true&longMessageMaxParts=30', [
-                        'from' => 'Nasra', // 11 char max
-                        'to' => '00' . $userPhone, // +249 99 959 0002
-                        'body' => $messageBody, // 70 char per message - 160 (latin)
-                    ]);
 
 
+      $messageBody = $this->addCodeToContent($otpMessage, $otpCode, $lang);
 
 
 
-        // ::prepare response
-        $otpResponse->otp = $otpCode;
+      $response = Http::withHeaders([
+         'Content-Type' => 'application/json',
+         'Authorization' => 'Basic ' . $token
+      ])->post('https://api.bulksms.com/v1/messages?auto-unicode=true&longMessageMaxParts=30', [
+               'from' => 'Nasra', // 11 char max
+               'to' => '00' . $userPhone, // +249 99 959 0002
+               'body' => $messageBody, // 70 char per message - 160 (latin)
+            ]);
 
-        return $otpResponse;
 
 
-    } // end function
 
 
+      // ::prepare response
+      $otpResponse->otp = $otpCode;
 
-    public function addCodeToContent($messageRecord, $code, $lang){
+      return $otpResponse;
 
-        //check if the lang is english or arabic
-        $messageContent = $lang == 'english' ? $messageRecord->content ?? null : $messageRecord->contentAr ?? null;
 
+   } // end function
 
-        $sliceContent = explode( '@verCode', $messageContent );
 
-        //add the code to content and check if there content after code
-        $content =  count($sliceContent) == 1 ? $sliceContent[0] . $code : $sliceContent[0] . $code . $sliceContent[1];
 
-       return $content;
-    }
+   public function addCodeToContent($messageRecord, $code, $lang)
+   {
+
+      //check if the lang is english or arabic
+      $messageContent = $lang == 'english' ? $messageRecord->content ?? null : $messageRecord->contentAr ?? null;
+
+
+      $sliceContent = explode('@verCode', $messageContent);
+
+      //add the code to content and check if there content after code
+      $content = count($sliceContent) == 1 ? $sliceContent[0] . $code : $sliceContent[0] . $code . $sliceContent[1];
+
+      return $content;
+   }
 
 
 

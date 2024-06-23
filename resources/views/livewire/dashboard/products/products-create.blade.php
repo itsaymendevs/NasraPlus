@@ -590,7 +590,7 @@
 
                         {{-- preview --}}
                         <img class="inventory--image-frame" id="product--preview-1"
-                            src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+                            src="{{ url('assets/img/placeholder.png') }}" wire:ignore />
 
                     </label>
                 </div>
@@ -647,7 +647,7 @@
 
                                 {{-- preview --}}
                                 <img class="inventory--image-frame" id="product--preview-2"
-                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+                                    src="{{ url('assets/img/placeholder.png') }}" wire:ignore />
 
                             </label>
                         </div>
@@ -687,7 +687,7 @@
 
                                 {{-- preview --}}
                                 <img class="inventory--image-frame" id="product--preview-3"
-                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+                                    src="{{ url('assets/img/placeholder.png') }}" wire:ignore />
 
                             </label>
                         </div>
@@ -728,7 +728,7 @@
 
                                 {{-- preview --}}
                                 <img class="inventory--image-frame" id="product--preview-4"
-                                    src="{{ asset('assets/img/placeholder.png') }}" wire:ignore />
+                                    src="{{ url('assets/img/placeholder.png') }}" wire:ignore />
 
                             </label>
                         </div>

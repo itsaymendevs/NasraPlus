@@ -13,39 +13,39 @@ class CategoriesEdit extends Component
 {
 
 
-    use HelperTrait;
-    use WithFileUploads;
+   use HelperTrait;
+   use WithFileUploads;
 
 
 
 
 
-    // :: variables
-    public CategoryForm $instance;
+   // :: variables
+   public CategoryForm $instance;
 
 
 
 
 
 
-    #[On('editCategory')]
-    public function remount($id)
-    {
+   #[On('editCategory')]
+   public function remount($id)
+   {
 
 
 
-        // 1: get instance
-        $category = Category::find($id);
+      // 1: get instance
+      $category = Category::find($id);
 
 
-        foreach ($category->toArray() as $key => $value)
-            $this->instance->{$key} = $value;
+      foreach ($category->toArray() as $key => $value)
+         $this->instance->{$key} = $value;
 
 
 
 
-        // 1.2: cloneFiles
-        $this->instance->imageFileName = $this->instance->imageFile ?? null;
+      // 1.2: cloneFiles
+      $this->instance->imageFileName = $this->instance->imageFile ?? null;
 
 
 
@@ -55,25 +55,25 @@ class CategoriesEdit extends Component
 
 
 
-        // -----------------------------------
-        // -----------------------------------
+      // -----------------------------------
+      // -----------------------------------
 
 
 
 
 
 
-        // 2: setFilePreview
-        $preview = $this->instance->imageFile ?
-            asset('storage/categories/' . $this->instance->imageFile) : $this->getDefaultPreview();
+      // 2: setFilePreview
+      $preview = $this->instance->imageFile ?
+         url('storage/categories/' . $this->instance->imageFile) : $this->getDefaultPreview();
 
-        $this->dispatch('setFilePreview', filePreview: 'category--preview-2', defaultPreview: $preview);
+      $this->dispatch('setFilePreview', filePreview: 'category--preview-2', defaultPreview: $preview);
 
 
 
 
 
-    } // end function
+   } // end function
 
 
 
@@ -82,30 +82,30 @@ class CategoriesEdit extends Component
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
 
 
 
-    public function update()
-    {
+   public function update()
+   {
 
 
 
 
-        // 1: validation
-        $this->instance->validate();
+      // 1: validation
+      $this->instance->validate();
 
 
 
 
 
 
-        // 1.2: uploadFile
-        if ($this->instance->imageFile != $this->instance->imageFileName)
-            $this->instance->imageFileName = $this->replaceFile($this->instance->imageFile, 'categories', $this->instance->imageFileName, 'CAT');
+      // 1.2: uploadFile
+      if ($this->instance->imageFile != $this->instance->imageFileName)
+         $this->instance->imageFileName = $this->replaceFile($this->instance->imageFile, 'categories', $this->instance->imageFileName, 'CAT');
 
 
 
@@ -115,8 +115,8 @@ class CategoriesEdit extends Component
 
 
 
-        // ---------------------------------------------------
-        // ---------------------------------------------------
+      // ---------------------------------------------------
+      // ---------------------------------------------------
 
 
 
@@ -126,21 +126,21 @@ class CategoriesEdit extends Component
 
 
 
-        // 2: get instance
-        $category = Category::find($this->instance->id);
+      // 2: get instance
+      $category = Category::find($this->instance->id);
 
 
 
 
 
 
-        // 2.1: general
-        $category->name = $this->instance->name ?? null;
-        $category->nameAr = $this->instance->nameAr ?? null;
-        $category->imageFile = $this->instance->imageFileName ?? null;
+      // 2.1: general
+      $category->name = $this->instance->name ?? null;
+      $category->nameAr = $this->instance->nameAr ?? null;
+      $category->imageFile = $this->instance->imageFileName ?? null;
 
 
-        $category->save();
+      $category->save();
 
 
 
@@ -149,13 +149,13 @@ class CategoriesEdit extends Component
 
 
 
-        // 2: reset
-        $this->instance->reset();
-        $this->dispatch('refreshCategories');
-        $this->dispatch('resetFile', file: 'category--file-2', defaultPreview: $this->getDefaultPreview());
-        $this->dispatch('closeModal', modal: '#categories-edit .btn-close');
+      // 2: reset
+      $this->instance->reset();
+      $this->dispatch('refreshCategories');
+      $this->dispatch('resetFile', file: 'category--file-2', defaultPreview: $this->getDefaultPreview());
+      $this->dispatch('closeModal', modal: '#categories-edit .btn-close');
 
-        $this->makeAlert('success', 'Category has been updated');
+      $this->makeAlert('success', 'Category has been updated');
 
 
 
@@ -163,13 +163,13 @@ class CategoriesEdit extends Component
 
 
 
-    } // end function
+   } // end function
 
 
 
 
 
-    // ---------------------------------------------------------------------------
+   // ---------------------------------------------------------------------------
 
 
 
@@ -178,19 +178,19 @@ class CategoriesEdit extends Component
 
 
 
-    public function render()
-    {
+   public function render()
+   {
 
 
 
-        // :: initTooltips
-        $this->dispatch('initTooltips');
+      // :: initTooltips
+      $this->dispatch('initTooltips');
 
 
-        return view('livewire.dashboard.products.group.categories.components.categories-edit');
+      return view('livewire.dashboard.products.group.categories.components.categories-edit');
 
 
-    } // end function
+   } // end function
 
 
 
