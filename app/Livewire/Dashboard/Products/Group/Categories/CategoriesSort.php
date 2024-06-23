@@ -12,7 +12,10 @@ class CategoriesSort extends Component
 
     use HelperTrait;
 
-    public $list = [];
+    public $categories;
+
+
+
 
 
 
@@ -22,16 +25,48 @@ class CategoriesSort extends Component
 
 
         // 1: dependencies
-        $categories = Category::orderBy('index')->get();
-
-
-        foreach ($categories ?? [] as $category)
-            array_push($this->list, ['id' => $category->id, 'name' => $category->name, 'nameAr' => $category->nameAr]);
+        $this->categories = Category::orderBy('index')->get();
 
 
 
+    } // end function
 
-        dd($this->list);
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+    public function update($list)
+    {
+
+
+
+        // 1: loop - list
+        foreach ($list ?? [] as $key => $categoryId) {
+
+
+            // 1.2: update index
+            $category = Category::find($categoryId);
+
+            $category->index = $key + 1;
+            $category->save();
+
+
+        } // end loop
+
+
+
+        $this->alert('info', 'Categories has been sorted');
 
 
     } // end function
