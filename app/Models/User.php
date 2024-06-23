@@ -31,31 +31,49 @@ class User extends Authenticatable
     }
 
 
+
+    // ----------------------------------------------------
+    // ----------------------------------------------------
+
+
+
+
+
     public function orders()
     {
         return $this->hasMany(Order::class, 'userId');
     }
 
+
     public function completedOrders()
     {
-        return $this->orders()->where('orderStatus', 'COMPLETED');
+        return $this->orders()->where('orderStatus', 'Completed');
     }
+
 
     public function canceledOrders()
     {
-        return $this->orders()->where('orderStatus', 'CANCELED');
+        return $this->orders()->where('orderStatus', 'Canceled');
     }
 
 
     public function pendingOrders()
     {
-        return $this->orders()->where('orderStatus', 'PENDING');
+        return $this->orders()->where('orderStatus', 'Pending');
     }
+
 
     public function processingOrders()
     {
-        return $this->orders()->where('orderStatus', 'PROCESSING');
+        return $this->orders()->where('orderStatus', 'Processing');
     }
+
+
+
+
+    // ----------------------------------------------------
+    // ----------------------------------------------------
+
 
 
 
@@ -65,14 +83,16 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class, 'countryId');
     }
 
+
     public function state()
     {
         return $this->belongsTo(State::class, 'stateId');
     }
 
+
     public function deliveryArea()
     {
-        return $this->belongsTo(DeliveryArea::class, 'deliveryAreaId');
+        return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');
     }
 
 

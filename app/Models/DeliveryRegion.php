@@ -19,18 +19,12 @@ class DeliveryRegion extends Model
 
 
 
-
     public function deliveryTime()
     {
 
         return $this->belongsTo(DeliveryTime::class, 'deliveryTimeId');
 
     } // end function
-
-
-
-
-
 
 
 

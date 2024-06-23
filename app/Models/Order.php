@@ -34,10 +34,18 @@ class Order extends Model
         return $this->belongsTo(State::class, 'stateId');
     }
 
-    public function deliveryArea()
+    public function deliveryRegion()
     {
         return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');
     }
+
+
+
+
+    // --------------------------------------------------
+    // --------------------------------------------------
+
+
 
 
 
@@ -46,6 +54,14 @@ class Order extends Model
     {
         return $this->belongsTo(PickupStore::class, 'storeId');
     }
+
+
+
+
+
+    // --------------------------------------------------
+    // --------------------------------------------------
+
 
 
 
@@ -69,18 +85,26 @@ class Order extends Model
 
 
 
+
+    // --------------------------------------------------
+    // --------------------------------------------------
+
+
+
+
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'paymentId');
     }
 
 
-
-
     public function products()
     {
         return $this->hasMany(OrderProduct::class, 'orderId', 'id');
     }
+
+
+
 
 
 

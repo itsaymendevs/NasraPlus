@@ -15,39 +15,46 @@ return new class extends Migration {
 
 
 
-            // General
-            $table->double('orderProductQuantity', 10, 2)->nullable();
-            $table->double('orderProductPrice', 10, 2)->nullable();
-            $table->double('orderBuyProductPrice', 10, 2)->nullable();
+            // 1: general
+            $table->double('orderProductQuantity', 15, 2)->nullable();
+            $table->double('orderProductPrice', 15, 2)->nullable();
+            $table->double('orderBuyProductPrice', 15, 2)->nullable();
 
 
-            // ::Product
-            $table->bigInteger('productId')->unsigned()->nullable();
-            $table->foreign('productId')->references('id')->on('products')->onDelete('cascade');
 
+
+            // 1.2: product
             $table->string('serial', 255)->nullable();
             $table->string('name', 255)->nullable();
             $table->string('nameAr', 255)->nullable();
-            $table->double('sellPrice', 10, 2)->nullable();
-            $table->double('buyPrice', 10, 2)->nullable();
+            $table->double('sellPrice', 15, 2)->nullable();
+            $table->double('buyPrice', 15, 2)->nullable();
+
+            $table->bigInteger('productId')->unsigned()->nullable();
+            $table->foreign('productId')->references('id')->on('products')->onDelete('set null');
 
 
+
+
+            // 1.3: unit
+            $table->double('weight', 15, 2)->nullable();
             $table->string('weightOption', 100)->nullable();
-            $table->double('weight', 10, 2)->nullable();
+
             $table->bigInteger('unitId')->unsigned()->nullable();
             $table->foreign('unitId')->references('id')->on('units')->onDelete('set null');
 
 
 
 
-            // ::Foreign Keys
+            // 2: order - user
             $table->bigInteger('orderId')->unsigned()->nullable();
             $table->foreign('orderId')->references('id')->on('orders')->onDelete('cascade');
 
-
-
             $table->bigInteger('userId')->unsigned()->nullable();
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+
+
+
 
 
 

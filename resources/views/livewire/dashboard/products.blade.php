@@ -169,19 +169,22 @@
 
 
 
-            {{-- byGeneralType --}}
+            {{-- groupFilter --}}
             <div class="filters--radio-wrap">
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="formCheck-1" />
-                    <label class="form-check-label" for="formCheck-1">By General Types</label>
+                    <input class="form-check-input" type="radio" id="type-checkbox-1" value='byGeneralType'
+                        wire:model='searchGroup' />
+                    <label class="form-check-label" for="type-checkbox-1">By General Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="formCheck-2" />
-                    <label class="form-check-label" for="formCheck-2">By Product Types</label>
+                    <input class="form-check-input" type="radio" id="type-checkbox-2" value='byProductType'
+                        wire:model='searchGroup' />
+                    <label class="form-check-label" for="type-checkbox-2">By Product Types</label>
                 </div>
                 <div class="form-check form--radio">
-                    <input class="form-check-input" type="radio" id="formCheck-3" />
-                    <label class="form-check-label" for="formCheck-3">By Company Name</label>
+                    <input class="form-check-input" type="radio" id="type-checkbox-3" value='byCompany'
+                        wire:model='searchGroup' />
+                    <label class="form-check-label" for="type-checkbox-3">By Company Name</label>
                 </div>
             </div>
 
@@ -198,12 +201,25 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select">
+                        <select class="form--select" data-instance='searchCategory' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+
+                            {{-- loop - categories --}}
+                            @foreach ($categories ?? [] as $category)
+
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                            @endforeach
+                            {{-- end loop --}}
+
                         </select>
                     </div>
                 </div>
+
+
+
+
 
 
 
@@ -212,12 +228,24 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select">
+                        <select class="form--select" data-instance='searchSubCategory' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+                            {{-- loop - subCategories --}}
+                            @foreach ($subCategories ?? [] as $subCategory)
+
+                            <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+
+                            @endforeach
+                            {{-- end loop --}}
+
                         </select>
                     </div>
                 </div>
+
+
+
+
 
 
 
@@ -225,14 +253,29 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select">
+                        <select class="form--select" data-instance='searchType' data-clear='true'>
                             <option value=""></option>
-                            <option value="option">option</option>
+
+                            {{-- loop - types --}}
+                            @foreach ($types ?? [] as $type)
+
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+
+                            @endforeach
+                            {{-- end loop --}}
+
                         </select>
                     </div>
                 </div>
 
 
+
+
+
+
+
+                {{-- ---------------------------------- --}}
+                {{-- ---------------------------------- --}}
 
 
 
@@ -241,7 +284,8 @@
 
                 {{-- search --}}
                 <div class="col-4">
-                    <input type="search" class="form--input" placeholder="Search by Product" />
+                    <input type="search" class="form--input" placeholder="Search by Product"
+                        wire:model.live='searchProduct' />
                 </div>
 
 
@@ -272,8 +316,9 @@
 
                 {{-- counter --}}
                 <div class="col-4 text-end">
-                    <h3 class="text-end row--counter">80</h3>
+                    <h3 class="text-end row--counter">{{ $products->total() ?? 0 }}</h3>
                 </div>
+
             </div>
         </div>
         {{-- endFilters --}}
@@ -302,6 +347,8 @@
 
 
             {{-- headers --}}
+            @if ($products->total() > 0)
+
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
@@ -327,6 +374,12 @@
             </div>
 
 
+            @endif
+            {{-- end if --}}
+
+
+
+
 
 
             {{-- -------------------------- --}}
@@ -336,32 +389,40 @@
 
 
 
-            {{-- rows --}}
-            <div class="row g-0 align-items-center results--item">
+
+
+
+
+            {{-- loop - products --}}
+            @foreach ($products ?? [] as $product)
+
+            <div class="row g-0 align-items-center results--item" key='single-product-{{ $product->id }}'>
 
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">P-10503</label>
+                    <label class="col-form-label form--label row--label">P-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
                 {{-- 1.2: name --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label me-1">Quina Rice Saria</label>
+                    <label class="col-form-label form--label row--label me-1">{{ $product?->name }}</label>
                 </div>
 
 
                 {{-- 1.3: sizeOrWeight --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">500 G</label>
+                    <label class="col-form-label form--label row--label">{{ $product->weight ?? 1 }} {{
+                        $product?->unit?->name }}</label>
                 </div>
 
 
 
                 {{-- 1.4: sellPrice - buyPrice --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">130 / -</label>
+                    <label class="col-form-label form--label row--label">{{ $product->sellPrice ?? '-' }} / {{
+                        $product->buyPrice ?? '-' }}</label>
                 </div>
 
 
@@ -369,13 +430,14 @@
 
                 {{-- 1.5: quantity --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">1300</label>
+                    <label class="col-form-label form--label row--label">{{ $product->quantity }}</label>
                 </div>
 
 
                 {{-- 1.6: favorites --}}
                 <div class="col-1">
-                    <label class="col-form-label form--label row--label">3</label>
+                    <label class="col-form-label form--label row--label">{{ $product?->favorites?->count() ?? 0
+                        }}</label>
                 </div>
 
 
@@ -392,9 +454,22 @@
 
                         {{-- buttons --}}
                         <div class="dropdown-menu results--dropdown-menu">
-                            <a class="dropdown-item" href="#">Edit Product</a>
-                            <a class="dropdown-item" href="#">Hide Product</a>
-                            <a class="dropdown-item" href="#">Remove From Home</a>
+
+
+                            {{-- 1: edit --}}
+                            <a class="dropdown-item" href="javascript:void(0);">Edit Product</a>
+
+
+
+                            {{-- 2: toggleActive --}}
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='toggleActive({{ $product->id }})'>Hide Product</a>
+
+
+
+                            {{-- 3: toggleMainPage --}}
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                wire:click='toggleMainPage({{ $product->id }})'>Remove From Home</a>
                         </div>
                         {{-- endButtons --}}
 
@@ -402,6 +477,8 @@
                     </div>
                 </div>
             </div>
+
+            @endforeach
             {{-- end loop --}}
 
 
