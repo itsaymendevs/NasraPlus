@@ -102,7 +102,7 @@ class OrderController extends Controller
 
 
       // 1.3: isOrderingBlocked
-      if (boolval($generalBlock->isOrderingActive)) {
+      if ( ! boolval($generalBlock->isOrderingActive)) {
 
          $response = new stdClass();
          $response->unMatchedInformation = new stdClass();
@@ -140,7 +140,7 @@ class OrderController extends Controller
 
 
          // 2.1.1: PickupBlocked
-         if (boolval($generalBlock->isPickupActive)) {
+         if ( ! boolval($generalBlock->isPickupActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
@@ -178,7 +178,7 @@ class OrderController extends Controller
 
 
          // 2.2.1: DeliveryBlocked
-         if (boolval($generalBlock->isDeliveryActive)) {
+         if ( ! boolval($generalBlock->isDeliveryActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
@@ -203,7 +203,7 @@ class OrderController extends Controller
             $response->unMatchedInformation->userAddress = new stdClass();
 
             $response->unMatchedInformation->userAddress->userStateId = strval($user->stateId);
-            $response->unMatchedInformation->userAddress->userRegionId = strval($user->deliveryAreaId);
+            $response->unMatchedInformation->userAddress->userRegionId = strval($user->deliveryRegionId);
             $response->unMatchedInformation->userAddress->addressDescription = $user->address;
 
             $response->unMatchedInformation->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
@@ -330,7 +330,7 @@ class OrderController extends Controller
             $hiddenProducts[$counter] = new stdClass();
             $hiddenProducts[$counter]->id = strval($product->id);
 
-            $hiddenProducts[$counter]->mainCategoryId = strval($product->mainCategoryId);
+            $hiddenProducts[$counter]->mainCategoryId = strval($product->categoryId);
             $hiddenProducts[$counter]->subCategoryId = strval($product->subCategoryId);
             $hiddenProducts[$counter]->typeId = strval($product->typeId);
 
@@ -404,7 +404,7 @@ class OrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->categoryId = strval($product->mainCategoryId);
+               $content->categoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
                $content->companyId = strval($product->companyId);
@@ -413,7 +413,7 @@ class OrderController extends Controller
                $content->name = $product->name;
                $content->nameAr = $product->nameAr;
 
-               $content->mainPic = url('storage/products/') . '/' . $product->image;
+               $content->mainPic = url('storage/products/') . '/' . $product->imageFile;
                $content->additionalPics = null;
 
 
@@ -488,7 +488,7 @@ class OrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->mainCategoryId = strval($product->mainCategoryId);
+               $content->mainCategoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
 
@@ -567,7 +567,7 @@ class OrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->mainCategoryId = strval($product->mainCategoryId);
+               $content->mainCategoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
 
@@ -728,7 +728,7 @@ class OrderController extends Controller
          // 2.1.1: LocalUser
          $newOrder->address = $user->address;
          $newOrder->stateId = $user->stateId;
-         $newOrder->deliveryAreaId = $user->deliveryAreaId;
+         $newOrder->deliveryRegionId = $user->deliveryRegionId;
 
 
          $newOrder->deliveryPrice = $user->deliveryRegion->price;
@@ -908,7 +908,7 @@ class OrderController extends Controller
          $content = new stdClass();
 
          $content->id = strval($product->id);
-         $content->mainCategoryId = strval($product->mainCategoryId);
+         $content->mainCategoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
 
@@ -1073,7 +1073,7 @@ class OrderController extends Controller
          $previousOrder->deliveryPreviousOrder = new stdClass();
 
          $previousOrder->deliveryPreviousOrder->stateDeliveryId = strval($newOrder->stateId);
-         $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($newOrder->deliveryAreaId);
+         $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($newOrder->deliveryRegionId);
 
          $previousOrder->deliveryPreviousOrder->deliveryEstimatedTime = $newOrder->deliveryEstimatedTime;
          $previousOrder->deliveryPreviousOrder->deliveryEstimatedTimeAr = $newOrder->deliveryEstimatedTimeAr;
@@ -1231,7 +1231,7 @@ class OrderController extends Controller
 
 
       // 1: onlineBankingPayments
-      $onlineBankingPayments = Payment::where('type', 'ONLINEBANKINGPAYMENT')->get();
+      $onlineBankingPayments = Payment::where('type', 'Online Banking Payment')->get();
 
       $contentArray = array();
       foreach ($onlineBankingPayments as $onlineBankingPayment) {
@@ -1263,7 +1263,7 @@ class OrderController extends Controller
 
 
       // 2: atReceivingPayment
-      $atReceivingPayments = Payment::where('type', 'ATRECEIVINGPAYMENT')->get();
+      $atReceivingPayments = Payment::where('type', 'At Receiving Payment')->get();
 
 
       $contentArray = array();
@@ -1299,7 +1299,7 @@ class OrderController extends Controller
 
 
       // 3: directPayments
-      $directPayments = Payment::where('type', 'DIRECTPAYMENT')->get();
+      $directPayments = Payment::where('type', 'Direct Payment')->get();
 
 
       $contentArray = array();
@@ -1518,10 +1518,10 @@ class OrderController extends Controller
 
 
       // 1.3.2: isDeliveryBlocked
-      $isDeliveryActice = GeneralSetting::all()->first()->isDeliveryActice;
+      $isDeliveryActive = GeneralSetting::all()->first()->isDeliveryActive;
 
       // ::prepare response
-      $response->PickupAndDeliveryAndPaymentInfo->deliveryInfo->isDeliveryBlocked = ! boolval($isDeliveryActice);
+      $response->PickupAndDeliveryAndPaymentInfo->deliveryInfo->isDeliveryBlocked = ! boolval($isDeliveryActive);
 
 
 
@@ -1541,10 +1541,10 @@ class OrderController extends Controller
 
 
       // 1.4: isOrderingBlocked
-      $isOrderingActice = GeneralSetting::all()->first()->isOrderingActice;
+      $isOrderingActive = GeneralSetting::all()->first()->isOrderingActive;
 
       // ::prepare response
-      $response->PickupAndDeliveryAndPaymentInfo->isOrderingBlocked = ! boolval($isOrderingActice);
+      $response->PickupAndDeliveryAndPaymentInfo->isOrderingBlocked = ! boolval($isOrderingActive);
 
 
 

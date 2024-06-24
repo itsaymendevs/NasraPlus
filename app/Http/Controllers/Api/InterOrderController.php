@@ -121,7 +121,7 @@ class InterOrderController extends Controller
 
 
       // 1.3: isOrderingBlocked
-      if (boolval($generalBlock->isOrderingActive)) {
+      if ( ! boolval($generalBlock->isOrderingActive)) {
 
          $response = new stdClass();
          $response->unMatchedInformation = new stdClass();
@@ -190,7 +190,7 @@ class InterOrderController extends Controller
 
 
          // 2.1.1: PickupBlocked
-         if (boolval($generalBlock->isPickupActive)) {
+         if ( ! boolval($generalBlock->isPickupActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
@@ -228,7 +228,7 @@ class InterOrderController extends Controller
 
 
          // 2.2.1: DeliveryBlocked
-         if (boolval($generalBlock->isDeliveryActive)) {
+         if ( ! boolval($generalBlock->isDeliveryActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
@@ -254,7 +254,7 @@ class InterOrderController extends Controller
 
             $response->unMatchedInformation->userAddress->userStateId = strval($receiver->stateId);
 
-            $response->unMatchedInformation->userAddress->userRegionId = strval($receiver->deliveryAreaId);
+            $response->unMatchedInformation->userAddress->userRegionId = strval($receiver->deliveryRegionId);
 
             $response->unMatchedInformation->userAddress->addressDescription = $receiver->address;
 
@@ -273,13 +273,13 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->receiver->receiverId = strval($receiver->id);
             $response->unMatchedInformation->receiver->receiverName = $receiver->name;
             $response->unMatchedInformation->receiver->phoneNumber = strval($receiver->phone);
-            $response->unMatchedInformation->receiver->secondPhoneNumber = strval($receiver->phoneAlt);
+            $response->unMatchedInformation->receiver->secondPhoneNumber = strval($receiver->secondPhone);
 
             $response->unMatchedInformation->receiver->receiverAddress = new stdClass();
 
             $response->unMatchedInformation->receiver->receiverAddress->receiverStateId = strval($receiver->stateId);
 
-            $response->unMatchedInformation->receiver->receiverAddress->receiverRegionId = strval($receiver->deliveryAreaId);
+            $response->unMatchedInformation->receiver->receiverAddress->receiverRegionId = strval($receiver->deliveryRegionId);
 
             $response->unMatchedInformation->receiver->receiverAddress->addressDescription = $receiver->address;
 
@@ -412,7 +412,7 @@ class InterOrderController extends Controller
             $hiddenProducts[$counter] = new stdClass();
             $hiddenProducts[$counter]->id = strval($product->id);
 
-            $hiddenProducts[$counter]->mainCategoryId = strval($product->mainCategoryId);
+            $hiddenProducts[$counter]->mainCategoryId = strval($product->categoryId);
             $hiddenProducts[$counter]->subCategoryId = strval($product->subCategoryId);
             $hiddenProducts[$counter]->typeId = strval($product->typeId);
 
@@ -486,7 +486,7 @@ class InterOrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->categoryId = strval($product->mainCategoryId);
+               $content->categoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
                $content->companyId = strval($product->companyId);
@@ -495,7 +495,7 @@ class InterOrderController extends Controller
                $content->name = $product->name;
                $content->nameAr = $product->nameAr;
 
-               $content->mainPic = url('storage/products/') . '/' . $product->image;
+               $content->mainPic = url('storage/products/') . '/' . $product->imageFile;
                $content->additionalPics = null;
 
 
@@ -570,7 +570,7 @@ class InterOrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->mainCategoryId = strval($product->mainCategoryId);
+               $content->mainCategoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
 
@@ -649,7 +649,7 @@ class InterOrderController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->mainCategoryId = strval($product->mainCategoryId);
+               $content->mainCategoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
 
@@ -805,7 +805,7 @@ class InterOrderController extends Controller
       $newOrder->receiverId = $receiver->id;
       $newOrder->receiverName = $receiver->name;
       $newOrder->receiverPhone = $receiver->phone;
-      $newOrder->receiverPhoneAlt = $receiver->phoneAlt;
+      $newOrder->receiverSecondPhone = $receiver->secondPhone;
 
 
 
@@ -818,7 +818,7 @@ class InterOrderController extends Controller
          // 2.1.1: local Receiver
          $newOrder->address = $receiver->address;
          $newOrder->stateId = $receiver->stateId;
-         $newOrder->deliveryAreaId = $receiver->deliveryAreaId;
+         $newOrder->deliveryRegionId = $receiver->deliveryRegionId;
 
 
          $newOrder->deliveryPrice = $receiver->deliveryRegion->price;
@@ -1001,7 +1001,7 @@ class InterOrderController extends Controller
          $content = new stdClass();
 
          $content->id = strval($product->id);
-         $content->mainCategoryId = strval($product->mainCategoryId);
+         $content->mainCategoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
 
@@ -1229,7 +1229,7 @@ class InterOrderController extends Controller
 
 
       // 1: onlineBankingPayments
-      $onlineBankingPayments = Payment::where('type', 'ONLINEBANKINGPAYMENT')->get();
+      $onlineBankingPayments = Payment::where('type', 'Online Banking Payment')->get();
 
       $contentArray = array();
       foreach ($onlineBankingPayments as $onlineBankingPayment) {
@@ -1261,7 +1261,7 @@ class InterOrderController extends Controller
 
 
       // 2: atReceivingPayment
-      $atReceivingPayments = Payment::where('type', 'ATRECEIVINGPAYMENT')->get();
+      $atReceivingPayments = Payment::where('type', 'At Receiving Payment')->get();
 
 
       $contentArray = array();
@@ -1297,7 +1297,7 @@ class InterOrderController extends Controller
 
 
       // 3: directPayments
-      $directPayments = Payment::where('type', 'DIRECTPAYMENT')->get();
+      $directPayments = Payment::where('type', 'Direct Payment')->get();
 
 
       $contentArray = array();

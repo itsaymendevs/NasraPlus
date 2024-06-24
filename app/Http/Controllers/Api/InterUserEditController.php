@@ -600,13 +600,13 @@ class InterUserEditController extends Controller {
                 $item->receiverId = strval($receiver->id);
                 $item->receiverName = $receiver->name;
                 $item->phoneNumber = $receiver->phone;
-                $item->secondPhoneNumber = $receiver->phoneAlt;
+                $item->secondPhoneNumber = $receiver->secondPhone;
 
 
                 $item->receiverAddress = new stdClass();
 
                 $item->receiverAddress->receiverStateId = strval($receiver->stateId);
-                $item->receiverAddress->receiverRegionId = strval($receiver->deliveryAreaId);
+                $item->receiverAddress->receiverRegionId = strval($receiver->deliveryRegionId);
 
                 $item->receiverAddress->addressDescription = $receiver->address;
 
@@ -1762,10 +1762,10 @@ class InterUserEditController extends Controller {
 
         $receiver->name = $request->receiverName;
         $receiver->phone = $request->phoneNumber;
-        $receiver->phoneAlt = $request->secondPhoneNumber ? $request->secondPhoneNumber : null;
+        $receiver->secondPhone = $request->secondPhoneNumber ? $request->secondPhoneNumber : null;
 
         $receiver->stateId = $request->receiverStateId;
-        $receiver->deliveryAreaId = $request->receiverRegionId;
+        $receiver->deliveryRegionId = $request->receiverRegionId;
         $receiver->address = $request->addressDescription;
 
         $receiver->userId = $user->id;
@@ -1785,13 +1785,13 @@ class InterUserEditController extends Controller {
         $content->receiverId = strval($receiver->id);
         $content->receiverName = $receiver->name;
         $content->phoneNumber = $receiver->phone;
-        $content->secondPhoneNumber = $receiver->phoneAlt;
+        $content->secondPhoneNumber = $receiver->secondPhone;
 
 
         $content->receiverAddress = new stdClass();
 
         $content->receiverAddress->receiverStateId = strval($receiver->stateId);
-        $content->receiverAddress->receiverRegionId = strval($receiver->deliveryAreaId);
+        $content->receiverAddress->receiverRegionId = strval($receiver->deliveryRegionId);
 
         $content->receiverAddress->addressDescription = $receiver->address;
 
@@ -1896,10 +1896,10 @@ class InterUserEditController extends Controller {
         // 2: update receiver
         $receiver->name = $request->receiverName;
         $receiver->phone = $request->phoneNumber;
-        $receiver->phoneAlt = $request->secondPhoneNumber ? $request->secondPhoneNumber : null;
+        $receiver->secondPhone = $request->secondPhoneNumber ? $request->secondPhoneNumber : null;
 
         $receiver->stateId = strval($request->receiverStateId);
-        $receiver->deliveryAreaId = strval($request->receiverRegionId);
+        $receiver->deliveryRegionId = strval($request->receiverRegionId);
         $receiver->address = $request->addressDescription;
 
 

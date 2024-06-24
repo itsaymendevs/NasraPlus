@@ -99,7 +99,7 @@ class LaunchController extends Controller
          $content->name = $product->name;
          $content->nameAr = $product->nameAr;
 
-         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->mainPic = url('storage/products') . '/' . $product->imageFile;
          $content->additionalPics = null;
 
 
@@ -224,7 +224,7 @@ class LaunchController extends Controller
                $content->name = $product->name;
                $content->nameAr = $product->nameAr;
 
-               $content->mainPic = url('storage/products') . '/' . $product->image;
+               $content->mainPic = url('storage/products') . '/' . $product->imageFile;
                $content->additionalPics = null;
 
 
@@ -443,7 +443,7 @@ class LaunchController extends Controller
          $content->name = $product->name;
          $content->nameAr = $product->nameAr;
 
-         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->mainPic = url('storage/products') . '/' . $product->imageFile;
          $content->additionalPics = null;
 
 
@@ -1065,7 +1065,7 @@ class LaunchController extends Controller
          $content->name = $product->name;
          $content->nameAr = $product->nameAr;
 
-         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->mainPic = url('storage/products') . '/' . $product->imageFile;
          $content->additionalPics = null;
 
 
@@ -1152,7 +1152,7 @@ class LaunchController extends Controller
          $content->name = $product->name;
          $content->nameAr = $product->nameAr;
 
-         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->mainPic = url('storage/products') . '/' . $product->imageFile;
          $content->additionalPics = null;
 
 
