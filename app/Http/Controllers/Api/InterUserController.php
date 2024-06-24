@@ -132,7 +132,7 @@ class InterUserController extends Controller
       if ($user->country->code == 'UK') {
 
          $content->userAddress->addressFirstLine = $user->firstAddressLine;
-         $content->userAddress->addressSecondLine = $user->secAddressLine; // optional
+         $content->userAddress->addressSecondLine = $user->secondAddressLine; // optional
 
          $content->userAddress->addressThirdLine = $user->thirdAddressLine; // optional
          $content->userAddress->townCity = $user->townCity;
@@ -145,7 +145,7 @@ class InterUserController extends Controller
       if ($user->country->code == 'IRL') {
 
          $content->userAddress->addressFirstLine = $user->firstAddressLine;
-         $content->userAddress->addressSecondLine = $user->secAddressLine; // optional
+         $content->userAddress->addressSecondLine = $user->secondAddressLine; // optional
 
          $content->userAddress->postTown = $user->postTown;
          $content->userAddress->county = $user->county; // optional
@@ -168,13 +168,13 @@ class InterUserController extends Controller
          $item->receiverId = strval($receiver->id);
          $item->receiverName = $receiver->name;
          $item->phoneNumber = strval($receiver->phone);
-         $item->secondPhoneNumber = strval($receiver->phoneAlt);
+         $item->secondPhoneNumber = strval($receiver->secondPhone);
 
 
          $item->receiverAddress = new stdClass();
 
          $item->receiverAddress->receiverStateId = strval($receiver->stateId);
-         $item->receiverAddress->receiverRegionId = strval($receiver->deliveryAreaId);
+         $item->receiverAddress->receiverRegionId = strval($receiver->deliveryRegionId);
 
          $item->receiverAddress->addressDescription = $receiver->address;
 
@@ -243,7 +243,7 @@ class InterUserController extends Controller
          $content->name = $product->name;
          $content->nameAr = $product->nameAr;
 
-         $content->mainPic = url('storage/products') . '/' . $product->image;
+         $content->mainPic = url('storage/products') . '/' . $product->imageFile;
          $content->additionalPics = null;
 
 
@@ -355,7 +355,7 @@ class InterUserController extends Controller
             $content->name = $product->name;
             $content->nameAr = $product->nameAr;
 
-            $content->mainPic = url('storage/products') . '/' . $product->image;
+            $content->mainPic = url('storage/products') . '/' . $product->imageFile;
             $content->additionalPics = null;
 
 
@@ -831,7 +831,7 @@ class InterUserController extends Controller
          if ($country->code == 'UK') {
 
             $user->firstAddressLine = $request->newUserData->userAddress->addressFirstLine;
-            $user->secAddressLine = $request->newUserData->userAddress->addressSecondLine ? $request->newUserData->userAddress->addressSecondLine : null; // optional
+            $user->secondAddressLine = $request->newUserData->userAddress->addressSecondLine ? $request->newUserData->userAddress->addressSecondLine : null; // optional
 
             $user->thirdAddressLine = $request->newUserData->userAddress->addressThirdLine ? $request->newUserData->userAddress->addressThirdLine : null; // optional
             $user->townCity = $request->newUserData->userAddress->townCity;
@@ -844,7 +844,7 @@ class InterUserController extends Controller
          if ($country->code == 'IRL') {
 
             $user->firstAddressLine = $request->newUserData->userAddress->addressFirstLine;
-            $user->secAddressLine = $request->newUserData->userAddress->addressSecondLine ? $request->newUserData->userAddress->addressSecondLine : null; // optional
+            $user->secondAddressLine = $request->newUserData->userAddress->addressSecondLine ? $request->newUserData->userAddress->addressSecondLine : null; // optional
 
             $user->postTown = $request->newUserData->userAddress->postTown;
             $user->county = $request->newUserData->userAddress->county ? $request->newUserData->userAddress->county : null; // optional
@@ -889,7 +889,7 @@ class InterUserController extends Controller
          if ($user->country->code == 'UK') {
 
             $content->userAddress->addressFirstLine = $user->firstAddressLine;
-            $content->userAddress->addressSecondLine = $user->secAddressLine; // optional
+            $content->userAddress->addressSecondLine = $user->secondAddressLine; // optional
 
             $content->userAddress->addressThirdLine = $user->thirdAddressLine; // optional
             $content->userAddress->townCity = $user->townCity;
@@ -902,7 +902,7 @@ class InterUserController extends Controller
          if ($user->country->code == 'IRL') {
 
             $content->userAddress->addressFirstLine = $user->firstAddressLine;
-            $content->userAddress->addressSecondLine = $user->secAddressLine; // optional
+            $content->userAddress->addressSecondLine = $user->secondAddressLine; // optional
 
             $content->userAddress->postTown = $user->postTown;
             $content->userAddress->county = $user->county; // optional
@@ -924,13 +924,13 @@ class InterUserController extends Controller
             $item->receiverId = strval($receiver->id);
             $item->receiverName = $receiver->name;
             $item->phoneNumber = strval($receiver->phone);
-            $item->secondPhoneNumber = strval($receiver->phoneAlt);
+            $item->secondPhoneNumber = strval($receiver->secondPhone);
 
 
             $item->receiverAddress = new stdClass();
 
             $item->receiverAddress->receiverStateId = strval($receiver->stateId);
-            $item->receiverAddress->receiverRegionId = strval($receiver->deliveryAreaId);
+            $item->receiverAddress->receiverRegionId = strval($receiver->deliveryRegionId);
 
             $item->receiverAddress->addressDescription = $receiver->address;
 

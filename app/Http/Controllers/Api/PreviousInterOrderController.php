@@ -62,7 +62,7 @@ class PreviousInterOrderController extends Controller
             // 1.1: receiver
             $previousOrder->receiverName = $order->receiverName;
             $previousOrder->receiverPhoneNumber = $order->receiverPhone;
-            $previousOrder->receiverSecondPhoneNumber = $order->receiverPhoneAlt;
+            $previousOrder->receiverSecondPhoneNumber = $order->receiverSecondPhone;
 
 
             // 1.1: invoice / SDG
@@ -134,7 +134,7 @@ class PreviousInterOrderController extends Controller
                 $previousOrder->deliveryPreviousOrder = new stdClass();
 
                 $previousOrder->deliveryPreviousOrder->stateDeliveryId = strval($order->stateId);
-                $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryAreaId);
+                $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryRegionId);
 
                 $previousOrder->deliveryPreviousOrder->deliveryEstimatedTime = $order->deliveryEstimatedTime;
                 $previousOrder->deliveryPreviousOrder->deliveryEstimatedTimeAr = $order->deliveryEstimatedTimeAr;
@@ -228,7 +228,7 @@ class PreviousInterOrderController extends Controller
         // 1.1: receiver
         $previousOrder->receiverName = $order->receiverName;
         $previousOrder->receiverPhoneNumber = $order->receiverPhone;
-        $previousOrder->receiverSecondPhoneNumber = $order->receiverPhoneAlt;
+        $previousOrder->receiverSecondPhoneNumber = $order->receiverSecondPhone;
 
 
         // 1.1: invoice / SDG
@@ -319,7 +319,7 @@ class PreviousInterOrderController extends Controller
             $previousOrder->deliveryPreviousOrder = new stdClass();
 
             $previousOrder->deliveryPreviousOrder->stateDeliveryId = strval($order->stateId);
-            $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryAreaId);
+            $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryRegionId);
 
             $previousOrder->deliveryPreviousOrder->deliveryEstimatedTime = $order->deliveryEstimatedTime;
             $previousOrder->deliveryPreviousOrder->deliveryEstimatedTimeAr = $order->deliveryEstimatedTimeAr;

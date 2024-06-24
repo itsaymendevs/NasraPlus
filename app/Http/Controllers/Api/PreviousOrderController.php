@@ -116,7 +116,7 @@ class PreviousOrderController extends Controller
                 $previousOrder->deliveryPreviousOrder = new stdClass();
 
                 $previousOrder->deliveryPreviousOrder->stateDeliveryId = strval($order->stateId);
-                $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryAreaId);
+                $previousOrder->deliveryPreviousOrder->regionDeliveryId = strval($order->deliveryRegionId);
 
                 $previousOrder->deliveryPreviousOrder->deliveryEstimatedTime = $order->deliveryEstimatedTime;
                 $previousOrder->deliveryPreviousOrder->deliveryEstimatedTimeAr = $order->deliveryEstimatedTimeAr;
