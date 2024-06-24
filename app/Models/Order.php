@@ -22,22 +22,24 @@ class Order extends Model
     }
 
 
-
-
     public function country()
     {
         return $this->belongsTo(Country::class, 'countryId');
     }
+
 
     public function state()
     {
         return $this->belongsTo(State::class, 'stateId');
     }
 
+
     public function deliveryRegion()
     {
         return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');
     }
+
+
 
 
 
@@ -61,6 +63,7 @@ class Order extends Model
 
     // --------------------------------------------------
     // --------------------------------------------------
+
 
 
 

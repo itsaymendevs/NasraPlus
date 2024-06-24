@@ -30,6 +30,51 @@ class Users extends Component
 
 
 
+
+    public function toggleActive($id)
+    {
+
+
+
+        // 1: get instance
+        $user = User::find($id);
+
+
+
+
+        // 1.2: toggleActive
+        $user->isActive = ! $user->isActive;
+        $user->save();
+
+
+
+
+
+        $this->makeAlert('info', 'Status has been updated');
+        $this->render();
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
     public function render()
     {
 

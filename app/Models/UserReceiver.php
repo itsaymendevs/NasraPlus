@@ -38,7 +38,7 @@ class UserReceiver extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class, 'receiverId', 'id');
+        return $this->hasMany(Order::class, 'receiverId');
     }
 
 
