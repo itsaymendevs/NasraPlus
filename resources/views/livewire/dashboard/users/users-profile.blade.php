@@ -556,7 +556,7 @@
                                 @else
 
                                 <label class="col-form-label form--label row--label">{{ $order->receivingOption }} - {{
-                                    $order?->store?->name }}</label>
+                                    $order?->store?->title }}</label>
 
                                 @endif
                                 {{-- end if --}}
