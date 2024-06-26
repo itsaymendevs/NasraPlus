@@ -90,7 +90,7 @@ class Orders extends Component
         // 1: dependencies
         $countries = Country::all();
         $stores = PickupStore::all();
-        $statuses = ['Pending', 'Processing', 'Canceled', 'Completed'];
+        $statuses = ['Pending', 'Processing'];
 
 
 

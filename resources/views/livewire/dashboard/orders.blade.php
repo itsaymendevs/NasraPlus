@@ -465,8 +465,8 @@
 
                                     {{-- status --}}
                                     <span class="fw-bold fs-13
-                                    @if ($order->orderStatus == 'Canceled') text-danger @endif
-                                    @if ($order->orderStatus == 'Completed') text-success @endif">{{
+                                    @if ($order->orderStatus == 'Processing') text-success @endif
+                                    @if ($order->orderStatus == 'Pending') text-primary  @endif">{{
                                         $order->orderStatus }}</span>
 
 
@@ -494,7 +494,7 @@
 
                             {{-- content --}}
                             <div class="accordion-collapse collapse item-{{ $order->id }} pt-2" role="tabpanel"
-                                data-bs-parent="#results--orders">
+                                data-bs-parent="#results--orders" wire:ignore.self>
                                 <div class="accordion-body">
                                     <div class="row">
 

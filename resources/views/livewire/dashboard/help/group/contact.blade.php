@@ -36,8 +36,8 @@
 
 
 
-        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders' leftLink="#"
-            title="Contact - {{ $country->name }}" />
+        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders'
+            leftLink="{{ route('dashboard.orders') }}" title="Contact - {{ $country->name }}" />
 
 
     </section>

@@ -373,7 +373,7 @@ class Products extends Component
         // 1.4: getProducts
         $products = Product::orderBy('created_at', 'desc')
             ->whereIn('id', $filtered?->pluck('id')?->toArray() ?? [])
-            ->paginate(env('PAGINATE_XXL'));
+            ->get();
 
 
 

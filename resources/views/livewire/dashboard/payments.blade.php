@@ -36,8 +36,8 @@
 
 
 
-        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders' leftLink="#"
-            title='Payment Methods' />
+        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders'
+            leftLink="{{ route('dashboard.orders') }}" title='Payment Methods' />
 
 
     </section>

@@ -36,8 +36,8 @@
 
 
 
-        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders' leftLink="#"
-            title='Customers' />
+        <livewire:dashboard.components.top-bar key='topBar' type='regular' leftTitle='Orders'
+            leftLink="{{ route('dashboard.orders') }}" title='Customers' />
 
 
     </section>
@@ -78,9 +78,10 @@
 
 
 
-                    {{-- 1: export --}}
-                    <a class="btn btn--export scale--3 px-4" role="button" href="#"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                    {{-- 1: exportExcel --}}
+                    <a class="btn btn--export scale--3 px-4" role="button" href="javascript:void(0);"
+                        wire:click="export('en')" wire:loading.class='disabled'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
                             <path fill-rule="evenodd"
                                 d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z">
@@ -95,9 +96,10 @@
 
 
 
-                    {{-- 2: exportAr --}}
-                    <a class="btn btn--export scale--3 px-4 ms-2" role="button" href="#"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                    {{-- exportExcelArabic --}}
+                    <a class="btn btn--export scale--3 px-4 ms-2 d-none" role="button" href="javascript:void(0);"
+                        wire:click="export('ar')" wire:loading.class='disabled'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
                             <path fill-rule="evenodd"
                                 d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z">
@@ -105,8 +107,9 @@
                             <path fill-rule="evenodd"
                                 d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z">
                             </path>
-                        </svg>Excel Ar
+                        </svg>Excel AR
                     </a>
+
                 </div>
                 {{-- endCol --}}
 
