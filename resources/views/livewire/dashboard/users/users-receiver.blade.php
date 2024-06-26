@@ -162,7 +162,7 @@
 
                 {{-- 1: totalOrders --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Total Orders</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Total Orders</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $receiver?->orders()?->count() ?? 0 }}</h4>
                 </div>
 
@@ -170,7 +170,7 @@
 
                 {{-- 2: completed --}}
                 <div class="col-2 offset-1 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Completed</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Completed</label>
                     <h4 class="mt-2 mb-0 fw-bold text-theme">{{ $receiver?->completedOrders()?->count() ?? 0 }}</h4>
                 </div>
 
@@ -178,14 +178,14 @@
 
                 {{-- 3: canceled --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Canceled</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Canceled</label>
                     <h4 class="mt-2 mb-0 fw-bold text-danger">{{ $receiver?->canceledOrders()?->count() ?? 0 }}</h4>
                 </div>
 
 
                 {{-- 4: processing --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Processing</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Processing</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $receiver?->processingOrders()?->count() ?? 0 }}</h4>
                 </div>
 
@@ -193,7 +193,7 @@
 
                 {{-- 5: pending --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Pending</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Pending</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $receiver?->pendingOrders()?->count() ?? 0 }}</h4>
                 </div>
             </div>

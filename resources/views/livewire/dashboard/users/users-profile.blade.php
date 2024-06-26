@@ -172,9 +172,9 @@
 
 
 
-                {{-- ---------------------------------------- --}}
-                {{-- ---------------------------------------- --}}
 
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
 
 
 
@@ -183,11 +183,11 @@
 
 
                 {{-- toggleActive --}}
-                <div class="col-4 align-self-end mb-4">
+                <div class="col-4 align-self-end mb-4 d-none">
                     <div class="form-check form-switch form--switch mb-0">
                         <input class="form-check-input" type="checkbox" id="toggleActive-checkbox-1"
                             wire:model='instance.isActive' wire:change="toggleActive" />
-                        <label class="form-check-label ms-1 fs-15" for="toggleActive-checkbox-1">Enable
+                        <label class="form-check-label ms-1 fs-14 text-uppercase" for="toggleActive-checkbox-1">Activate
                             Account</label>
                     </div>
                 </div>
@@ -198,18 +198,151 @@
 
 
 
-                {{-- roughLocation --}}
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
 
 
-                {{-- local --}}
-                @if ($user->country->name == 'Sudan')
 
-                <div class="col-12 mb-5">
+
+
+
+
+                {{-- :: IRL - UK --}}
+                @if ($user->country->code == 'UK' || $user->country->code == 'IRL')
+
+
+
+                {{-- 1: FL --}}
+                <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
-                        <label class="form-label profile--span-title">Rough Location</label>
-                        <p>{{ $user->address }}</p>
+                        <label class="form-label profile--span-title">Address FL</label>
+                        <p>{{ $user?->firstAddressLine ?? 'Unavailable' }}</p>
                     </div>
                 </div>
+
+
+
+
+
+                {{-- 2: SL --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Address SL</label>
+                        <p>{{ $user?->secondAddressLine ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+                @endif
+                {{-- end if --}}
+
+
+
+
+
+
+
+
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
+
+
+
+
+
+
+
+                {{-- A: UK --}}
+                @if ($user->country->code == 'UK')
+
+
+
+                {{-- 1: TL --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Address TL</label>
+                        <p>{{ $user?->thirdAddressLine ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+                {{-- 2: townCity --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Town City</label>
+                        <p>{{ $user?->townCity ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                {{-- 3: postcode --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Post Code</label>
+                        <p>{{ $user?->postcode ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                {{-- B: IRL--}}
+                @elseif ($user->country->code == 'IRL')
+
+
+
+
+
+
+                {{-- 1: TL --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Post Town</label>
+                        <p>{{ $user?->postTown ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+                {{-- 2: townCity --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">County</label>
+                        <p>{{ $user?->county ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                {{-- 3: postcode --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Eircode</label>
+                        <p>{{ $user?->eircode ?? 'Unavailable' }}</p>
+                    </div>
+                </div>
+
+
+
 
 
                 @endif
@@ -223,28 +356,63 @@
 
 
 
+
+
+
+
+
+
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
+
+
+
+
+
+
+
+                {{-- roughLocation --}}
+
+
+                {{-- local --}}
+                @if ($user->country->name == 'Sudan')
+
+
+                <div class="col-12 mb-5">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Rough Location</label>
+                        <p>{{ $user->address }}</p>
+                    </div>
+                </div>
+
+
+
+
+                {{-- spacer --}}
+                @else
+
+
+                <div class="col-12 mb-5"></div>
+
+
+                @endif
+                {{-- end if --}}
+
+
+
+
+
+
+
+
+
+
+
+
                 {{-- --------------------------------------- --}}
                 {{-- --------------------------------------- --}}
 
 
-
-
-
-
-
-
-
-
-
-
-
-                {{-- --------------------------------------- --}}
-                {{-- --------------------------------------- --}}
-
-
-
-                {{-- empty --}}
-                <div class="col-12"></div>
 
 
 
@@ -254,7 +422,7 @@
 
                 {{-- 1: totalOrders --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Total Orders</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Total Orders</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $user?->orders?->count() ?? 0}}</h4>
                 </div>
 
@@ -262,7 +430,7 @@
 
                 {{-- 1.2: completed --}}
                 <div class="col-2 offset-1 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Completed</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Completed</label>
                     <h4 class="mt-2 mb-0 fw-bold text-theme">{{ $user?->completedOrders?->count() ?? 0}}</h4>
                 </div>
 
@@ -270,7 +438,7 @@
 
                 {{-- 1.3: canceled --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Canceled</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Canceled</label>
                     <h4 class="mt-2 mb-0 fw-bold text-danger">{{ $user?->canceledOrders?->count() ?? 0}}</h4>
                 </div>
 
@@ -278,7 +446,7 @@
 
                 {{-- 1.4: processing --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Processing</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Processing</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $user?->processingOrders?->count() ?? 0}}</h4>
                 </div>
 
@@ -286,7 +454,7 @@
 
                 {{-- 1.5: pending --}}
                 <div class="col-2 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Pending</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Pending</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $user?->pendingOrders?->count() ?? 0}}</h4>
                 </div>
             </div>

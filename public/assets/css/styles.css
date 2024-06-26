@@ -89,6 +89,10 @@ radio {
     fill: var(--color-theme);
 }
 
+.btn--navbar a {
+    font-size: 17px !important;
+}
+
 /* btn / theme */
 
 .btn--theme {

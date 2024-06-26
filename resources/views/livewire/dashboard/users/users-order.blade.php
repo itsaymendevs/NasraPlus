@@ -269,7 +269,7 @@
 
                 {{-- totalProducts --}}
                 <div class="col-4 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Total Products</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Total Products</label>
                     <h4 class="mt-2 mb-0 fw-bold">{{ $order?->products?->count() ?? 0 }}</h4>
                 </div>
 
@@ -278,7 +278,7 @@
 
                 {{-- productsPrice --}}
                 <div class="col-3 offset-1 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Products Price</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Products Price</label>
                     <h4 class="mt-2 mb-0 fw-bold text-theme">{{( $order?->productsPrice ?? 0) * $toSDG }}</h4>
                 </div>
 
@@ -287,7 +287,7 @@
 
                 {{-- totalPrice --}}
                 <div class="col-3 text-center mb-4">
-                    <label class="form-label form--label profile--label scale--3">Total Price</label>
+                    <label class="form-label text-uppercase fw-semibold fs-12">Total Price</label>
                     <h4 class="mt-2 mb-0 fw-bold text-theme">{{ ($order?->orderTotalPrice ?? 0) * $toSDG }}</h4>
                 </div>
             </div>
