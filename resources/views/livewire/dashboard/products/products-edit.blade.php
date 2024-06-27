@@ -209,7 +209,7 @@
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
                         <select id='category-select-1' class="form-select form--select level--select level--one"
-                            data-level='category' data-instance='instance.categoryId' required>
+                            data-id='1' data-level='category' data-instance='instance.categoryId' required>
                             <option value=""></option>
 
                             @foreach ($categories ?? [] as $category)
@@ -229,7 +229,7 @@
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
                         <select id='subCategory-select-1' class="form-select form--select level--select level--two"
-                            data-level='subCategory' data-instance='instance.subCategoryId' required>
+                            data-id='1' data-level='subCategory' data-instance='instance.subCategoryId' required>
                             <option value=""></option>
 
                             @foreach ($subCategories ?? [] as $subCategory)
@@ -248,7 +248,7 @@
                     <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
                         <select id='type-select-1' class="form-select form--select level--select level--three"
-                            data-level='type' data-instance='instance.typeId' required>
+                            data-id='1' data-level='type' data-instance='instance.typeId' required>
                             <option value=""></option>
 
                             @foreach ($types ?? [] as $type)
@@ -841,9 +841,10 @@
          // 1.1: getValue - instance
          selectValue = $(this).select2('val');
          levelType = $(this).attr('data-level');
+         levelId = $(this).attr('data-id');
 
 
-         @this.levelSelect(levelType, selectValue);
+         @this.levelSelect(levelType, selectValue, levelId);
 
 
       }); //end function

@@ -24,7 +24,7 @@ class Products extends Component
 
 
     // :: variables
-    public $searchGroup, $searchCategory, $searchSubCategory, $searchType, $searchProduct, $searchCompany;
+    public $searchGroup, $searchCategory, $searchSubCategory, $searchClassification, $searchType, $searchProduct, $searchCompany;
 
 
 
@@ -306,7 +306,6 @@ class Products extends Component
             $toReturn = true;
 
 
-
             // 1: groupOne
             if ($this->searchGroup == 'byGeneralTypes') {
 
@@ -329,14 +328,62 @@ class Products extends Component
 
 
 
+                // 2: groupTwo
+            } elseif ($this->searchGroup == 'byClassification') {
 
-                // 2: groupThree
+
+
+                // 2.1: homeProducts
+                if ($this->searchClassification == 'Home Products') {
+
+                    $item?->isMainPage != 1 ? $toReturn = false : null;
+
+
+
+
+                    // 2.2: hiddenProducts
+                } elseif ($this->searchClassification == 'Hidden Products') {
+
+
+                    $item?->isHidden != 1 ? $toReturn = false : null;
+
+
+
+                    // 2.3: quantityShortage
+                } elseif ($this->searchClassification == 'Quantity Shortage') {
+
+
+
+                    $item?->quantity > $item->maxQuantityPerOrder ? $toReturn = false : null;
+
+
+
+
+                    // 2.4: offers & Discounts
+                } elseif ($this->searchClassification == 'Offers & Discounts') {
+
+                    empty($item?->offerPrice) ? $toReturn = false : null;
+
+
+                } // end if
+
+
+
+                return $toReturn;
+
+
+
+
+
+
+
+                // 3: groupThree
             } elseif ($this->searchGroup == 'byCompanies') {
 
 
-                // 2.1: company
-                $this->searchCompany ? $item?->companyId != $this->searchCompany ? $toReturn = false : null : null;
 
+                // 3.1: company
+                $this->searchCompany ? $item?->companyId != $this->searchCompany ? $toReturn = false : null : null;
 
 
                 return $toReturn;
@@ -438,11 +485,10 @@ class Products extends Component
 
 
 
-        // 1.2: filterProducts
+        // 1.3: filterProducts
         $filtered = $products->filter(function ($item) {
 
             $toReturn = true;
-
 
 
             // 1: groupOne
@@ -467,14 +513,63 @@ class Products extends Component
 
 
 
+                // 2: groupTwo
+            } elseif ($this->searchGroup == 'byClassification') {
 
-                // 2: groupThree
+
+
+                // 2.1: homeProducts
+                if ($this->searchClassification == 'Home Products') {
+
+                    $item?->isMainPage != 1 ? $toReturn = false : null;
+
+
+
+
+                    // 2.2: hiddenProducts
+                } elseif ($this->searchClassification == 'Hidden Products') {
+
+
+                    $item?->isHidden != 1 ? $toReturn = false : null;
+
+
+
+                    // 2.3: quantityShortage
+                } elseif ($this->searchClassification == 'Quantity Shortage') {
+
+
+
+                    $item?->quantity > $item->maxQuantityPerOrder ? $toReturn = false : null;
+
+
+
+
+                    // 2.4: offers & Discounts
+                } elseif ($this->searchClassification == 'Offers & Discounts') {
+
+
+                    empty($item?->offerPrice) ? $toReturn = false : null;
+
+
+                } // end if
+
+
+
+                return $toReturn;
+
+
+
+
+
+
+
+                // 3: groupThree
             } elseif ($this->searchGroup == 'byCompanies') {
 
 
-                // 2.1: company
-                $this->searchCompany ? $item?->companyId != $this->searchCompany ? $toReturn = false : null : null;
 
+                // 3.1: company
+                $this->searchCompany ? $item?->companyId != $this->searchCompany ? $toReturn = false : null : null;
 
 
                 return $toReturn;
@@ -500,8 +595,11 @@ class Products extends Component
 
 
 
+
         // -------------------------------------------------
         // -------------------------------------------------
+
+
 
 
 

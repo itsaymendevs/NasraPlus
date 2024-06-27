@@ -4,6 +4,7 @@ use App\Livewire\Dashboard\Products\Group\Categories\CategoriesSort;
 use App\Livewire\Dashboard\Products\Group\SubCategories\SubCategoriesSort;
 use App\Livewire\Dashboard\Products\Group\Types\TypesSort;
 use App\Livewire\Dashboard\Products\ProductsManage;
+use App\Livewire\Dashboard\Products\ProductsSort;
 use App\Livewire\Dashboard\Regions;
 use App\Livewire\Dashboard\Regions\RegionsCreate;
 use App\Livewire\Dashboard\Regions\RegionsEdit;
@@ -143,10 +144,10 @@ Route::middleware(['auth.employee'])->group(function () {
 
 
 
-    // 1.2: products - manage - create - edit
+    // 1.2: products - manage - sort - create - edit
     Route::get('dashboard/products', Products::class)->name('dashboard.products');
     Route::get('dashboard/products/manage', ProductsManage::class)->name('dashboard.manageProducts');
-
+    Route::get('dashboard/products/sort/{id}', ProductsSort::class)->name('dashboard.sortProducts');
 
     Route::get('dashboard/products/create', ProductsCreate::class)->name('dashboard.createProduct');
     Route::get('dashboard/products/{id}/edit', ProductsEdit::class)->name('dashboard.editProduct');

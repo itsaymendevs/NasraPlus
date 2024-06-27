@@ -100,7 +100,7 @@
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Payment Type</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form-select form--select" required data-instance='instance.type'>
+                        <select class="form-select form--select payment--select" required data-instance='instance.type'>
                             <option value=""></option>
 
                             @foreach ($types ?? [] as $type)
@@ -393,7 +393,7 @@
 
     {{-- select-handle --}}
     <script>
-        $(".form--select").on("change", function(event) {
+        $(".payment--select").on("change", function(event) {
 
 
 

@@ -84,7 +84,8 @@
                 <div class="col-4">
                     <label class="form-label form--label">Sub Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select" data-instance='searchSubCategory' data-clear='true'>
+                        <select class="form--select form--type-select" data-instance='searchSubCategory'
+                            data-clear='true'>
                             <option value=""></option>
 
 
@@ -339,7 +340,7 @@
 
     {{-- selectHandle --}}
     <script>
-        $(".form--select").on("change", function(event) {
+        $(".form--type-select").on("change", function(event) {
 
 
 

@@ -66,16 +66,24 @@
 
 
 
-                {{-- TODO: stopReceivingOrders --}}
                 {{-- TODO: stopReceivingOrdersGlobally --}}
+                <div class="col-7 align-self-end mb-3">
 
-                <div class="col-7 align-self-end mb-3"></div>
+                    <a class="btn btn--export scale--3 px-4" role="button" href="javascript:void(0);"
+                        data-bs-target="#control-orders" data-bs-toggle="modal">Control Orders</a>
+
+                </div>
+
+
+
 
 
 
 
                 {{-- ------------------------------------ --}}
                 {{-- ------------------------------------ --}}
+
+
 
 
 
@@ -780,6 +788,7 @@
 
 
 
+
     {{-- ----------------------------------------------------- --}}
     {{-- ----------------------------------------------------- --}}
 
@@ -843,9 +852,39 @@
 
 
 
+    {{-- ----------------------------------------------------- --}}
+    {{-- ----------------------------------------------------- --}}
+
+
+
+
+
+
+
+    {{-- modals --}}
+    @section('modals')
+
+
+
+
+    {{-- 1: controlOrders --}}
+    <livewire:dashboard.previous-orders.components.previous-orders-control-orders />
+
+
+
+    @endsection
+    {{-- endModals --}}
+
+
+
+
+
 
     {{-- ----------------------------------------------------- --}}
     {{-- ----------------------------------------------------- --}}
+
+
+
 
 
 

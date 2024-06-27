@@ -504,7 +504,7 @@ trait HelperTrait
 
 
 
-    public function levelSelect($levelType, $value)
+    public function levelSelect($levelType, $value, $levelId = null)
     {
 
 
@@ -529,7 +529,6 @@ trait HelperTrait
             // C: refreshSelect
             $this->dispatch('refreshSelect', id: '.level--two', data: $states);
             $this->dispatch('refreshSelect', id: '.level--three', data: ['id' => '', 'text' => '']);
-
 
 
 
@@ -594,8 +593,19 @@ trait HelperTrait
 
 
             // C: refreshSelect
-            $this->dispatch('refreshSelect', id: '.level--two', data: $subCategories);
-            $this->dispatch('refreshSelect', id: '.level--three', data: ['id' => '', 'text' => '']);
+            if ($levelId) {
+
+                $this->dispatch('refreshSelect', id: ".level--two[data-id='{$levelId}']", data: $subCategories);
+                $this->dispatch('refreshSelect', id: ".level--three[data-id='{$levelId}']", data: ['id' => '', 'text' => '']);
+
+            } else {
+
+                $this->dispatch('refreshSelect', id: '.level--two', data: $subCategories);
+                $this->dispatch('refreshSelect', id: '.level--three', data: ['id' => '', 'text' => '']);
+
+            } // end if
+
+
 
 
 
@@ -618,8 +628,16 @@ trait HelperTrait
 
 
             // C: refreshSelect
-            $this->dispatch('refreshSelect', id: '.level--three', data: $types);
+            if ($levelId) {
 
+                $this->dispatch('refreshSelect', id: ".level--three[data-id='{$levelId}']", data: $types);
+
+
+            } else {
+
+                $this->dispatch('refreshSelect', id: ".level--three", data: $types);
+
+            } // end if
 
 
 

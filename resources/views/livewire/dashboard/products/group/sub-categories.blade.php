@@ -81,7 +81,8 @@
                 <div class="col-4">
                     <label class="form-label form--label">Category</label>
                     <div class="select--single-wrapper" wire:ignore>
-                        <select class="form--select" data-instance='searchCategory' data-clear='true'>
+                        <select class="form--select form--subCategory-select" data-instance='searchCategory'
+                            data-clear='true'>
                             <option value=""></option>
 
                             @foreach ($categories ?? [] as $category)
@@ -307,7 +308,7 @@
 
     {{-- selectHandle --}}
     <script>
-        $(".form--select").on("change", function(event) {
+        $(".form--subCategory-select").on("change", function(event) {
 
 
 
