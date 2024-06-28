@@ -154,7 +154,7 @@ Route::middleware(['auth.employee'])->group(function () {
     // 1.2: products - manage - sort - create - edit
     Route::get('dashboard/products', Products::class)->name('dashboard.products');
     Route::get('dashboard/products/manage', ProductsManage::class)->name('dashboard.manageProducts');
-    Route::get('dashboard/products/sort/{id}', ProductsSort::class)->name('dashboard.sortProducts');
+    Route::get('dashboard/products/sort/{type}', ProductsSort::class)->name('dashboard.sortProducts');
 
     Route::get('dashboard/products/create', ProductsCreate::class)->name('dashboard.createProduct');
     Route::get('dashboard/products/{id}/edit', ProductsEdit::class)->name('dashboard.editProduct');

@@ -45,7 +45,6 @@ class ProductsPrepareSort extends Component
         } elseif ($this->target == 'Category Products' && $this->categoryId && $this->subCategoryId && $this->typeId) {
 
 
-
             return redirect()->route('dashboard.sortProducts', [$this->typeId]);
 
 

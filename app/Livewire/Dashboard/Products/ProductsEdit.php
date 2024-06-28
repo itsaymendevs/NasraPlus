@@ -200,6 +200,13 @@ class ProductsEdit extends Component
 
 
 
+        // :: extra
+        $oldTypeId = $product->typeId;
+        $oldMainPage = $product->isMainPage;
+
+
+
+
 
         // 2.1: general
         $product->serial = $this->instance->serial ?? null;
@@ -221,6 +228,7 @@ class ProductsEdit extends Component
         $product->buyPrice = $this->instance->buyPrice ?? null;
         $product->sellPrice = $this->instance->sellPrice ?? null;
         $product->offerPrice = $this->instance->offerPrice ?? null;
+
 
 
 
@@ -291,6 +299,40 @@ class ProductsEdit extends Component
 
         } // end id
 
+
+
+
+
+
+
+        // 2.9: re-sortCategory
+        if ($oldTypeId != $product->typeId) {
+
+            $product->index = (Product::where('typeId', $this->instance->typeId)
+                    ?->orderBy('index', 'desc')?->first()?->index ?? 0) + 1;
+
+        } // end if
+
+
+
+
+
+
+
+        // 2.9.5: sortMainPage
+        if ($product->isMainPage && $product->isMainPage != boolval($oldMainPage)) {
+
+
+            $product->indexMainPage = (Product::where('isMainPage', true)?->orderBy('indexMainPage', 'desc')?->first()?->indexMainPage ?? 0) + 1;
+
+
+
+        } elseif ($product->isMainPage == false) {
+
+            $product->indexMainPage = null;
+
+
+        } // end if
 
 
 

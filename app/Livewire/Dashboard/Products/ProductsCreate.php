@@ -193,10 +193,28 @@ class ProductsCreate extends Component
 
 
 
-
-        // :: Extra
+        // 2.8: re-fix weight
         if ($this->instance->weight == 'By Name')
             $this->instance->weight = 1;
+
+
+
+
+
+
+
+
+        // 2.9: sortCategory
+        $product->index = (Product::where('typeId', $this->instance->typeId)?->orderBy('index', 'desc')?->first()?->index ?? 0) + 1;
+
+
+
+
+        // 2.9.5: sortMainPage
+        if ($product->isMainPage)
+            $product->indexMainPage = (Product::where('isMainPage', true)?->orderBy('indexMainPage', 'desc')?->first()?->indexMainPage ?? 0) + 1;
+
+
 
 
 

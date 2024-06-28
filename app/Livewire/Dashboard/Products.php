@@ -95,9 +95,31 @@ class Products extends Component
 
 
 
-
-        // 1.2: toggleHidden
+        // 1.1: toggleHidden
+        $oldMainPage = $product->isMainPage;
         $product->isMainPage = ! $product->isMainPage;
+
+
+
+
+
+
+        // 1.3: sortMainPage
+        if ($product->isMainPage && $product->isMainPage != boolval($oldMainPage)) {
+
+            $product->indexMainPage = (Product::where('isMainPage', true)?->orderBy('indexMainPage', 'desc')?->first()?->indexMainPage ?? 0) + 1;
+
+
+        } elseif ($product->isMainPage == false) {
+
+            $product->indexMainPage = null;
+
+        } // end if
+
+
+
+
+
         $product->save();
 
 
