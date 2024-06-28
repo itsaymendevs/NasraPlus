@@ -40,6 +40,7 @@ use App\Livewire\Dashboard\Users\UsersReceiver;
 use App\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
+use App\Http\Controllers\StripeController;
 
 
 
@@ -93,6 +94,12 @@ if (env('APP_ENV') == 'production') {
 
 
 
+// 1: Stripe Payment
+Route::get('/stripe/{orderNumber}/makePayment', [StripeController::class, 'makePayment'])->name('stripe.makePayment');
+Route::get('/stripe/{orderNumber}/confirmPayment', [StripeController::class, 'confirmPayment'])->name('stripe.confirmPayment');
+
+
+Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
 
 
 
