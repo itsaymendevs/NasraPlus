@@ -749,7 +749,7 @@
                                         {{-- viewButton --}}
                                         <div class="col-12 text-end mb-2">
                                             <a class="btn btn--theme btn--sm fs-12 rounded-1 px-5" role="button"
-                                                href='_blank'
+                                                target='_blank'
                                                 href="{{ route('dashboard.singleOrder', [$order->id]) }}">View Order</a>
                                         </div>
 
