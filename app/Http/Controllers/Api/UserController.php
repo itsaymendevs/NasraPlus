@@ -197,10 +197,10 @@ class UserController extends Controller
 
 
          $content->measuringUnitId = strval($product->unitId);
-         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+         $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
          // :: determine packSize
-         $content->packSize = $product->weightOption == 'FIXED' ? strval($product->weight) : null;
+         $content->packSize = $product->weightOption == 'Fixed' ? strval($product->weight) : null;
 
 
          $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
@@ -309,10 +309,10 @@ class UserController extends Controller
 
 
             $content->measuringUnitId = strval($product->unitId);
-            $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+            $content->minQuantityToOrder = $product->weightOption == 'Dynmaic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
             // :: determine packSize
-            $content->packSize = $product->weightOption == 'FIXED' ? strval($product->weight) : null;
+            $content->packSize = $product->weightOption == 'Fixed' ? strval($product->weight) : null;
 
 
             $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));

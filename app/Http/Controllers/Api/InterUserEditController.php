@@ -285,7 +285,7 @@ class InterUserEditController extends Controller {
 
 
             $response = new stdClass();
-            $response->verificationCode = intval($otpResponse->otp);
+            $response->verificationCode = strval($otpResponse->otp);
 
         } // end if
 
@@ -793,7 +793,7 @@ class InterUserEditController extends Controller {
 
 
         // ::prepare response
-        $otpResponse->otp = $otpCode;
+        $otpResponse->otp = strval($otpCode);
 
 
         return $otpResponse;
@@ -1641,7 +1641,7 @@ class InterUserEditController extends Controller {
         if ($user->country->code == 'UK') {
 
             $user->firstAddressLine = $request->addressFirstLine;
-            $user->secAddressLine = $request->addressSecondLine ? $request->addressSecondLine : null; // optional
+            $user->secondAddressLine = $request->addressSecondLine ? $request->addressSecondLine : null; // optional
 
             $user->thirdAddressLine = $request->addressThirdLine ? $request->addressThirdLine : null; // optional
             $user->townCity = $request->townCity;
@@ -1654,7 +1654,7 @@ class InterUserEditController extends Controller {
         if ($user->country->code == 'IRL') {
 
             $user->firstAddressLine = $request->addressFirstLine;
-            $user->secAddressLine = $request->addressSecondLine ? $request->addressSecondLine : null; // optional
+            $user->secondAddressLine = $request->addressSecondLine ? $request->addressSecondLine : null; // optional
 
             $user->postTown = $request->postTown;
             $user->county = $request->county ? $request->county : null; // optional

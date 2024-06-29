@@ -144,7 +144,7 @@ class InfoController extends Controller
 
          $response->helpAndContactInfo->helpInfo->interAddress = new stdClass();
          $response->helpAndContactInfo->helpInfo->interAddress->address = $interAddress->address;
-         $response->helpAndContactInfo->helpInfo->interAddress->addressImage = url('storage/interAddress/' . $interAddress->image);
+         $response->helpAndContactInfo->helpInfo->interAddress->addressImage = url('storage/interAddress/' . $interAddress->imageFile);
          $response->helpAndContactInfo->helpInfo->interAddress->latitude = strval($interAddress->latitude);
          $response->helpAndContactInfo->helpInfo->interAddress->longitude = strval($interAddress->longitude);
 
@@ -379,7 +379,7 @@ class InfoController extends Controller
 
          $content->isMainStore = boolval($store->isMainStore);
 
-         $content->mainPic = url('storage/pickups') . '/' . $store->image;
+         $content->mainPic = url('storage/pickups') . '/' . $store->imageFile;
 
          $content->collectingWorkingHours = $store->receivingTimes;
          $content->collectingWorkingHoursAr = $store->receivingTimesAr;

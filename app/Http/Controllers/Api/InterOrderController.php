@@ -42,7 +42,7 @@ class InterOrderController extends Controller
 
       // ::root - generalBlock / receivingOption
       $generalBlock = GeneralSetting::all()->first();
-      $receivingOption = 'DELIVERY';
+      $receivingOption = 'Delivery';
 
 
 
@@ -185,7 +185,7 @@ class InterOrderController extends Controller
       if (! empty($request->pickupOrder->storeId)) {
 
          // ::root
-         $receivingOption = 'PICKUP';
+         $receivingOption = 'Pickup';
 
 
 
@@ -331,7 +331,7 @@ class InterOrderController extends Controller
 
 
       // 3.2.1: For Delivery
-      if ($receivingOption == 'DELIVERY') {
+      if ($receivingOption == 'Delivery') {
 
          if (! boolval($paymentMethod->isForDelivery)) {
 
@@ -506,7 +506,7 @@ class InterOrderController extends Controller
 
 
                $content->measuringUnitId = strval($product->unitId);
-               $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+               $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
                $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
                $content->maxQuantityToOrder = strval(number_format($product->maxQuantityPerOrder, 2, '.', ''));
@@ -790,7 +790,7 @@ class InterOrderController extends Controller
       $newOrder->orderLang = $request->orderLang;
       $newOrder->orderDateTime = Carbon::now()->addHours(2);
       $newOrder->orderStatusDateTime = Carbon::now()->addHours(2);
-      $newOrder->orderStatus = 'PENDING'; // => WAITING
+      $newOrder->orderStatus = 'Pending'; // => WAITING
       $newOrder->orderSecondPhone = $request->generalInfo?->secondNumber ?? null;
       $newOrder->receivingOption = $receivingOption;
 
@@ -812,7 +812,7 @@ class InterOrderController extends Controller
 
 
       // 2.1: DELIVERY / PICKUP
-      if ($receivingOption == 'DELIVERY') {
+      if ($receivingOption == 'Delivery') {
 
 
          // 2.1.1: local Receiver
@@ -957,7 +957,7 @@ class InterOrderController extends Controller
 
 
          // 1.2: TotalPrice based on weightOption
-         if ($product->weightOption == 'DYNAMIC') {
+         if ($product->weightOption == 'Dynamic') {
 
             $newOrderProduct->orderProductPrice = ($newOrderProduct->sellPrice * $newOrderProduct->orderProductQuantity) / $product->weight;
 
@@ -1026,7 +1026,7 @@ class InterOrderController extends Controller
       // 3.2: orderTotalPrice / ProductsTotalPrice + DeliveryPrice (optional)
       $orderTotalPrice = $productsTotalPrice;
 
-      if ($receivingOption == "DELIVERY")
+      if ($receivingOption == "Delivery")
          $orderTotalPrice = $productsTotalPrice + doubleval($newOrder->deliveryPrice);
 
 

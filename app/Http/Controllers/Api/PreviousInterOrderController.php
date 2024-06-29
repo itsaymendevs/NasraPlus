@@ -128,7 +128,7 @@ class PreviousInterOrderController extends Controller
 
 
             // 1.4.1: deliveryOrder
-            if ($order->receivingOption == "DELIVERY") {
+            if ($order->receivingOption == "Delivery") {
 
 
                 $previousOrder->deliveryPreviousOrder = new stdClass();
@@ -313,7 +313,7 @@ class PreviousInterOrderController extends Controller
 
 
         // 1.4.1: deliveryOrder
-        if ($order->receivingOption == "DELIVERY") {
+        if ($order->receivingOption == "Delivery") {
 
 
             $previousOrder->deliveryPreviousOrder = new stdClass();

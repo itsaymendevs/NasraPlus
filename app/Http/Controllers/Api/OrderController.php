@@ -41,7 +41,7 @@ class OrderController extends Controller
 
       // ::root - generalBlock / receivingOption
       $generalBlock = GeneralSetting::all()->first();
-      $receivingOption = 'DELIVERY';
+      $receivingOption = 'Delivery';
 
 
 
@@ -135,7 +135,7 @@ class OrderController extends Controller
       if (! empty($request->pickupOrder->storeId)) {
 
          // ::root
-         $receivingOption = 'PICKUP';
+         $receivingOption = 'Pickup';
 
 
 
@@ -249,7 +249,7 @@ class OrderController extends Controller
 
 
       // 3.2.1: For Delivery
-      if ($receivingOption == 'DELIVERY') {
+      if ($receivingOption == 'Delivery') {
 
          if (! boolval($paymentMethod->isForDelivery)) {
 
@@ -424,7 +424,7 @@ class OrderController extends Controller
 
 
                $content->measuringUnitId = strval($product->unitId);
-               $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+               $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
                $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
                $content->maxQuantityToOrder = strval(number_format($product->maxQuantityPerOrder, 2, '.', ''));
@@ -708,7 +708,7 @@ class OrderController extends Controller
       $newOrder->orderLang = $request->orderLang;
       $newOrder->orderDateTime = Carbon::now()->addHours(2);
       $newOrder->orderStatusDateTime = Carbon::now()->addHours(2);
-      $newOrder->orderStatus = 'PENDING'; // => WAITING
+      $newOrder->orderStatus = 'Pending'; // => WAITING
       $newOrder->orderSecondPhone = $request->generalInfo->secondNumber ? $request->generalInfo->secondNumber : null;
       $newOrder->receivingOption = $receivingOption;
 
@@ -721,8 +721,8 @@ class OrderController extends Controller
 
 
 
-      // 2.1: DELIVERY / PICKUP
-      if ($receivingOption == 'DELIVERY') {
+      // 2.1: Delivery / PICKUP
+      if ($receivingOption == 'Delivery') {
 
 
          // 2.1.1: LocalUser
@@ -864,7 +864,7 @@ class OrderController extends Controller
 
 
          // 1.2: TotalPrice based on weightOption
-         if ($product->weightOption == 'DYNAMIC') {
+         if ($product->weightOption == 'Dynamic') {
 
             $newOrderProduct->orderProductPrice = ($newOrderProduct->sellPrice * $newOrderProduct->orderProductQuantity) / $product->weight;
 
@@ -932,7 +932,7 @@ class OrderController extends Controller
       // 3.2: orderTotalPrice / ProductsTotalPrice + DeliveryPrice (optional)
       $orderTotalPrice = $productsTotalPrice;
 
-      if ($receivingOption == "DELIVERY")
+      if ($receivingOption == "Delivery")
          $orderTotalPrice = $productsTotalPrice + doubleval($newOrder->deliveryPrice);
 
 
@@ -1067,7 +1067,7 @@ class OrderController extends Controller
 
 
       // 4.4.1: deliveryOrder
-      if ($receivingOption == "DELIVERY") {
+      if ($receivingOption == "Delivery") {
 
 
          $previousOrder->deliveryPreviousOrder = new stdClass();

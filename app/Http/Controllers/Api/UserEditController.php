@@ -559,7 +559,7 @@ class UserEditController extends Controller {
             $content->userAddress = new stdClass();
 
             $content->userAddress->userStateId = strval($user->stateId);
-            $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+            $content->userAddress->userRegionId = strval($user->deliveryRegionId);
 
             $content->userAddress->addressDescription = $user->address;
             $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
@@ -1591,7 +1591,7 @@ class UserEditController extends Controller {
 
         // 1.3: update DB
         $user->stateId = $stateId;
-        $user->deliveryAreaId = $regionId;
+        $user->deliveryRegionId = $regionId;
         $user->address = $address;
 
         $user->save();
@@ -1610,7 +1610,7 @@ class UserEditController extends Controller {
         $content->userAddress = new stdClass();
 
         $content->userAddress->userStateId = strval($user->stateId);
-        $content->userAddress->userRegionId = strval($user->deliveryAreaId);
+        $content->userAddress->userRegionId = strval($user->deliveryRegionId);
         $content->userAddress->addressDescription = $user->address;
 
         $content->userAddress->deliveryEstimatedTime = $user->deliveryRegion->deliveryTime->content;
