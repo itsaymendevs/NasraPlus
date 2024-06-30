@@ -9,8 +9,18 @@ class Type extends Model
 {
     use HasFactory;
 
-    public function subcategory() {
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categoryId');
+    }
+
+
+
+    public function subCategory()
+    {
         return $this->belongsTo(SubCategory::class, 'subCategoryId');
     }
 
-}
+
+
+} // end model

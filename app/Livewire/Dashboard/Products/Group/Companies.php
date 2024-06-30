@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Dashboard\Products\Group;
 
+use App\Exports\CompanyExport;
 use App\Models\Company;
 use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Companies extends Component
 {
@@ -121,6 +123,51 @@ class Companies extends Component
     } // end function
 
 
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+    public function export($lang = 'en')
+    {
+
+
+        // 1: prepExport
+        $companies = Company::where('name', 'LIKE', '%' . $this->searchCompany . '%')
+            ->orWhere('nameAr', 'LIKE', '%' . $this->searchCompany . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(env('PAGINATE_XXL'));
+
+
+
+
+
+
+
+
+
+        // 2: makeExport
+        return Excel::download(new CompanyExport($companies), 'companies.xlsx');
+
+
+
+
+
+    } // end function
 
 
 

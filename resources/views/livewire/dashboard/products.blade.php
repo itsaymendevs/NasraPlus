@@ -113,7 +113,6 @@
                         <input type="file" class='d-none' id='file-import' wire:model='importFile' wire:change="import"
                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             required>
-
                     </label>
 
 

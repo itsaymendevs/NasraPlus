@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Dashboard\Products\Group;
 
+use App\Exports\UnitExport;
 use App\Models\Unit;
 use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Units extends Component
 {
@@ -121,6 +123,54 @@ class Units extends Component
 
     } // end function
 
+
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+    public function export($lang = 'en')
+    {
+
+
+        // 1: prepExport
+        $units = Unit::where('name', 'LIKE', '%' . $this->searchUnit . '%')
+            ->orWhere('nameAr', 'LIKE', '%' . $this->searchUnit . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(env('PAGINATE_XXL'));
+
+
+
+
+
+
+
+
+
+        // 2: makeExport
+        return Excel::download(new UnitExport($units), 'units.xlsx');
+
+
+
+
+
+    } // end function
 
 
 

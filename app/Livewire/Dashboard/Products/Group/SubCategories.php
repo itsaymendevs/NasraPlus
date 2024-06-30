@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Dashboard\Products\Group;
 
+use App\Exports\SubCategoryExport;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubCategories extends Component
 {
@@ -122,6 +124,61 @@ class SubCategories extends Component
 
 
 
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+    public function export($lang = 'en')
+    {
+
+
+        // 1: prepExport
+        if ($this->searchCategory) {
+
+            $subCategories = SubCategory::where('categoryId', $this->searchCategory)
+                ->orderBy('created_at', 'desc')
+                ->paginate(env('PAGINATE_XXL'));
+
+
+        } else {
+
+            $subCategories = SubCategory::orderBy('created_at', 'desc')
+                ->paginate(env('PAGINATE_XXL'));
+
+        } // end if
+
+
+
+
+
+
+
+
+
+        // 2: makeExport
+        return Excel::download(new SubCategoryExport($subCategories), 'subCategories.xlsx');
+
+
+
+
+
+    } // end function
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Products\Group;
 
+use App\Exports\TypeExport;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Type;
@@ -9,6 +10,7 @@ use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Types extends Component
 {
@@ -124,6 +126,70 @@ class Types extends Component
 
 
 
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+    public function export($lang = 'en')
+    {
+
+
+        // 1: prepExport
+        $types = Type::all();
+
+
+        $filteredTypes = $types->filter(function ($item) {
+
+
+            $toReturn = true;
+
+
+            // 1: subCategory
+            $this->searchSubCategory ? $item?->subCategoryId != $this->searchSubCategory ? $toReturn = false : null : null;
+
+
+            return $toReturn;
+
+        });
+
+
+
+
+
+        // 1.3: getTypes - filtered
+        $types = Type::whereIn('id', $filteredTypes?->pluck('id')?->toArray() ?? [])
+            ->orderBy('created_at', 'desc')
+            ->paginate(env('PAGINATE_XXL'));
+
+
+
+
+
+
+
+
+
+
+
+        // 2: makeExport
+        return Excel::download(new TypeExport($types), 'types.xlsx');
+
+
+
+
+
+    } // end function
 
 
 

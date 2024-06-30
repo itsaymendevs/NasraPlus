@@ -297,7 +297,7 @@ class Products extends Component
 
 
 
-    public function export($lang)
+    public function export($lang = 'en')
     {
 
 
