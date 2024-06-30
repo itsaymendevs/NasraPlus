@@ -110,10 +110,10 @@ class LaunchController extends Controller
 
 
          $content->measuringUnitId = strval($product->unitId);
-         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+         $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
          // :: determine packSize
-         $content->packSize = $product->weightOption == 'NAMEFULL' ? null : strval($product->weight);
+         $content->packSize = $product->weightOption == 'Namefull' ? null : strval($product->weight);
 
 
          $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
@@ -235,10 +235,10 @@ class LaunchController extends Controller
 
 
                $content->measuringUnitId = strval($product->unitId);
-               $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+               $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
                // :: determine packSize
-               $content->packSize = $product->weightOption == 'NAMEFULL' ? null : strval($product->weight);
+               $content->packSize = $product->weightOption == 'Namefull' ? null : strval($product->weight);
 
 
 
@@ -344,7 +344,7 @@ class LaunchController extends Controller
          $content->id = strval($mainCategory->id);
          $content->name = $mainCategory->name;
          $content->nameAr = $mainCategory->nameAr;
-         $content->image = url('storage/mainCategories') . '/' . $mainCategory->image;
+         $content->image = url('storage/categories') . '/' . $mainCategory->imageFile;
          $content->subCategories = array();
 
 
@@ -454,10 +454,10 @@ class LaunchController extends Controller
 
 
          $content->measuringUnitId = strval($product->unitId);
-         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+         $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
          // :: determine packSize
-         $content->packSize = $product->weightOption == 'NAMEFULL' ? null : strval($product->weight);
+         $content->packSize = $product->weightOption == 'Namefull' ? null : strval($product->weight);
 
 
          $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
@@ -1076,10 +1076,10 @@ class LaunchController extends Controller
 
 
          $content->measuringUnitId = strval($product->unitId);
-         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+         $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
          // :: determine packSize
-         $content->packSize = $product->weightOption == 'NAMEFULL' ? null : strval($product->weight);
+         $content->packSize = $product->weightOption == 'Namefull' ? null : strval($product->weight);
 
 
          $content->quantityAvailable = strval(number_format($product->quantity, 2, '.', ''));
@@ -1163,10 +1163,10 @@ class LaunchController extends Controller
 
 
          $content->measuringUnitId = strval($product->unitId);
-         $content->minQuantityToOrder = $product->weightOption == 'DYNAMIC' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
+         $content->minQuantityToOrder = $product->weightOption == 'Dynamic' ? strval(number_format($product->weight, 2, '.', '')) : '1.00';
 
          // :: determine packSize
-         $content->packSize = $product->weightOption == 'NAMEFULL' ? null : strval($product->weight);
+         $content->packSize = $product->weightOption == 'Namefull' ? null : strval($product->weight);
 
 
 

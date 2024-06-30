@@ -29,7 +29,7 @@ Payment Details
                         {{-- logo --}}
                         <div class="col-12 col-lg-5">
                             <img data-aos="fade-down" data-aos-duration="1200" data-aos-delay="150" data-aos-once='true'
-                                class="w-100 of-contain mb-3" src="{{asset('assets/img/Logo/logo.png')}}"
+                                class="w-100 of-contain mb-3" src="{{url('assets/img/Logo/logo.png')}}"
                                 style="height: 160px;">
                         </div>
 
