@@ -71,12 +71,12 @@ class Order extends Model
 
     public function orderEmployee()
     {
-        return $this->belongsTo(Employee::class, 'orderEmployeeId');
+        return $this->belongsTo(Employee::class, 'orderEmployeeId', 'id');
     }
 
     public function paymentEmployee()
     {
-        return $this->belongsTo(Employee::class, 'paymentEmployeeId');
+        return $this->belongsTo(Employee::class, 'paymentEmployeeId', 'id');
     }
 
     public function refundEmployee()

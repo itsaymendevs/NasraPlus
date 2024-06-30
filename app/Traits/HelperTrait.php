@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\CityDeliveryTime;
 use App\Models\CityDistrict;
 use App\Models\DeliveryRegion;
+use App\Models\Order;
 use App\Models\State;
 use App\Models\SubCategory;
 use App\Models\Type;
@@ -749,16 +750,7 @@ trait HelperTrait
 
 
 
-
-
-
-
-
-
-
     // --------------------------------------------------------------
-
-
 
 
 
@@ -774,6 +766,95 @@ trait HelperTrait
 
     } // end function
 
+
+
+
+
+
+
+
+
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    function decodeOTP($content, $orderId)
+    {
+
+
+        // 1: getOrder
+        $order = Order::find($orderId);
+
+
+
+        // 1.2: replaceVariables
+        $content = str_replace('@orderNum', $order?->orderNumber ?? '', $content);
+        $content = str_replace('@userFN', $order?->user?->firstName ?? '', $content);
+        $content = str_replace('@userLN', $order?->user?->lastName ?? '', $content);
+        $content = str_replace('@receiver', $order?->receiverName ?? '', $content);
+        $content = str_replace('@pickupCode', $order?->pickupCode ?? '', $content);
+
+
+
+        return $content;
+
+
+    } // end function
+
+
+
+
+
+
+    // --------------------------------------------------------------
+
+
+
+
+
+
+
+    function sendCustomOTP($token, $phone, $content)
+    {
+
+
+
+        // 1: sendOTP
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . $token
+        ])->post('https://api.bulksms.com/v1/messages?auto-unicode=true&longMessageMaxParts=30', [
+                    'from' => 'Nasra', // 11 char max
+                    'to' => '+' . $phone, // +44 99 959 0002
+                    'body' => $content, // 70 char per message - 160 (latin)
+                ]);
+
+
+
+        return $response;
+
+
+    } // end function
+
+
+
+
+
+
+
+
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
 
 
 

@@ -563,7 +563,7 @@
                                             <div class="profile--title-wrap">
                                                 <p class='text-uppercase'>
                                                     {{ $order->orderStatus }}{{ $order?->orderEmployee?->name ? ' / ' .
-                                                    $$order?->orderEmployee?->name : '' }}
+                                                    $order?->orderEmployee?->name : '' }}
                                                 </p>
                                             </div>
                                         </div>
