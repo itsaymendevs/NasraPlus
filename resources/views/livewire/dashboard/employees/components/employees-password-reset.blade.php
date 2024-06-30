@@ -1,6 +1,6 @@
 <div class="modal fade" role="dialog" tabindex="-1" id="employees-password-reset" wire:ignore.self>
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <form wire:submit='update' wire:loading.class='disabled' class="modal-content">
 
 
 
@@ -30,7 +30,7 @@
                     {{-- 1: adminPassword --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">Admin Password</label>
-                        <input type="password" class="form--input" />
+                        <input type="password" class="form--input" wire:model='password' required />
                     </div>
 
 
@@ -38,7 +38,7 @@
                     {{-- 2: resetPassword --}}
                     <div class="col-6 mb-4">
                         <label class="form-label form--label">New Password</label>
-                        <input type="password" class="form--input" />
+                        <input type="password" class="form--input" wire:model='newPassword' minlength="6" required />
                     </div>
 
 
@@ -63,10 +63,10 @@
             {{-- submitButton --}}
             <div class="modal-footer">
                 <button class="btn border-0 rounded-1" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn--theme btn--sm px-5 rounded-1" type="button">RESET</button>
+                <button class="btn btn--theme btn--sm px-5 rounded-1" wire:loading.class='disabled'>RESET</button>
             </div>
 
-        </div>
+        </form>
     </div>
     {{-- endWrapper --}}
 

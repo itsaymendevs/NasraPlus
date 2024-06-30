@@ -100,7 +100,8 @@
                 {{-- 1.3: password --}}
                 <div class="col-6">
                     <label class="form-label form--label">Password</label>
-                    <input class="form-control form--input" type="password" required wire:model='instance.password' />
+                    <input class="form-control form--input" type="password" minlength="6" required
+                        wire:model='instance.password' />
                 </div>
 
 
@@ -265,6 +266,8 @@
 
 
                 {{-- actions --}}
+                @if ($employee->name != 'Administrator')
+
                 <div class="col-1">
                     <div class="dropstart d-flex justify-content-center">
                         <button class="btn dropdown-toggle results--dropdown" aria-expanded="false"
@@ -285,8 +288,7 @@
                             {{-- 2: resetPassword --}}
                             <a class="dropdown-item pointer" href='javascript:void(0);'
                                 data-bs-target="#employees-password-reset" data-bs-toggle="modal"
-                                wire:click='resetPassword({{ $employee->id }})'>Reset
-                                Password</a>
+                                wire:click='resetPassword({{ $employee->id }})'>Reset Password</a>
 
 
 
@@ -304,6 +306,8 @@
                         </div>
                     </div>
                 </div>
+
+                @endif
                 {{-- endActions --}}
 
 
