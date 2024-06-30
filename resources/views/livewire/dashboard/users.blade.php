@@ -74,13 +74,13 @@
 
 
                 {{-- col --}}
-                <div class="col-12 text-start">
+                <div class="col-12 text-end">
 
 
 
                     {{-- 1: exportExcel --}}
                     <a class="btn btn--export scale--3 px-4" role="button" href="javascript:void(0);"
-                        wire:click="export('en')" wire:loading.class='disabled'>
+                        wire:loading.class='disabled'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
                             <path fill-rule="evenodd"
