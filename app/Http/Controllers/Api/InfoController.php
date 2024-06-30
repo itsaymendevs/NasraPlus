@@ -144,7 +144,7 @@ class InfoController extends Controller
 
          $response->helpAndContactInfo->helpInfo->interAddress = new stdClass();
          $response->helpAndContactInfo->helpInfo->interAddress->address = $interAddress->address;
-         $response->helpAndContactInfo->helpInfo->interAddress->addressImage = url('storage/interAddress/' . $interAddress->imageFile);
+         $response->helpAndContactInfo->helpInfo->interAddress->addressImage = url('storage/help/addresses/' . $interAddress->imageFile);
          $response->helpAndContactInfo->helpInfo->interAddress->latitude = strval($interAddress->latitude);
          $response->helpAndContactInfo->helpInfo->interAddress->longitude = strval($interAddress->longitude);
 
