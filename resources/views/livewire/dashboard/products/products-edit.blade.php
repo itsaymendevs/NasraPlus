@@ -596,7 +596,8 @@
 
                         {{-- input --}}
                         <input class="form-control d-none file--input" id="product--file-1"
-                            data-preview="product--preview-1" type="file" wire:model='instance.imageFile' />
+                            data-preview="product--preview-1" type="file" accept="image/*"
+                            wire:model='instance.imageFile' />
 
 
                         {{-- preview --}}
@@ -652,7 +653,7 @@
 
                                 {{-- input --}}
                                 <input class="form-control d-none file--input" id="product--file-2"
-                                    data-preview="product--preview-2" type="file"
+                                    data-preview="product--preview-2" type="file" accept="image/*"
                                     wire:model='instance.secondImageFile' />
 
 
@@ -692,7 +693,7 @@
 
                                 {{-- input --}}
                                 <input class="form-control d-none file--input" id="product--file-3"
-                                    data-preview="product--preview-3" type="file"
+                                    data-preview="product--preview-3" type="file" accept="image/*"
                                     wire:model='instance.thirdImageFile' />
 
 
@@ -733,7 +734,7 @@
 
                                 {{-- input --}}
                                 <input class="form-control d-none file--input" id="product--file-4"
-                                    data-preview="product--preview-4" type="file"
+                                    data-preview="product--preview-4" type="file" accept="image/*"
                                     wire:model='instance.fourthImageFile' />
 
 

@@ -339,7 +339,7 @@
 
                     {{-- input --}}
                     <input class="form-control d-none file--input" id="cover--file-1" data-preview="cover--preview-1"
-                        type="file" wire:model='instance.imageFile' />
+                        type="file" wire:model='instance.imageFile' accept="image/*" />
 
 
                     {{-- preview --}}
@@ -373,7 +373,7 @@
 
                     {{-- input --}}
                     <input class="form-control d-none file--input" id="cover--file-2" data-preview="cover--preview-2"
-                        type="file" wire:model='instance.imageFileAr' />
+                        type="file" wire:model='instance.imageFileAr' accept="image/*" />
 
 
                     {{-- preview --}}

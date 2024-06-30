@@ -3,12 +3,14 @@
 namespace App\Livewire\Dashboard;
 
 use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Product;
 use App\Traits\HelperTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,12 +20,13 @@ class Products extends Component
 
     use HelperTrait;
     use WithPagination;
-
+    use WithFileUploads;
 
 
 
 
     // :: variables
+    public $importFile;
     public $searchGroup, $searchCategory, $searchSubCategory, $searchClassification, $searchType, $searchProduct, $searchCompany;
 
 
@@ -463,6 +466,75 @@ class Products extends Component
 
     } // end function
 
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+    public function import()
+    {
+
+        // 1: params - confirmationBox
+        $this->makeAlert('question', 'Proceed with importing products?', 'confirmImportProducts');
+
+
+
+    } // end function
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+    #[On('confirmImportProducts')]
+    public function confirmImport()
+    {
+
+
+
+        // 1: importFile
+        if ($this->importFile) {
+
+
+            $status = Excel::import(new ProductImport, $this->importFile);
+
+
+            // 1.2: re-render
+            $this->makeAlert('info', 'Excel has been imported, valid products will show in the table');
+
+            $this->render();
+
+
+
+        } // end if
+
+
+
+
+    } // end function
 
 
 

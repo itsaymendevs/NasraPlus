@@ -92,26 +92,31 @@
                             <path fill-rule="evenodd"
                                 d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z">
                             </path>
-                        </svg>Excel
+                        </svg>Export
                     </a>
 
 
 
-
-
-                    {{-- exportExcelArabic --}}
-                    <a class="btn btn--export scale--3 px-4 ms-2 d-none" role="button" href="javascript:void(0);"
-                        wire:click="export('ar')" wire:loading.class='disabled'>
+                    {{-- 2: import --}}
+                    <label class="btn btn--export scale--3 px-4" role="button" wire:loading.class='disabled'
+                        for='file-import' wire:target='importFile, import'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                            viewBox="0 0 16 16" class="bi bi-box-arrow-up-left me-2">
+                            class="bi bi-box-arrow-down-right me-2" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
-                                d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z">
-                            </path>
+                                d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5" />
                             <path fill-rule="evenodd"
-                                d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z">
-                            </path>
-                        </svg>Excel AR
-                    </a>
+                                d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0z" />
+                        </svg>Import
+
+
+                        {{-- input --}}
+                        <input type="file" class='d-none' id='file-import' wire:model='importFile' wire:change="import"
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            required>
+
+                    </label>
+
+
 
 
                 </div>
