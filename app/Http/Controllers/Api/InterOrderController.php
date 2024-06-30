@@ -324,7 +324,7 @@ class InterOrderController extends Controller
       // $paymentMethod = Payment::find($request->generalInfo->paymentId);
 
       //musab way
-      $paymentType = 'DIRECTPAYMENT';
+      $paymentType = 'Direct payment';
       $paymentMethod = Payment::find(3);
 
 
