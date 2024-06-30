@@ -3,8 +3,13 @@
 namespace App\Livewire\Dashboard\Orders;
 
 use App\Livewire\Forms\OrderForm;
+use App\Livewire\Forms\OrderOTPForm;
+use App\Models\Message;
+use App\Models\MessageGlobal;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Traits\HelperTrait;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -17,7 +22,9 @@ class OrdersView extends Component
 
     // :: variables
     public OrderForm $instance;
-    public $order;
+    public OrderOTPForm $instanceOTP;
+
+    public $order, $paymentMethods, $toSDG;
 
 
 
@@ -27,6 +34,7 @@ class OrdersView extends Component
 
 
         // 1: get instance
+        $this->toSDG = 1;
         $this->order = Order::find($id);
 
 
@@ -37,7 +45,107 @@ class OrdersView extends Component
 
 
 
+
+
+
+
+        // ---------------------------------------
+        // ---------------------------------------
+
+
+
+
+
+
+
+        // 1.2: getOtp
+        if ($this->order?->country?->name == 'Sudan') {
+
+
+
+            // A: local
+            $otp = Message::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->first();
+
+
+
+            if ($otp) {
+
+                $this->instanceOTP->content = $this->order->orderLang == 'en' ? $otp->content : $otp->contentAr;
+                $this->instanceOTP->isContentActive = $otp->isActive;
+
+            } // end if
+
+
+
+
+
+
+        } else {
+
+
+
+            // B: international
+            $otpUser = MessageGlobal::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->where('target', 'User')
+                ->first();
+
+
+            $otpReceiver = MessageGlobal::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->where('target', 'Receiver')
+                ->first();
+
+
+
+
+
+            if ($otpUser) {
+
+                $this->instanceOTP->content = $this->order->orderLang == 'en' ? $otpUser->content : $otpUser->contentAr;
+                $this->instanceOTP->isContentActive = $otpUser->isActive;
+
+            } // end if
+
+
+
+            if ($otpReceiver) {
+
+                $this->instanceOTP->contentReceiver = $this->order->orderLang == 'en' ? $otpReceiver->content : $otpReceiver->contentAr;
+                $this->instanceOTP->isContentReceiverActive = $otpReceiver->isActive;
+
+            } // end if
+
+
+
+        } // end if
+
+
+
+
+
+
+
+
+        // ---------------------------------------
+        // ---------------------------------------
+
+
+
+
+
+
+        // 2: dependencies
+        $this->paymentMethods = Payment::where('type', $this->order?->paymentType)->get();
+
+
+
+
     } // end function
+
+
 
 
 
@@ -76,8 +184,403 @@ class OrdersView extends Component
 
 
 
+
+
+
+
     // ---------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+    public function remountOTP()
+    {
+
+
+        // :: reset
+        $this->instanceOTP->reset();
+
+
+
+
+
+
+        // 1: getOtp
+        if ($this->order?->country?->name == 'Sudan') {
+
+
+
+            // A: local
+            $otp = Message::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->first();
+
+
+            if ($otp) {
+
+                $this->instanceOTP->content = $this->order->orderLang == 'en' ? $otp->content : $otp->contentAr;
+                $this->instanceOTP->isContentActive = $otp->isActive;
+
+
+            } // end if
+
+
+
+
+
+
+        } else {
+
+
+
+            // B: international
+            $otpUser = Message::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->where('target', 'User')
+                ->first();
+
+
+            $otpReceiver = Message::where('type', $this->order->orderStatus)
+                ->where('isFor', $this->order->receivingOption)
+                ->where('target', 'Receiver')
+                ->first();
+
+
+
+
+
+            if ($otpUser) {
+
+                $this->instanceOTP->content = $this->order->orderLang == 'en' ? $otpUser->content : $otpUser->contentAr;
+                $this->instanceOTP->isContentActive = $otpUser->isActive;
+
+            } // end if
+
+
+
+            if ($otpReceiver) {
+
+                $this->instanceOTP->contentReceiver = $this->order->orderLang == 'en' ? $otpReceiver->content : $otpReceiver->contentAr;
+                $this->instanceOTP->isContentReceiverActive = $otpReceiver->isActive;
+
+            } // end if
+
+
+
+        } // end if
+
+
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function nextStep()
+    {
+
+
+
+        // 1: get instance
+        $order = Order::find($this->order->id);
+
+
+
+
+        // 1.2: updateStatus
+        if ($this->order?->orderStatus == 'Pending') {
+
+            $order->orderStatus = 'Processing';
+
+        } elseif ($this->order?->orderStatus == 'Processing') {
+
+            $order->orderStatus = 'Completed';
+
+        } // end if
+
+
+
+
+
+        // 1.3: general
+        $order->orderEmployeeId = session('employeeId');
+        $order->orderStatusDateTime = date('Y-m-d h:i:s');
+
+
+        $order->save();
+
+
+
+
+
+
+
+        // 2: remount
+        $this->remount();
+        $this->remountOTP();
+        $this->makeAlert('info', 'Status has been updated');
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function previousStep()
+    {
+
+
+
+        // 1: get instance
+        $order = Order::find($this->order->id);
+
+
+
+
+        // 1.2: updateStatus
+        if ($this->order?->orderStatus == 'Processing') {
+
+            $order->orderStatus = 'Pending';
+
+        } elseif ($this->order?->orderStatus == 'Completed') {
+
+            $order->orderStatus = 'Processing';
+
+        } // end if
+
+
+
+
+
+
+        // 1.3: general
+        $order->orderEmployeeId = session('employeeId');
+        $order->orderStatusDateTime = date('Y-m-d h:i:s');
+
+
+        $order->save();
+
+
+
+
+
+        // 2: remount
+        $this->remount();
+        $this->remountOTP();
+        $this->makeAlert('info', 'Status has been updated');
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    public function sendOTP($target)
+    {
+
+
+        // ::root
+        $token = env('SMS_TOKEN');
+
+
+
+
+        // 1: forCustomer
+        if ($target == 'customer') {
+
+
+
+
+            // 1.2: checkActive
+            if ($this->instanceOTP->isContentActive == false) {
+
+                $this->makeAlert('info', 'Messaging is not active, please check settings');
+                return false;
+
+            } // end if
+
+
+
+
+
+            // 1.3: check if empty
+            if (empty($this->instanceOTP->content)) {
+
+                $this->makeAlert('info', 'Message is empty');
+                return false;
+
+            } // end if
+
+
+
+
+            // 1.4: decodeOTP - sendOTP
+            $decodedContent = $this->decodeOTP($this->instanceOTP->content, $this->order->id);
+            $response = $this->sendCustomOTP($token, $this->order?->user?->phone, $decodedContent);
+
+
+
+
+            if ($response)
+                $this->makeAlert('success', 'Message has been sent!');
+
+
+
+
+
+
+            // 2: forReceiver
+        } elseif ($target == 'receiver') {
+
+
+
+
+
+            // 2.2: checkActive
+            if ($this->instanceOTP->isContentReceiverActive == false) {
+
+                $this->makeAlert('info', 'Messaging is not active, please check settings');
+                return false;
+
+            } // end if
+
+
+
+
+
+            // 2.3: check if empty
+            if (empty($this->instanceOTP->contentReceiver)) {
+
+                $this->makeAlert('info', 'Message is empty');
+                return false;
+
+            } // end if
+
+
+
+
+
+            // 2.4: decodeOTP - sendOTP
+            $decodedContent = $this->decodeOTP($this->instanceOTP->contentReceiver, $this->order->id);
+            $response = $this->sendCustomOTP($token, $this->order->receiverPhone, $decodedContent);
+
+
+
+
+            if ($response)
+                $this->makeAlert('success', 'Message has been sent!');
+
+
+        } // end if
+
+
+
+
+
+
+
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function convertCurrency($toSDG)
+    {
+
+
+
+        // 1: update toSDG
+        $this->toSDG = $toSDG;
+        $this->render();
+
+
+
+
+
+    } // end function
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
 
 
 
@@ -132,8 +635,33 @@ class OrdersView extends Component
     {
 
 
-        // 1: confirmationBox
 
+        // 1: checkRefund
+        if ($this->order->isPaymentDone) {
+
+
+            if (empty($this->instance->refundInvoiceNumber)) {
+
+
+                $this->makeAlert('info', 'Please fill the refund invoice');
+                return false;
+
+            } // end if
+
+        } // end if
+
+
+
+
+
+        // ------------------------------------------
+        // ------------------------------------------
+
+
+
+
+
+        // 2: confirmationBox
         if ($this->order->orderStatus == 'Canceled') {
 
 
@@ -255,13 +783,241 @@ class OrdersView extends Component
 
 
 
+    public function cancelPayment()
+    {
+
+
+
+        // 1: confirmationBox
+        if ($this->order->isPaymentDone) {
+
+
+            $this->makeAlert('question', 'Continue with Payment Cancellation?', 'confirmCancelPayment');
+
+
+        } else {
+
+            $this->makeAlert('question', 'Update Details?', 'confirmCancelPayment');
+
+
+        } // end if
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+    #[On('confirmCancelPayment')]
+    public function confirmCancelPayment()
+    {
+
+
+        // 1: get instance
+        $order = Order::find($this->order->id);
+
+
+
+        // 1.2: general
+        $order->isPaymentDone = false;
+        $order->paymentNote = $this->instance->paymentNote ?? null;
+        $order->paymentEmployeeId = session('employeeId');
+        $order->paymentDateTime = date('Y-m-d h:i:s');
+
+
+
+
+        // 1.3: removePaidDetails
+        $order->paymentId = null;
+        $order->invoiceNumber = null;
+
+        $order->save();
+
+
+
+
+
+
+
+
+
+
+
+        // 2: resetPayment - remount
+        $this->dispatch('setSelect', id: '#payment-select', value: null);
+        $this->remount();
+        $this->makeAlert('info', 'Payment has been canceled');
+
+
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+    public function confirmPayment()
+    {
+
+
+
+        // 1: confirmationBox
+        if ($this->order->isPaymentDone) {
+
+
+            $this->makeAlert('question', 'Continue with Payment Confirmation?', 'confirmPayment');
+
+
+        } else {
+
+            $this->makeAlert('question', 'Update Details?', 'confirmPayment');
+
+
+        } // end if
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+    #[On('confirmPayment')]
+    public function confirmPaymentConfirmation()
+    {
+
+
+        // 1: get instance
+        $order = Order::find($this->order->id);
+
+
+
+        // 1.2: general
+        $order->isPaymentDone = true;
+        $order->paymentId = $this->instance->paymentId ?? null;
+        $order->invoiceNumber = $this->instance->invoiceNumber ?? null;
+        $order->paymentEmployeeId = session('employeeId');
+        $order->paymentDateTime = date('Y-m-d h:i:s');
+
+
+
+
+
+
+        // 1.3: removeNotPaidDetails
+        $order->paymentNote = null;
+
+        $order->save();
+
+
+
+
+
+
+
+        // 2: remount
+        $this->remount();
+        $this->makeAlert('info', 'Payment has been confirmed');
+
+
+
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+
 
     public function render()
     {
 
+
+
+
+        // :: initTooltips
+        $this->dispatch('initTooltips');
+
+
         return view('livewire.dashboard.orders.orders-view');
 
+
+
     } // end function
+
+
+
+
 
 
 } // end class
