@@ -402,7 +402,7 @@
 
                 {{-- 5: totalPrice --}}
                 <div class="col-1">
-                    <label class="col-form-label form--label row--label">{{ ($order?->orderTotalPrice ?? 0) * $toSDG
+                    <label class="col-form-label form--label row--label">{{ ($order?->orderTotalPrice ?? 0) / $toSDG
                         }}</label>
                 </div>
 

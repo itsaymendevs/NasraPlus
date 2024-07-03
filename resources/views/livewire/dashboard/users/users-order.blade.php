@@ -218,9 +218,6 @@
 
 
 
-
-
-
                 {{-- 3: dateTime --}}
                 <div class="col-4 text-center mb-4">
                     <div class="profile--title-wrap">
@@ -228,18 +225,6 @@
                         <p>{{ date('d M Y - h:i A', strtotime($order->orderDateTime)) }}</p>
                     </div>
                 </div>
-
-
-
-
-
-
-                {{-- ---------------------------------------- --}}
-                {{-- ---------------------------------------- --}}
-
-
-
-
 
 
 
@@ -257,8 +242,184 @@
 
 
 
+
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
+
+
+
+
+
+
+
+
+                {{-- 4: pickupCode --}}
+                @if ($order->receivingOption == 'Pickup')
+
+
+                <div class="col-2 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Pickup Code</label>
+                        <p>{{ $order?->orderNumber }}</p>
+                    </div>
+                </div>
+
+
+
+
+                {{-- 4.5: deliveryPrice --}}
+                @else
+
+
+                <div class="col-2 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Charge</label>
+                        <p>{{ number_format(($order?->deliveryPrice ?? 0) / $toSDG, 2) }}</p>
+                    </div>
+                </div>
+
+
+                @endif
+                {{-- end if --}}
+
+
+
+
+
+
+
+
+
+                {{-- 5: status --}}
+                <div class="col-2 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Status</label>
+                        <p>{{ $order->orderStatus }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                {{-- empty --}}
+                <div class="col-4"></div>
+
+
+
+
+
+
+
+                {{-- 7: dateTime --}}
+                <div class="col-4 text-center mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">{{ $order?->orderEmployee?->name }}</label>
+                        <p>{{ $order->orderStatusDateTime ? date('d M Y - h:i A',
+                            strtotime($order->orderStatusDateTime)) : '' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                {{-- ---------------------------------------- --}}
+                {{-- ---------------------------------------- --}}
+
+
+
+
+
+
+                {{-- 8: invoice --}}
+                <div class="col-2 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Invoice</label>
+                        <p>{{ $order?->invoiceNumber ?? ''}}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                {{-- 9: status --}}
+                <div class="col-2 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Status</label>
+                        <p class="fw-semibold @if ($order?->isPaymentDone) text-success @else text-danger @endif">{{
+                            $order?->isPaymentDone ? 'Paid' : 'Not Paid' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                {{-- 6: paymentMethod --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Payment Method</label>
+                        <p>{{ $order?->payment?->name ?? '' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                {{-- 11: paymentDateTime --}}
+                <div class="col-4 text-center mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">{{ $order?->paymentEmployee?->name }}</label>
+                        <p>{{ $order->paymentDateTime ? date('d M Y - h:i A',
+                            strtotime($order->paymentDateTime)) : '' }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 {{-- -------------------------------------------------- --}}
                 {{-- -------------------------------------------------- --}}
+
+
+
+
+                {{-- seperator --}}
+                <div class="col-12 mt-4"></div>
+
 
 
 
@@ -279,7 +440,7 @@
                 {{-- productsPrice --}}
                 <div class="col-3 offset-1 text-center mb-4">
                     <label class="form-label text-uppercase fw-semibold fs-12">Products Price</label>
-                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{( $order?->productsPrice ?? 0) * $toSDG }}</h4>
+                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{( $order?->productsPrice ?? 0) / $toSDG }}</h4>
                 </div>
 
 
@@ -288,7 +449,7 @@
                 {{-- totalPrice --}}
                 <div class="col-3 text-center mb-4">
                     <label class="form-label text-uppercase fw-semibold fs-12">Total Price</label>
-                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{ ($order?->orderTotalPrice ?? 0) * $toSDG }}</h4>
+                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{ ($order?->orderTotalPrice ?? 0) / $toSDG }}</h4>
                 </div>
             </div>
         </div>
@@ -385,7 +546,7 @@
 
                 {{-- sellPrice --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ ($orderProduct?->sellPrice ?? 0) * $toSDG
+                    <label class="col-form-label form--label row--label">{{ ($orderProduct?->sellPrice ?? 0) / $toSDG
                         }}</label>
                 </div>
 

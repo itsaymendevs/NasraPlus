@@ -853,7 +853,7 @@
                     <label class="col-form-label form--label profile--label scale--3">
                         <span class="profile--span-title one-line" style="line-height: initial">Products
                             Price</span>
-                        <span class="fs-6 fw-bold">{{ number_format(($order?->productsPrice ?? 0) * $toSDG, 1) }}</span>
+                        <span class="fs-6 fw-bold">{{ number_format(($order?->productsPrice ?? 0) / $toSDG, 1) }}</span>
                     </label>
                 </div>
 
@@ -870,7 +870,7 @@
                         <span class="profile--span-title one-line" style="line-height: initial">Delivery
                             Price</span>
                         <span class="fs-6 fw-bold">
-                            {{ number_format(($order?->deliveryPrice ?? 0) * $toSDG, 1) }}</span>
+                            {{ number_format(($order?->deliveryPrice ?? 0) / $toSDG, 1) }}</span>
                     </label>
                 </div>
 
@@ -890,7 +890,7 @@
                     <label class="col-form-label text-center form--label profile--label scale--3">
                         <span class="profile--span-title one-line" style="line-height: initial">Total Price</span>
                         <span class="fs-6 fw-bold text-theme">
-                            {{ number_format(($order?->orderTotalPrice ?? 0) * $toSDG, 1) }}
+                            {{ number_format(($order?->orderTotalPrice ?? 0) / $toSDG, 1) }}
                         </span>
                     </label>
                 </div>
