@@ -76,7 +76,6 @@ class UsersProfile extends Component
     {
 
 
-
         // 1: update toSDG
         $this->toSDG = $toSDG;
         $this->render();

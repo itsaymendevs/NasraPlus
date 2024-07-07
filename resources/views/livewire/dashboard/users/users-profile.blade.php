@@ -72,6 +72,16 @@
             <div class="row align-items-start">
 
 
+
+
+
+
+
+
+
+
+
+
                 {{-- fullName --}}
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
@@ -172,25 +182,6 @@
 
 
 
-
-                {{-- ---------------------------------------- --}}
-                {{-- ---------------------------------------- --}}
-
-
-
-
-
-
-
-                {{-- toggleActive --}}
-                <div class="col-4 align-self-end mb-4 d-none">
-                    <div class="form-check form-switch form--switch mb-0">
-                        <input class="form-check-input" type="checkbox" id="toggleActive-checkbox-1"
-                            wire:model='instance.isActive' wire:change="toggleActive" />
-                        <label class="form-check-label ms-1 fs-14 text-uppercase" for="toggleActive-checkbox-1">Activate
-                            Account</label>
-                    </div>
-                </div>
 
 
 
@@ -406,9 +397,6 @@
 
 
 
-
-
-
                 {{-- --------------------------------------- --}}
                 {{-- --------------------------------------- --}}
 
@@ -475,6 +463,33 @@
         {{-- ---------------------------------------------------- --}}
         {{-- ---------------------------------------------------- --}}
         {{-- ---------------------------------------------------- --}}
+
+
+
+
+
+
+
+
+        {{-- ---------------------------------------- --}}
+        {{-- ---------------------------------------- --}}
+
+
+
+
+
+
+
+
+        {{-- toggleActive --}}
+        <div class="d-flex justify-content-center mb-4">
+            <div class="form-check form-switch form--switch mb-0">
+                <input class="form-check-input" type="checkbox" id="toggleActive-checkbox-1"
+                    wire:model='instance.isActive' wire:change="toggleActive" />
+                <label class="form-check-label ms-1 fs-14 text-uppercase" for="toggleActive-checkbox-1">Activate
+                    Account</label>
+            </div>
+        </div>
 
 
 
@@ -596,7 +611,7 @@
                                 {{-- A: toSDG = 1 --}}
                                 <button class="btn btn--export btn--currency scale--3 px-4
                                     @if ($toSDG == 1) active @endif" type="button" wire:click="convertCurrency(1)">
-                                    <img class="me-2" src="{{url('assets/img/Flags/sd.png')}}" />SDN</button>
+                                    <img class="me-2" src="{{url('assets/img/Flags/SD.png')}}" />SDN</button>
 
 
 

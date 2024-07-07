@@ -253,7 +253,7 @@
                     {{-- A: toSDG = 1 --}}
                     <button class="btn btn--export btn--currency scale--3 px-4
                     @if ($toSDG == 1) active @endif" type="button" wire:click="convertCurrency(1)">
-                        <img class="me-2" src="{{url('assets/img/Flags/sd.png')}}" />SDN</button>
+                        <img class="me-2" src="{{url('assets/img/Flags/SD.png')}}" />SDN</button>
 
 
 

@@ -359,7 +359,7 @@
 
 
                                                         {{-- empty --}}
-                                                        <div class="col-12 text-center d-none"></div>
+                                                        <div class="col-12 text-center"></div>
 
 
 
@@ -812,7 +812,7 @@
                     {{-- A: toSDG = 1 --}}
                     <button class="btn btn--export btn--currency scale--3 px-4
                         @if ($toSDG == 1) active @endif" type="button" wire:click="convertCurrency(1)">
-                        <img class="me-2" src="{{url('assets/img/Flags/sd.png')}}" />SDN</button>
+                        <img class="me-2" src="{{url('assets/img/Flags/SD.png')}}" />SDN</button>
 
 
 
@@ -987,7 +987,7 @@
                                         <label class="form-label form--label">Payment Method</label>
                                         <div class="select--single-wrapper" wire:ignore>
                                             <select id='payment-select' class="form--select"
-                                                data-instance='instance.paymentId' required
+                                                data-instance='instance.paymentId' data-trigger='true' required
                                                 value='{{ $order?->paymentId }}'>
                                                 <option value=""></option>
 
