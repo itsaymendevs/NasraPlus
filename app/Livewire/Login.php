@@ -71,7 +71,32 @@ class Login extends Component
 
 
 
-            // 1.2.1: makeSessions
+            // 1.2.1: checkActive
+            if ($employee->isActive == 0) {
+
+
+                $this->makeAlert('info', 'This Account has been deactivated');
+
+                return false;
+
+            } // end if
+
+
+
+
+
+
+
+
+            // ------------------------------------------------
+            // ------------------------------------------------
+
+
+
+
+
+
+            // 1.2.2: makeSessions
             Session::put('employeeId', $employee->id);
             Session::put('employeeName', $employee->name);
             Session::put('employeeNameAr', $employee->nameAr);
