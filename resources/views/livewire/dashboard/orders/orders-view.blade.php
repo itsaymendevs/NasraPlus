@@ -819,9 +819,9 @@
                     {{-- B: toSDG = global --}}
                     <button class="btn btn--export btn--currency scale--3 px-4 ms-2
                         @if ($toSDG != 1) active @endif" type="button"
-                        wire:click="convertCurrency({{ $user->country->toSDG }})">
-                        <img class="me-2" src="{{ url('assets/img/Flags/' . $user->country->code . '.png') }}" />
-                        {{ $user->country->currency }}
+                        wire:click="convertCurrency({{ $order->country->toSDG }})">
+                        <img class="me-2" src="{{ url('assets/img/Flags/' . $order->country->code . '.png') }}" />
+                        {{ $order->country->currency }}
                     </button>
 
 
