@@ -26,13 +26,13 @@ class HelpAboutEdit extends Component
 
 
     #[On('editAboutParagraph')]
-    public function remount()
+    public function remount($id)
     {
 
 
 
         // 1: get instance
-        $aboutInformation = AboutInformation::first();
+        $aboutInformation = AboutInformation::find($id);
 
         foreach ($aboutInformation->toArray() as $key => $value)
             $this->instance->{$key} = $value;

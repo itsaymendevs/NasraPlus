@@ -198,7 +198,7 @@
 
                         {{-- 1: edit --}}
                         <a class="dropdown-item" href='javascript:void(0);' data-bs-target="#paragraphs-edit"
-                            data-bs-toggle="modal" wire:click='edit({{ $paragraph->id }})'>Edit</a>
+                            data-bs-toggle="modal" wire:click="edit({{ $paragraph->id }})">Edit</a>
 
 
                         {{-- 2: remove --}}
