@@ -154,9 +154,18 @@
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Name Ar</label>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <label class="col-form-label form--label row--label">Abbr</label>
                 </div>
+
+
+
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">ID</label>
+                </div>
+
+
+
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
@@ -214,12 +223,17 @@
 
 
                 {{-- 3.2: abbreviation --}}
-                <div class="col-3">
+                <div class="col-2">
                     <label class="col-form-label form--label row--label">{{ $unit->abbreviationAr }}</label>
                 </div>
 
 
 
+
+                {{-- 4: ID --}}
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">{{ $unit->id }}</label>
+                </div>
 
 
 

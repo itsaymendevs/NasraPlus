@@ -155,12 +155,17 @@
                 <div class="col-3">
                     <label class="col-form-label form--label row--label">Name</label>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <label class="col-form-label form--label row--label">Name Ar</label>
                 </div>
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">Products</label>
+                    <label class="col-form-label form--label row--label">Prods</label>
                 </div>
+
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">ID</label>
+                </div>
+
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
@@ -203,9 +208,10 @@
 
 
                 {{-- 1.3: nameAr --}}
-                <div class="col-4">
+                <div class="col-3">
                     <label class="col-form-label form--label row--label">{{ $company->nameAr }}</label>
                 </div>
+
 
 
 
@@ -215,6 +221,13 @@
                         }}</label>
                 </div>
 
+
+
+
+                {{-- 1.5: ID --}}
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">{{ $company->id }}</label>
+                </div>
 
 
 

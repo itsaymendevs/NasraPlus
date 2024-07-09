@@ -185,15 +185,27 @@
             @if ($categories->total() > 0)
 
             <div class="row g-0 align-items-center results--header mb-2" id="results--header">
+
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
+
+
                 <div class="col-4">
                     <label class="col-form-label form--label row--label">Name</label>
                 </div>
-                <div class="col-5">
+
+                <div class="col-4">
                     <label class="col-form-label form--label row--label">Name Ar</label>
                 </div>
+
+
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">ID</label>
+                </div>
+
+
+
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
@@ -226,10 +238,12 @@
             <div class="row g-0 align-items-center results--item" key='single-category-{{ $category->id }}'>
 
 
+
                 {{-- 1: serial --}}
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">MC-{{ $globalSNCounter++ }}</label>
                 </div>
+
 
 
 
@@ -241,11 +255,18 @@
 
 
                 {{-- 2.5: nameAr --}}
-                <div class="col-5">
+                <div class="col-4">
                     <label class="col-form-label form--label row--label">{{ $category->nameAr }}</label>
                 </div>
 
 
+
+
+
+                {{-- 3: ID --}}
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">{{ $category->id }}</label>
+                </div>
 
 
 

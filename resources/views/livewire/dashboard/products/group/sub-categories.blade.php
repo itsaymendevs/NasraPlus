@@ -195,9 +195,14 @@
                 <div class="col-4">
                     <label class="col-form-label form--label row--label">Category</label>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <label class="col-form-label form--label row--label">Name</label>
                 </div>
+
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">ID</label>
+                </div>
+
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
                 </div>
@@ -246,11 +251,17 @@
 
 
                 {{-- 3: name --}}
-                <div class="col-5">
-                    <label class="col-form-label form--label row--label">{{ $subCategory->name }}</label>
+                <div class="col-4">
+                    <label class="col-form-label form--label row--label">{{ $subCategory->id }}</label>
                 </div>
 
 
+
+
+                {{-- 4: ID --}}
+                <div class="col-1">
+                    <label class="col-form-label form--label row--label">{{ $subCategory->id }}</label>
+                </div>
 
 
 
