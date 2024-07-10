@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Country;
@@ -126,7 +127,6 @@ class LaunchController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -136,7 +136,7 @@ class LaunchController extends Controller
 
 
       // 8.2: auth
-      if (! empty(auth()->user())) {
+      if (!empty(auth()->user())) {
 
 
          // 8.2.1: check if device duplicated
@@ -165,7 +165,6 @@ class LaunchController extends Controller
                $userFavorite->productId = strval($product->id);
 
                $userFavorite->save();
-
             } // end loop
 
 
@@ -201,7 +200,6 @@ class LaunchController extends Controller
                $userFavorite->productId = strval($product->id);
 
                $userFavorite->save();
-
             } // end loop
 
 
@@ -252,7 +250,6 @@ class LaunchController extends Controller
 
 
                array_push($contentArray, $content);
-
             } // end loop
 
 
@@ -275,7 +272,6 @@ class LaunchController extends Controller
 
 
       return response()->json($response, 200);
-
    } // end function
 
 
@@ -294,7 +290,6 @@ class LaunchController extends Controller
       $response->isOrderingBlocked = boolval($generalBlocks->stopOrders);
 
       return $response;
-
    } // end function
 
 
@@ -307,18 +302,64 @@ class LaunchController extends Controller
    public function secAction($response)
    {
 
+      $response->adsOffers = new stdClass();
       // 1: get data
 
       // 1.1: offers products available
       $offersCount = Product::where('isHidden', false)
          ->where('offerPrice', '>=', 0)->count();
 
-      $response->isThereProductsInOfferAndDiscounts = boolval($offersCount > 0);
-      $response->largeAds = [];
-      $response->squareAds = [];
+      $response->adsOffers->isThereProductsInOfferAndDiscounts = boolval($offersCount > 0);
+
+      // A- get the square ads
+      $squareAds = Advertisement::where('type', 'Square')
+         ->where('isActive', true)
+         ->get();
+
+
+      $contentArray = array();
+
+      foreach ($squareAds as $ad) {
+
+         $content = new stdClass();
+
+         $content->image = url('storage/help/ads') . '/' . $ad->imageFile;
+         $content->imageAr = url('storage/help/ads') . '/' . $ad->imageFileAr;
+
+
+         // 1.4: push mainCategory into categories array
+         array_push($contentArray, $content);
+      }
+
+
+      $response->adsOffers->squareAds = $contentArray;
+
+
+
+      // A- get the rectangle ads
+      $squareAds = Advertisement::where('type', 'Rectangle')
+         ->where('isActive', true)
+         ->get();
+
+      $contentArray = array();
+
+      foreach ($squareAds as $ad) {
+
+         $content = new stdClass();
+
+         $content->image = url('storage/help/ads') . '/' . $ad->imageFile;
+         $content->imageAr = url('storage/help/ads') . '/' . $ad->imageFileAr;
+
+
+         // 1.4: push mainCategory into categories array
+         array_push($contentArray, $content);
+      }
+
+      $response->adsOffers->rectangleAds = $contentArray;
+
+
 
       return $response;
-
    } // end function
 
 
@@ -376,14 +417,12 @@ class LaunchController extends Controller
 
                // ::inc counterTwo
                $counterTwo++;
-
             } // end loop
 
 
 
             // ::inc counterOne
             $counterOne++;
-
          } // end inner loop
 
 
@@ -391,7 +430,6 @@ class LaunchController extends Controller
 
          // 1.4: push mainCategory into categories array
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -402,7 +440,6 @@ class LaunchController extends Controller
       $response->categories = $contentArray;
 
       return $response;
-
    } // end function
 
 
@@ -470,7 +507,6 @@ class LaunchController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -479,7 +515,6 @@ class LaunchController extends Controller
 
 
       return $response;
-
    } // end function
 
 
@@ -512,7 +547,7 @@ class LaunchController extends Controller
          $content->lettersCode = $country->code;
          $content->toSDG = strval($country->toSDG);
          $content->isActive = boolval($country->isServiceActive);
-         $content->isCountryOrderingBlocked = ! boolval($country->isOrderingActive);
+         $content->isCountryOrderingBlocked = !boolval($country->isOrderingActive);
 
 
 
@@ -539,7 +574,6 @@ class LaunchController extends Controller
             $contentTwo->contentAr = $term->contentAr;
 
             array_push($content->contactInfo->termsAndConditions, $contentTwo);
-
          } // end loop
 
 
@@ -562,7 +596,6 @@ class LaunchController extends Controller
          foreach ($country->contactPhones as $contactPhone) {
 
             array_push($content->contactInfo->contactNumbers, strval($contactPhone->phone));
-
          } // end loop
 
 
@@ -571,8 +604,6 @@ class LaunchController extends Controller
 
          // ::push into array
          array_push($contentArray, $content);
-
-
       } // end loop
 
 
@@ -598,7 +629,7 @@ class LaunchController extends Controller
       // 2: isSDNOrderingBlocked
       $country = Country::find(1);
 
-      $response->isSDNOrderingBlocked = ! boolval($country->isOrderingActive);
+      $response->isSDNOrderingBlocked = !boolval($country->isOrderingActive);
 
 
 
@@ -637,19 +668,17 @@ class LaunchController extends Controller
             $content->regions[$counterOne]->id = strval($area->id);
             $content->regions[$counterOne]->name = $area->name;
             $content->regions[$counterOne]->nameAr = $area->nameAr;
-            $content->regions[$counterOne]->isDeliveryBlocked = ! boolval($area->isActive);
+            $content->regions[$counterOne]->isDeliveryBlocked = !boolval($area->isActive);
 
 
             // ::inc counterOne
             $counterOne++;
-
          } // end inner loop
 
 
 
          // 3.3: push mainCategory into categories array
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -660,7 +689,6 @@ class LaunchController extends Controller
       $response->states = $contentArray;
 
       return $response;
-
    } // end function
 
 
@@ -697,7 +725,6 @@ class LaunchController extends Controller
          $content->nameAr = $company->nameAr;
 
          array_push($contentArray, $content);
-
       } // end loop
 
       // ::prepare response
@@ -726,7 +753,6 @@ class LaunchController extends Controller
          $content->longNameAr = $unit->nameAr;
 
          array_push($contentArray, $content);
-
       } // end loop
 
       // ::prepare response
@@ -736,7 +762,6 @@ class LaunchController extends Controller
 
 
       return $response;
-
    } // end function
 
 
@@ -999,7 +1024,6 @@ class LaunchController extends Controller
       $response->errorsList = $errorsList;
 
       return $response;
-
    } // end function
 
 
@@ -1047,7 +1071,6 @@ class LaunchController extends Controller
             ->where('isHidden', false)
             ->orderBy('index')
             ->get();
-
       } // end if
 
 
@@ -1092,7 +1115,6 @@ class LaunchController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1102,7 +1124,6 @@ class LaunchController extends Controller
 
 
       return response()->json($response, 200);
-
    } // end function
 
 
@@ -1180,7 +1201,6 @@ class LaunchController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1190,10 +1210,8 @@ class LaunchController extends Controller
 
 
       return response()->json($response, 200);
-
    } // end function
 
 
 
 } // end controller
-
