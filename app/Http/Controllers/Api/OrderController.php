@@ -1010,7 +1010,7 @@ class OrderController extends Controller
       $previousOrder->generalInfo->orderNumber = strval($newOrder->orderNumber);
       $previousOrder->generalInfo->orderDate = date('d-m-Y', strtotime($newOrder->orderDateTime));
       $previousOrder->generalInfo->orderTime = date('h:i A', strtotime($newOrder->orderDateTime));
-      $previousOrder->generalInfo->orderStatus = 'WAITING';
+      $previousOrder->generalInfo->orderStatus = 'Pending';
       $previousOrder->generalInfo->paymentType = $newOrder->paymentType;
       $previousOrder->generalInfo->paymentId = strval($newOrder->paymentId);
       $previousOrder->generalInfo->isPaymentDone = boolval($newOrder->isPaymentDone);

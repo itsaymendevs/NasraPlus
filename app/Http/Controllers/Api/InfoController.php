@@ -369,8 +369,8 @@ class InfoController extends Controller
          $content->title = $store->title;
          $content->titleAr = $store->titleAr;
 
-         $content->storeLocation = $store->desc;
-         $content->storeLocationAr = $store->descAr;
+         $content->storeLocation = $store->information;
+         $content->storeLocationAr = $store->informationAr;
 
          $content->latitude = strval($store->latitude);
          $content->longitude = strval($store->longitude);
@@ -379,7 +379,7 @@ class InfoController extends Controller
 
          $content->isMainStore = boolval($store->isMainStore);
 
-         $content->mainPic = url('storage/pickups') . '/' . $store->imageFile;
+         $content->mainPic = url('storage/pickup/stores') . '/' . $store->imageFile;
 
          $content->collectingWorkingHours = $store->receivingTimes;
          $content->collectingWorkingHoursAr = $store->receivingTimesAr;

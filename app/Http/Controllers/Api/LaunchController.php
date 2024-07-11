@@ -91,7 +91,7 @@ class LaunchController extends Controller
 
          $content = new stdClass();
          $content->id = strval($product->id);
-         $content->categoryId = strval($product->mainCategoryId);
+         $content->categoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
          $content->companyId = strval($product->companyId);
@@ -213,7 +213,7 @@ class LaunchController extends Controller
 
                $content = new stdClass();
                $content->id = strval($product->id);
-               $content->categoryId = strval($product->mainCategoryId);
+               $content->categoryId = strval($product->categoryId);
                $content->subCategoryId = strval($product->subCategoryId);
                $content->typeId = strval($product->typeId);
                $content->companyId = strval($product->companyId);
@@ -471,7 +471,7 @@ class LaunchController extends Controller
 
          $content = new stdClass();
          $content->id = strval($product->id);
-         $content->categoryId = strval($product->mainCategoryId);
+         $content->categoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
          $content->companyId = strval($product->companyId);
@@ -1079,7 +1079,7 @@ class LaunchController extends Controller
 
          $content = new stdClass();
          $content->id = strval($product->id);
-         $content->categoryId = strval($product->mainCategoryId);
+         $content->categoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
          $content->companyId = strval($product->companyId);
@@ -1164,7 +1164,7 @@ class LaunchController extends Controller
 
          $content = new stdClass();
          $content->id = strval($product->id);
-         $content->categoryId = strval($product->mainCategoryId);
+         $content->categoryId = strval($product->categoryId);
          $content->subCategoryId = strval($product->subCategoryId);
          $content->typeId = strval($product->typeId);
          $content->companyId = strval($product->companyId);

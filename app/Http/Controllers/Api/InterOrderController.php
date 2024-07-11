@@ -324,7 +324,7 @@ class InterOrderController extends Controller
       // $paymentMethod = Payment::find($request->generalInfo->paymentId);
 
       //musab way
-      $paymentType = 'Direct payment';
+      $paymentType = 'Direct Payment';
       $paymentMethod = Payment::find(3);
 
 
@@ -1033,8 +1033,8 @@ class InterOrderController extends Controller
 
 
       // :: Save orderTotalPrice / productsPrice
-      $newOrder->productsPrice = $productsTotalPrice;
-      $newOrder->orderTotalPrice = $orderTotalPrice;
+      $newOrder->productsPrice = strval($productsTotalPrice);
+      $newOrder->orderTotalPrice = strval($orderTotalPrice);
 
       $newOrder->save();
 
@@ -1061,8 +1061,8 @@ class InterOrderController extends Controller
          $response->errors = array();
 
          $response->errors[0] = 'invalidOrder';
-         $response->productsPrice = $productsTotalPrice;
-         $response->orderTotalPrice = $orderTotalPrice;
+         $response->productsPrice = strval($productsTotalPrice);
+         $response->orderTotalPrice = strval($orderTotalPrice);
 
          return response()->json($response);
 

@@ -273,7 +273,7 @@ class PreviousInterOrderController extends Controller
             $content = new stdClass();
 
             $content->id = strval($previousOrderProduct->product->id);
-            $content->mainCategoryId = strval($previousOrderProduct->product->mainCategoryId);
+            $content->mainCategoryId = strval($previousOrderProduct->product->categoryId);
             $content->subCategoryId = strval($previousOrderProduct->product->subCategoryId);
             $content->typeId = strval($previousOrderProduct->product->typeId);
 
