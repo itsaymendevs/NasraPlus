@@ -49,9 +49,7 @@ class ProductImport implements ToCollection
 
                 // 2.2.5: getCategory - subCategory
                 $type = Type::find($row[4]);
-                if (! $type) {
-                    dd($key);
-                }
+
                 $product->categoryId = $type->categoryId;
                 $product->subCategoryId = $type->subCategoryId;
 
