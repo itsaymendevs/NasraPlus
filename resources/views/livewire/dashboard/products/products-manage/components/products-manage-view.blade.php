@@ -4,7 +4,7 @@
 
     {{-- 1: serial --}}
     <div class="col-2">
-        <label class="col-form-label form--label row--label">P-{{ $counter + 1 }}</label>
+        <label class="col-form-label form--label row--label">{{ $instance->serial }}</label>
     </div>
 
 

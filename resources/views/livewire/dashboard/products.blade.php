@@ -535,7 +535,7 @@
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">P-{{ $globalSNCounter++ }}</label>
+                    <label class="col-form-label form--label row--label">{{ $product->serial }}</label>
                 </div>
 
 

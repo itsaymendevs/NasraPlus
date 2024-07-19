@@ -20,20 +20,18 @@ class ProductImport implements ToCollection
     {
 
 
-
         // 1: loop - rows
-        foreach ($rows ?? [] as $key => $row) {
+        foreach ($rows?->whereNotNull() ?? [] as $key => $row) {
 
 
 
             // :: exceptHeaders
-            if ($key != 0 && count($row ?? []) >= 18) {
+            if ($key != 0 && count($row ?? []) >= 18 && ! empty($row[0])) {
 
 
 
                 // 2: create instance
                 $product = new Product();
-
 
 
 
@@ -51,6 +49,9 @@ class ProductImport implements ToCollection
 
                 // 2.2.5: getCategory - subCategory
                 $type = Type::find($row[4]);
+                if (! $type) {
+                    dd($key);
+                }
                 $product->categoryId = $type->categoryId;
                 $product->subCategoryId = $type->subCategoryId;
 
@@ -71,9 +72,9 @@ class ProductImport implements ToCollection
 
 
                 // 2.3: buyPrice - sellPrice - offerPrice
-                $product->buyPrice = $row[5] ?? 0;
-                $product->sellPrice = $row[6] ?? 0;
-                $product->offerPrice = $row[7] ?? null;
+                $product->buyPrice = doubleval($row[5] ?? 0);
+                $product->sellPrice = doubleval($row[6] ?? 0);
+                $product->offerPrice = $row[7] ? doubleval($row[7]) : null;
 
 
 
@@ -94,10 +95,10 @@ class ProductImport implements ToCollection
 
 
 
-                $product->units = $row[11] ?? null;
-                $product->quantityPerUnit = $row[12] ?? null;
-                $product->quantity = $row[13] ?? 0;
-                $product->maxQuantityPerOrder = $row[14] ?? 0;
+                $product->units = $row[11] ? doubleval($row[11]) : null;
+                $product->quantityPerUnit = $row[12] ? doubleval($row[12]) : null;
+                $product->quantity = $row[13] ? doubleval($row[13]) : 0;
+                $product->maxQuantityPerOrder = $row[14] ? doubleval($row[14]) : 0;
 
 
 
@@ -113,8 +114,8 @@ class ProductImport implements ToCollection
 
 
                 // 2.5: hidden - mainPage
-                $product->isHidden = boolval($row[17] ?? false);
-                $product->isMainPage = boolval($row[18] ?? false);
+                $product->isHidden = boolval($row[17] ? strtolower($row[17]) : false);
+                $product->isMainPage = boolval($row[18] ? strtolower($row[18]) : false);
 
 
 

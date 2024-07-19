@@ -113,7 +113,7 @@
 
                 {{-- serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">MC-{{ $globalSNCounter++ }}</label>
+                    <label class="col-form-label form--label row--label">S-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
