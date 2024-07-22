@@ -339,7 +339,7 @@
                         {{-- 1: byName --}}
                         <div class="form-check form--radio">
                             <input class="form-check-input" type="radio" id="unit-checkbox-1"
-                                wire:model.live='instance.weightOption' value='By Name'>
+                                wire:model.live='instance.weightOption' value='Namefull'>
                             <label class="form-check-label" for="unit-checkbox-1">By Name</label>
                         </div>
 

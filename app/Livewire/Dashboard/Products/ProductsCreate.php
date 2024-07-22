@@ -194,7 +194,7 @@ class ProductsCreate extends Component
 
 
         // 2.8: re-fix weight
-        if ($this->instance->weight == 'By Name')
+        if ($this->instance->weight == 'Namefull')
             $this->instance->weight = 1;
 
 

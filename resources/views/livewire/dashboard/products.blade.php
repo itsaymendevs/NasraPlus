@@ -106,7 +106,7 @@
                         for='file-import' wire:target='importFile, import' data-bs-toggle="tooltip" data-bss-tooltip=""
                         data-bs-placement="bottom" data-bs-html="true"
                         title="<h5 class='fw-semibold fs-11 text-white mt-2 text-decoration-underline'>Columns</h5>
-                        <p class='text-start text-white mb-0 fs-10'>SN <br />Name <br />Name in Arabic <br />Company ID <br />Type ID <br />Buy Price <br />Sell Price <br />Offer Price <br />Weight / Size Option : <br />[By Name - Fixed - Dynamic]<br />Weight / Size <br />Unit ID <br />no. Of Units <br />Quantity / Unit <br />Total Quantity <br />Maximum Quantity / Order <br />Description <br />Description in Arabic <br />Hide Product <br />Show on Home</p>">
+                        <p class='text-start text-white mb-0 fs-10'>SN <br />Name <br />Name in Arabic <br />Company ID <br />Type ID <br />Buy Price <br />Sell Price <br />Offer Price <br />Weight / Size Option : <br />[Namefull - Fixed - Dynamic]<br />Weight / Size <br />Unit ID <br />no. Of Units <br />Quantity / Unit <br />Total Quantity <br />Maximum Quantity / Order <br />Description <br />Description in Arabic <br />Hide Product <br />Show on Home</p>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             class="bi bi-box-arrow-down-right me-2" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"

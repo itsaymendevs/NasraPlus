@@ -288,7 +288,7 @@ class ProductsEdit extends Component
 
 
         // 2.8: determineWeightOption
-        if ($this->instance->weightOption == 'By Name') {
+        if ($this->instance->weightOption == 'Namefull') {
 
             $product->weight = 1;
             $product->unitId = null;
