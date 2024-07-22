@@ -220,10 +220,15 @@
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
+                    <label class="col-form-label form--label row--label">Category</label>
+                </div>
+
+                <div class="col-3">
                     <label class="col-form-label form--label row--label">Sub Category</label>
                 </div>
-                <div class="col-4">
+
+                <div class="col-2">
                     <label class="col-form-label form--label row--label">Name</label>
                 </div>
 
@@ -272,15 +277,23 @@
 
 
 
-                {{-- 1.2: subCategory --}}
-                <div class="col-4">
+
+                {{-- 1.2: category --}}
+                <div class="col-3">
+                    <label class="col-form-label form--label row--label">{{ $type->category->name }}</label>
+                </div>
+
+
+
+                {{-- 1.3: subCategory --}}
+                <div class="col-3">
                     <label class="col-form-label form--label row--label">{{ $type->subCategory->name }}</label>
                 </div>
 
 
 
-                {{-- 1.3: name --}}
-                <div class="col-4">
+                {{-- 1.4: name --}}
+                <div class="col-2">
                     <label class="col-form-label form--label row--label">{{ $type->name }}</label>
                 </div>
 
@@ -288,7 +301,7 @@
 
 
 
-                {{-- 1.4: ID --}}
+                {{-- 1.5: ID --}}
                 <div class="col-1">
                     <label class="col-form-label form--label row--label">{{ $type->id }}</label>
                 </div>
@@ -297,7 +310,7 @@
 
 
 
-                {{-- 1.4: edit --}}
+                {{-- 1.6: edit --}}
                 <div class="col-1">
                     <button class="btn btn--raw-icon edit scale--3" type="button" data-bs-target="#types-edit"
                         data-bs-toggle="modal" wire:click='edit({{ $type->id }})'>

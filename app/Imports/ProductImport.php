@@ -87,9 +87,16 @@ class ProductImport implements ToCollection
 
 
                 // 2.4: weight - units - quantity
-                $product->weightOption = $row[8];
-                $product->weight = $row[9];
-                $product->unitId = $row[10];
+                $product->weightOption = trim($row[8]);
+                $product->weight = $row[9] ?? null;
+
+                if ($product->weightOption != 'By Name') {
+
+                    $product->unitId = $row[10] ?? null;
+
+                } // end if
+
+
 
 
 
