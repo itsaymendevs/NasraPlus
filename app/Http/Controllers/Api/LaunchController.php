@@ -122,8 +122,8 @@ class LaunchController extends Controller
          $content->originalPrice = strval($product->sellPrice);
          $content->offerPrice = strval($product->offerPrice);
 
-         $content->desc = $product->desc;
-         $content->descAr = $product->descAr;
+         $content->desc = $product->information;
+         $content->descAr = $product->informationAr;
 
 
          array_push($contentArray, $content);
@@ -245,8 +245,8 @@ class LaunchController extends Controller
                $content->originalPrice = strval($product->sellPrice);
                $content->offerPrice = strval($product->offerPrice);
 
-               $content->desc = $product->desc;
-               $content->descAr = $product->descAr;
+               $content->desc = $product->information;
+               $content->descAr = $product->informationAr;
 
 
                array_push($contentArray, $content);
@@ -502,8 +502,8 @@ class LaunchController extends Controller
          $content->originalPrice = strval($product->sellPrice);
          $content->offerPrice = strval($product->offerPrice);
 
-         $content->desc = $product->desc;
-         $content->descAr = $product->descAr;
+         $content->desc = $product->information;
+         $content->descAr = $product->informationAr;
 
 
          array_push($contentArray, $content);
@@ -746,8 +746,8 @@ class LaunchController extends Controller
 
          $content = new stdClass();
          $content->id = strval($unit->id);
-         $content->shortName = $unit->abbr;
-         $content->shortNameAr = $unit->abbrAr;
+         $content->shortName = $unit->abbreviation;
+         $content->shortNameAr = $unit->abbreviationAr;
 
          $content->longName = $unit->name;
          $content->longNameAr = $unit->nameAr;
@@ -1110,8 +1110,8 @@ class LaunchController extends Controller
          $content->originalPrice = strval($product->sellPrice);
          $content->offerPrice = strval($product->offerPrice);
 
-         $content->desc = $product->desc;
-         $content->descAr = $product->descAr;
+         $content->desc = $product->information;
+         $content->descAr = $product->informationAr;
 
 
          array_push($contentArray, $content);
@@ -1196,8 +1196,8 @@ class LaunchController extends Controller
          $content->originalPrice = strval($product->sellPrice);
          $content->offerPrice = strval($product->offerPrice);
 
-         $content->desc = $product->desc;
-         $content->descAr = $product->descAr;
+         $content->desc = $product->information;
+         $content->descAr = $product->informationAr;
 
 
          array_push($contentArray, $content);

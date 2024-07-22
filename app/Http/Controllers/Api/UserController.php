@@ -208,8 +208,8 @@ class UserController extends Controller
             $content->originalPrice = strval($product->sellPrice);
             $content->offerPrice = strval($product->offerPrice);
 
-            $content->desc = $product->desc;
-            $content->descAr = $product->descAr;
+            $content->desc = $product->information;
+            $content->descAr = $product->informationAr;
 
 
             array_push($contentArray, $content);
@@ -320,8 +320,8 @@ class UserController extends Controller
                 $content->originalPrice = strval($product->sellPrice);
                 $content->offerPrice = strval($product->offerPrice);
 
-                $content->desc = $product->desc;
-                $content->descAr = $product->descAr;
+                $content->desc = $product->information;
+                $content->descAr = $product->informationAr;
 
 
                 array_push($contentArray, $content);
