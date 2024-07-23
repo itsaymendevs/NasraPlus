@@ -116,7 +116,7 @@
 
 
                     {{-- 1: sideBar --}}
-                    <livewire:dashboard.components.side-bar key='nav-sidebar' />
+                    <livewire:dashboard.components.side-bar key='main--nav-sidebar' />
 
 
 

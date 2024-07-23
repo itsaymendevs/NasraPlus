@@ -263,7 +263,7 @@ class Payments extends Component
 
 
         // 1: dependencies
-        $types = ['Direct Payment', 'At Receiving Payment', 'Online Banking Payment'];
+        $types = ['At Receiving Payment', 'Online Banking Payment'];
 
         $payments = Payment::orderBy('created_at', 'desc')
             ->paginate(env('PAGINATE_XXL'));

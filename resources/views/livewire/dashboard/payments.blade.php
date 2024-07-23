@@ -68,35 +68,10 @@
 
 
 
-                {{-- 1: title --}}
-                <div class="col-6 mb-4">
-                    <label class="form-label form--label">Title</label>
-                    <input class="form-control form--input" type="text" required wire:model='instance.name' />
-                </div>
 
 
 
-                {{-- 2: titleAr --}}
-                <div class="col-6 mb-4">
-                    <label class="form-label form--label">Title
-                        <span class="lang--span">العربية</span>
-                    </label>
-
-                    <input class="form-control form--input" type="text" required wire:model='instance.nameAr' />
-                </div>
-
-
-
-
-
-
-                {{-- -------------------------------------- --}}
-                {{-- -------------------------------------- --}}
-
-
-
-
-                {{-- 3: paymentTypes --}}
+                {{-- 1: paymentTypes --}}
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Payment Type</label>
                     <div class="select--single-wrapper" wire:ignore>
@@ -115,10 +90,24 @@
 
 
 
-                {{-- 4: accountName --}}
+
+
+
+                {{-- 2: title --}}
                 <div class="col-4 mb-4">
-                    <label class="form-label form--label">Account Name</label>
-                    <input class="form-control form--input" type="text" required wire:model='instance.accountName' />
+                    <label class="form-label form--label">Title</label>
+                    <input class="form-control form--input" type="text" required wire:model='instance.name' />
+                </div>
+
+
+
+                {{-- 2.5: titleAr --}}
+                <div class="col-4 mb-4">
+                    <label class="form-label form--label">Title
+                        <span class="lang--span">العربية</span>
+                    </label>
+
+                    <input class="form-control form--input" type="text" required wire:model='instance.nameAr' />
                 </div>
 
 
@@ -126,10 +115,26 @@
 
 
 
-                {{-- 5: accountNumber --}}
-                <div class="col-4 mb-4">
+
+
+
+
+
+                {{-- 4: accountName (hidden) --}}
+                <div class="col-4 mb-4 d-none">
+                    <label class="form-label form--label">Account Name</label>
+                    <input class="form-control form--input" type="text" wire:model='instance.accountName' />
+                </div>
+
+
+
+
+
+
+                {{-- 5: accountNumber (hidden) --}}
+                <div class="col-4 mb-4 d-none">
                     <label class="form-label form--label">Account Number</label>
-                    <input class="form-control form--input" type="text" required wire:model='instance.accountNumber' />
+                    <input class="form-control form--input" type="text" wire:model='instance.accountNumber' />
                 </div>
 
 
@@ -227,14 +232,11 @@
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <label class="col-form-label form--label row--label">Type</label>
                 </div>
-                <div class="col-3">
+                <div class="col-5">
                     <label class="col-form-label form--label row--label">Name</label>
-                </div>
-                <div class="col-3">
-                    <label class="col-form-label form--label row--label">Account Number</label>
                 </div>
                 <div class="col-1">
                     <label class="col-form-label form--label row--label"></label>
@@ -269,26 +271,19 @@
 
                 {{-- 1: serial --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">SC-{{ $globalSNCounter++ }}</label>
+                    <label class="col-form-label form--label row--label">PM-{{ $globalSNCounter++ }}</label>
                 </div>
 
 
                 {{-- 2: type --}}
-                <div class="col-3">
+                <div class="col-4">
                     <label class="col-form-label form--label row--label">{{ $payment->type }}</label>
                 </div>
 
 
-                {{-- 3: accountName --}}
-                <div class="col-3">
+                {{-- 3: name --}}
+                <div class="col-5">
                     <label class="col-form-label form--label row--label">{{ $payment->name }}</label>
-                </div>
-
-
-
-                {{-- 4: accountNumber --}}
-                <div class="col-3">
-                    <label class="col-form-label form--label row--label">{{ $payment->accountNumber }}</label>
                 </div>
 
 

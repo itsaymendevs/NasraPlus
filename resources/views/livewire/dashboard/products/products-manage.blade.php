@@ -419,6 +419,27 @@
 
 
 
+
+
+
+            {{-- ---------------------------------- --}}
+            {{-- ---------------------------------- --}}
+
+
+
+
+
+
+            {{-- paginations --}}
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 pagination--wrap">{{ $products?->links() }}</div>
+            </div>
+
+
+
+
+
+
         </div>
         {{-- endResultRow --}}
 

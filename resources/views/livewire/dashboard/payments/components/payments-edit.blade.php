@@ -102,19 +102,19 @@
 
 
 
-                    {{-- accountName --}}
-                    <div class="col-6 mb-4">
+                    {{-- accountName (hidden) --}}
+                    <div class="col-6 mb-4 d-none">
                         <label class="form-label form--label">Account Name</label>
-                        <input type="text" class="form--input" required wire:model='instance.accountName'>
+                        <input type="text" class="form--input" wire:model='instance.accountName'>
                     </div>
 
 
 
 
-                    {{-- accountNumber --}}
-                    <div class="col-6 mb-4">
+                    {{-- accountNumber (hidden) --}}
+                    <div class="col-6 mb-4 d-none">
                         <label class="form-label form--label">Account Number</label>
-                        <input type="text" class="form--input" required wire:model='instance.accountNumber'>
+                        <input type="text" class="form--input" wire:model='instance.accountNumber'>
                     </div>
 
 

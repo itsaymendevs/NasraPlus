@@ -10,10 +10,10 @@ class PaymentForm extends Form
 
     // :: variables
     #[Validate('required')]
-    public $type, $name, $nameAr, $accountName, $accountNumber;
+    public $type, $name, $nameAr;
 
 
-    public $id, $isForPickup, $isForDelivery, $isForRefund, $isActive;
+    public $id, $accountName, $accountNumber, $isForPickup, $isForDelivery, $isForRefund, $isActive;
 
 
 

@@ -1,79 +1,109 @@
 .results--order-button {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .results--order-button span {
-  display: inline-block;
-  width: 30%;
-  font-size: 13px;
-  color: var(--bs-gray-800);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  white-space: pre-wrap;
-  margin-right: 4%;
+    display: inline-block;
+    width: 30%;
+    font-size: 13px;
+    color: var(--bs-gray-800);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    white-space: pre-wrap;
+    margin-right: 4%;
 }
 
 .results--order-button span:nth-of-type(even) {
-  width: 15%;
-  margin-right: 0%;
+    width: 15%;
+    margin-right: 0%;
 }
 
 /* current orders */
 
 .results--order-button.current span {
-  width: 23%;
-  margin-right: 2%;
+    width: 23%;
+    margin-right: 2%;
 }
 
 .results--order-button.current span:nth-of-type(odd) {
-  width: 15%;
-  margin-right: 0%;
+    width: 15%;
+    margin-right: 0%;
 }
 
 .results--order-button.current span:nth-of-type(1) {
-  width: 23%;
+    width: 23%;
 }
 
 .accordion-button:not(.collapsed) {
-  color: var(--color-black);
-  background-color: whitesmoke;
+    color: var(--color-black);
+    background-color: whitesmoke;
 }
 
 /* steps */
 
 .processing-steps {
-  background-color: var(--color-border);
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    background-color: var(--color-border);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .processing-steps button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 0px solid transparent;
-  background-color: white !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px solid transparent;
+    background-color: white !important;
 }
 
 .processing-steps button.active {
-  background-color: var(--color-black) !important;
-  color: white;
+    background-color: var(--color-black) !important;
+    color: white;
 }
 
 .processing-steps button.active svg {
-  fill: white;
+    fill: white;
 }
 
 #processing-extras .nav-link {
-  background-color: white;
+    background-color: white;
 }
 
 #processing-extras .nav-link.active {
-  background-color: var(--color-black);
+    background-color: var(--color-black);
 }
 
+.accordion-button::after {
+    display: none;
+}
+
+.order--row {
+    border-radius: var(--input-radius);
+    border: 1px solid var(--bs-gray-500) !important;
+    margin-bottom: 35px;
+}
+
+.order--row .accordion-button {
+    border-radius: var(--input-radius);
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+}
+
+.order--caption p {
+    border-bottom: 1px dashed var(--color-theme);
+    margin-bottom: 6px;
+}
+
+.processing--step-wrapper {
+    justify-content: space-evenly;
+    width: 80%;
+    align-items: center;
+    margin: auto;
+    padding: 5px 0px;
+    border: 2px dashed var(--color-theme);
+    margin-top: 10px;
+}

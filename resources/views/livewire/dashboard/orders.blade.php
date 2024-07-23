@@ -375,15 +375,48 @@
                         @foreach ($orders ?? [] as $order)
 
 
-                        <div class="accordion-item results--order" key='single-order-{{ $order->id }}'>
 
+
+                        {{-- topRow --}}
+                        <div class="row justify-content-between order--caption">
+
+                            {{-- serial --}}
+                            <div class="col-6">
+                                <p class='fs-11 ms-2 fw-semibold d-inline-block'><span
+                                        class='fs-10 me-1 fw-semibold'>SN.</span>{{
+                                    $order->orderNumber}}</p>
+                            </div>
+
+
+
+
+                            {{-- date --}}
+                            <div class="col-6 text-end">
+                                <p class='fs-11 me-2 fw-semibold d-inline-block'>{{ date('d / m / Y - h:i A',
+                                    strtotime($order->orderDateTime))}}</p>
+                            </div>
+                        </div>
+
+
+
+
+
+                        {{-- ---------------------------- --}}
+                        {{-- ---------------------------- --}}
+
+
+
+
+                        <div class="accordion-item results--order order--row" key='single-order-{{ $order->id }}'
+                            wire:ignore.self>
 
 
                             {{-- header --}}
                             <h2 class="accordion-header" role="tab">
-                                <button class="accordion-button results--order-button current" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#results--orders .item-{{ $order->id }}"
-                                    aria-expanded="true" aria-controls="results--orders .item-{{ $order->id }}">
+                                <button class="accordion-button results--order-button current collapsed"
+                                    wire:ignore.self type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#results--orders .item-{{ $order->id }}" aria-expanded="false"
+                                    aria-controls="results--orders .item-{{ $order->id }}">
 
 
                                     {{-- customer --}}
@@ -403,7 +436,7 @@
                                     {{-- A: paid --}}
                                     @if ($order->isPaymentDone)
 
-                                    <span class="fw-bold fs-13">Paid</span>
+                                    <span class="fw-bold text-success fs-13">Paid</span>
 
 
                                     {{-- B: notPaid --}}
@@ -464,9 +497,8 @@
 
 
                                     {{-- status --}}
-                                    <span class="fw-bold fs-13
-                                    @if ($order->orderStatus == 'Processing') text-success @endif
-                                    @if ($order->orderStatus == 'Pending') text-primary  @endif">{{
+                                    <span class="fw-bold fs-12 text-uppercase
+                                    @if ($order->orderStatus == 'Processing') text-success @endif">{{
                                         $order->orderStatus }}</span>
 
 

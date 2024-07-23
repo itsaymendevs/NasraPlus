@@ -555,15 +555,52 @@
                         @foreach ($orders ?? [] as $order)
 
 
-                        <div class="accordion-item results--order" key='single-order-{{ $order->id }}'>
+
+
+
+                        {{-- topRow --}}
+                        <div class="row justify-content-between order--caption">
+
+                            {{-- serial --}}
+                            <div class="col-6">
+                                <p class='fs-11 ms-2 fw-semibold d-inline-block'><span
+                                        class='fs-10 me-1 fw-semibold'>SN.</span>{{
+                                    $order->orderNumber}}</p>
+                            </div>
+
+
+
+
+                            {{-- date --}}
+                            <div class="col-6 text-end">
+                                <p class='fs-11 me-2 fw-semibold d-inline-block'>{{ date('d / m / Y - h:i A',
+                                    strtotime($order->orderDateTime))}}</p>
+                            </div>
+                        </div>
+
+
+
+
+
+                        {{-- ---------------------------- --}}
+                        {{-- ---------------------------- --}}
+
+
+
+
+
+
+                        <div class="accordion-item results--order order--row" key='single-order-{{ $order->id }}'
+                            wire:ignore.self>
 
 
 
                             {{-- headers --}}
                             <h2 class="accordion-header" role="tab">
                                 <button class="accordion-button collapsed results--order-button" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#results--orders .item-{{ $order->id }}"
-                                    aria-expanded="false" aria-controls="results--orders .item-{{ $order->id }}">
+                                    wire:ignore.self data-bs-toggle="collapse"
+                                    data-bs-target="#results--orders .item-{{ $order->id }}" aria-expanded="false"
+                                    aria-controls="results--orders .item-{{ $order->id }}">
 
                                     {{-- customer --}}
                                     <span>{{ $order?->user?->fullName() }}</span>
@@ -617,7 +654,7 @@
 
 
                                     {{-- status --}}
-                                    <span class="fw-bold fs-13
+                                    <span class="fw-bold fs-12 text-uppercase
                                     @if ($order->orderStatus == 'Canceled') text-danger @endif
                                     @if ($order->orderStatus == 'Completed') text-success @endif">{{
                                         $order->orderStatus }}</span>

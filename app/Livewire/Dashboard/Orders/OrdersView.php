@@ -239,17 +239,16 @@ class OrdersView extends Component
 
 
 
+
             // B: international
-            $otpUser = Message::where('type', $this->order->orderStatus)
+            $otpUser = MessageGlobal::where('type', $this->order->orderStatus)
                 ->where('isFor', $this->order->receivingOption)
-                ->where('target', 'User')
-                ->first();
+                ->where('target', 'User')?->first();
 
 
-            $otpReceiver = Message::where('type', $this->order->orderStatus)
+            $otpReceiver = MessageGlobal::where('type', $this->order->orderStatus)
                 ->where('isFor', $this->order->receivingOption)
-                ->where('target', 'Receiver')
-                ->first();
+                ->where('target', 'Receiver')?->first();
 
 
 
@@ -318,7 +317,6 @@ class OrdersView extends Component
             $order->orderStatus = 'Completed';
 
         } // end if
-
 
 
 

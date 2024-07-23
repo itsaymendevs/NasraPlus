@@ -224,6 +224,166 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" role="tabpanel" id="processing-tab" wire:ignore.self>
                                 <div class="row mx-0">
+
+
+
+
+
+
+                                    {{-- processingIndicators --}}
+                                    <div class="col-12" id="processing-steps">
+                                        <div class="processing-steps rounded-1">
+
+
+
+
+                                            {{-- 1: pending --}}
+                                            <button class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
+                                                @if ($order->orderStatus != 'Canceled') active @endif" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                    fill="currentColor" viewBox="0 0 16 16"
+                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
+                                                    data-bss-tooltip="" data-bs-placement="bottom"
+                                                    title="Order is in pending state">
+                                                    <path
+                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                    </path>
+                                                    <path
+                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                                                    </path>
+                                                </svg>Pending
+                                            </button>
+
+
+                                            {{-- hr --}}
+                                            <hr style="width: 10%" />
+
+
+
+
+
+
+
+                                            {{-- 2: processing --}}
+                                            <button
+                                                class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
+                                                @if ($order->orderStatus == 'Processing' || $order->orderStatus == 'Completed') active @endif"
+                                                type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                    fill="currentColor" viewBox="0 0 16 16"
+                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
+                                                    data-bss-tooltip="" data-bs-placement="bottom"
+                                                    title="Order is in processing state">
+                                                    <path
+                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                    </path>
+                                                    <path
+                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                                                    </path>
+                                                </svg>Processing
+                                            </button>
+
+
+
+                                            {{-- hr --}}
+                                            <hr style="width: 10%" />
+
+
+
+
+
+
+
+                                            {{-- 3: completed --}}
+                                            <button class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
+                                            @if ($order->orderStatus == 'Completed') active @endif" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                    fill="currentColor" viewBox="0 0 16 16"
+                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
+                                                    data-bss-tooltip="" data-bs-placement="bottom"
+                                                    title="Order has been completed">
+                                                    <path
+                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                    </path>
+                                                    <path
+                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                                                    </path>
+                                                </svg>Completed
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {{-- end processingIndicator --}}
+
+
+
+
+
+
+
+
+
+                                    {{-- ----------------------------------- --}}
+                                    {{-- ----------------------------------- --}}
+
+
+
+
+
+
+
+
+                                    {{-- processingButtons --}}
+                                    <div class="col-12 text-center mb-4" id="processing-buttons">
+                                        <div class="d-flex processing--step-wrapper rounded-1">
+
+
+                                            {{-- 1: previous --}}
+                                            <button
+                                                class="btn border-0 rounded-1
+                                            @if ($order->orderStatus == 'Pending' || $order->orderStatus == 'Canceled') disabled @endif"
+                                                type="button" wire:click='previousStep'
+                                                wire:loading.class='disabled'>Previous Step</button>
+
+
+
+
+
+                                            {{-- 2: next --}}
+                                            <button
+                                                class="btn btn--theme btn--sm px-4 rounded-1 fs-13 text-capitalize
+                                            @if ($order->orderStatus == 'Completed' || $order->orderStatus == 'Canceled') disabled @endif"
+                                                type="button" wire:click='nextStep' wire:loading.class='disabled'>Next
+                                                Process</button>
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                    {{-- ----------------------------------- --}}
+                                    {{-- ----------------------------------- --}}
+
+
+
+
+
+
+                                    {{-- seperator --}}
+                                    <div class="col-12 text-end align-self-end mb-4 pb-2"></div>
+
+
+
+
+                                    {{-- ----------------------------------- --}}
+                                    {{-- ----------------------------------- --}}
+
+
+
+
                                     <div class="col-12" id="processing-extras">
 
 
@@ -516,149 +676,10 @@
 
 
 
-                                    {{-- ----------------------------------- --}}
-                                    {{-- ----------------------------------- --}}
 
 
 
 
-
-                                    {{-- seperator --}}
-                                    <div class="col-12 text-end align-self-end">
-                                        <hr class="mb-4" />
-                                    </div>
-
-
-
-
-                                    {{-- ----------------------------------- --}}
-                                    {{-- ----------------------------------- --}}
-
-
-
-
-
-
-                                    {{-- processingButtons --}}
-                                    <div class="col-12 text-center mb-4" id="processing-buttons">
-
-
-                                        {{-- 1: previous --}}
-                                        <button
-                                            class="btn border-0 rounded-1 me-2
-                                            @if ($order->orderStatus == 'Pending' || $order->orderStatus == 'Canceled') disabled @endif"
-                                            type="button" wire:click='previousStep'
-                                            wire:loading.class='disabled'>Previous</button>
-
-
-
-
-
-                                        {{-- 2: next --}}
-                                        <button
-                                            class="btn btn--theme btn--sm px-4 rounded-1 fs-13 text-capitalize
-                                            @if ($order->orderStatus == 'Completed' || $order->orderStatus == 'Canceled') disabled @endif"
-                                            type="button" wire:click='nextStep' wire:loading.class='disabled'>Next
-                                            Process</button>
-                                    </div>
-
-
-
-
-
-
-
-                                    {{-- ----------------------------------- --}}
-                                    {{-- ----------------------------------- --}}
-
-
-
-
-
-
-                                    {{-- processingIndicators --}}
-                                    <div class="col-12" id="processing-steps">
-                                        <div class="processing-steps rounded-1">
-
-
-
-
-                                            {{-- 1: pending --}}
-                                            <button class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
-                                                @if ($order->orderStatus != 'Canceled') active @endif" type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                                    fill="currentColor" viewBox="0 0 16 16"
-                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
-                                                    data-bss-tooltip="" data-bs-placement="bottom"
-                                                    title="Order is in pending state">
-                                                    <path
-                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
-                                                    </path>
-                                                    <path
-                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
-                                                    </path>
-                                                </svg>Pending
-                                            </button>
-
-
-                                            {{-- hr --}}
-                                            <hr style="width: 10%" />
-
-
-
-
-
-
-
-                                            {{-- 2: processing --}}
-                                            <button
-                                                class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
-                                                @if ($order->orderStatus == 'Processing' || $order->orderStatus == 'Completed') active @endif"
-                                                type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                                    fill="currentColor" viewBox="0 0 16 16"
-                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
-                                                    data-bss-tooltip="" data-bs-placement="bottom"
-                                                    title="Order is in processing state">
-                                                    <path
-                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
-                                                    </path>
-                                                    <path
-                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
-                                                    </path>
-                                                </svg>Processing
-                                            </button>
-
-
-
-                                            {{-- hr --}}
-                                            <hr style="width: 10%" />
-
-
-
-
-
-
-
-                                            {{-- 3: completed --}}
-                                            <button class="btn btn--sm px-4 rounded-1 fs-13 text-capitalize scale--3
-                                            @if ($order->orderStatus == 'Completed') active @endif" type="button">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                                    fill="currentColor" viewBox="0 0 16 16"
-                                                    class="bi bi-info-circle me-2" data-bs-toggle="tooltip"
-                                                    data-bss-tooltip="" data-bs-placement="bottom"
-                                                    title="Order has been completed">
-                                                    <path
-                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
-                                                    </path>
-                                                    <path
-                                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
-                                                    </path>
-                                                </svg>Completed
-                                            </button>
-                                        </div>
-                                    </div>
-                                    {{-- end processingIndicator --}}
                                 </div>
                             </div>
                             {{-- end tab --}}
@@ -1204,9 +1225,30 @@
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Country</label>
-                        <p>{{ $order?->country?->name }}</p>
+
+
+                        {{-- local --}}
+                        @if ($order?->state?->name)
+
+                        <p>{{ $order->state->name . ', ' . $order->country?->name }}</p>
+
+
+                        {{-- global --}}
+                        @else
+
+                        <p>{{ $order->country?->name }}</p>
+
+                        @endif
+                        {{-- end if --}}
+
+
                     </div>
                 </div>
+
+
+
+
+
 
 
 
@@ -1274,6 +1316,39 @@
 
 
 
+                {{-- withRegion --}}
+                @if ($order->deliveryRegionId)
+
+
+
+                {{-- region --}}
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Region</label>
+                        <p>{{ $order?->deliveryRegion?->name }}</p>
+                    </div>
+                </div>
+
+
+
+
+
+                {{-- address --}}
+                <div class="col-8 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Rough Address</label>
+                        <p>{{ $order?->address }}</p>
+                    </div>
+                </div>
+
+
+
+
+                {{-- noRegion --}}
+                @else
+
+
+
                 {{-- address --}}
                 <div class="col-12 mb-4">
                     <div class="profile--title-wrap">
@@ -1281,6 +1356,14 @@
                         <p>{{ $order?->address }}</p>
                     </div>
                 </div>
+
+
+
+                @endif
+                {{-- end if --}}
+
+
+
             </div>
         </div>
         {{-- endAddressRow --}}
@@ -1373,7 +1456,7 @@
 
                 {{-- 1: product --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ $orderProduct->serial }}</label>
+                    <label class="col-form-label form--label row--label">P-{{ $orderProduct->serial }}</label>
                 </div>
 
 
