@@ -22,6 +22,10 @@ class UserReceiver extends Model
     }
 
 
+
+
+
+
     public function deliveryRegion()
     {
         return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');

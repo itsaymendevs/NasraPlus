@@ -1221,29 +1221,36 @@
 
 
 
-                {{-- country --}}
+
+
+
+                {{-- country (inter)--}}
+                @if ($order?->country?->name != 'Sudan')
+
+
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Country</label>
-
-
-                        {{-- local --}}
-                        @if ($order?->state?->name)
-
-                        <p>{{ $order->state->name . ', ' . $order->country?->name }}</p>
-
-
-                        {{-- global --}}
-                        @else
-
                         <p>{{ $order->country?->name }}</p>
-
-                        @endif
-                        {{-- end if --}}
-
-
                     </div>
                 </div>
+
+
+
+                {{-- local --}}
+                @else
+
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Country</label>
+                        <p>{{ $order?->state?->name . ', ' . $order->country?->name }}</p>
+                    </div>
+                </div>
+
+
+                @endif
+                {{-- end if --}}
+
 
 
 
@@ -1255,7 +1262,6 @@
 
                 {{-- receiver (global) --}}
                 @if ($order?->country?->name != 'Sudan')
-
 
 
                 <div class="col-4 mb-4">
@@ -1294,7 +1300,8 @@
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Country</label>
-                        <p>{{ $order?->receiver?->country?->name }}</p>
+                        <p>{{ $order?->receiver?->state?->name . ', ' . $order?->receiver?->state?->country?->name }}
+                        </p>
                     </div>
                 </div>
 
@@ -1321,13 +1328,34 @@
 
 
 
-                {{-- region --}}
+                {{-- inter --}}
+                @if ($order?->country?->name != 'Sudan')
+
+
+                <div class="col-4 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Region</label>
+                        <p>{{ $order?->receiver?->deliveryRegion?->name }}</p>
+                    </div>
+                </div>
+
+
+
+                {{-- local --}}
+                @else
+
+
+
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Region</label>
                         <p>{{ $order?->deliveryRegion?->name }}</p>
                     </div>
                 </div>
+
+
+                @endif
+                {{-- end if --}}
 
 
 
