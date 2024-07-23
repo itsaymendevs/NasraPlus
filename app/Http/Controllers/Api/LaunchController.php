@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use App\Models\Category;
+use App\Models\CategoryPicture;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\deliveryRegion;
@@ -373,6 +374,13 @@ class LaunchController extends Controller
    public function thirdAction($response)
    {
 
+      // 0.5: categories images
+      $categoriesImages = CategoryPicture::find(1);
+
+      $response->categoriesPageImage = url('storage/categories/covers/') . '/' . $categoriesImages?->imageFile;
+      $response->categoriesPageImageAr = url('storage/categories/covers/') . '/' . $categoriesImages?->imageFileAr;
+
+
       // 1: get data
 
       // 1.1: main-categories inside subs / types
@@ -394,37 +402,42 @@ class LaunchController extends Controller
          $counterOne = 0;
          foreach ($mainCategory->subCategories->sortBy('index') as $subCategory) {
 
-            $content->subCategories[$counterOne] = new stdClass();
+            // check if subCategory has types
+            if ($subCategory?->types?->count() > 0) {
 
-            $content->subCategories[$counterOne]->id = strval($subCategory->id);
-            $content->subCategories[$counterOne]->name = $subCategory->name;
-            $content->subCategories[$counterOne]->nameAr = $subCategory->nameAr;
+               $content->subCategories[$counterOne] = new stdClass();
 
-            $content->subCategories[$counterOne]->types = array();
+               $content->subCategories[$counterOne]->id = strval($subCategory->id);
+               $content->subCategories[$counterOne]->name = $subCategory->name;
+               $content->subCategories[$counterOne]->nameAr = $subCategory->nameAr;
 
-
-
-
-            // 1.3: insert types
-            $counterTwo = 0;
-            foreach ($subCategory->types->sortBy('index') as $type) {
-
-               $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
-
-               $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
-               $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
-               $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
-
-               // ::inc counterTwo
-               $counterTwo++;
-            } // end loop
+               $content->subCategories[$counterOne]->types = array();
 
 
 
-            // ::inc counterOne
-            $counterOne++;
+
+               // 1.3: insert types
+               $counterTwo = 0;
+               foreach ($subCategory->types->sortBy('index') as $type) {
+
+                  $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
+
+                  $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
+                  $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
+                  $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
+
+                  // ::inc counterTwo
+                  $counterTwo++;
+               } // end loop
+
+
+
+               // ::inc counterOne
+               $counterOne++;
+            } //end of if subCategory has types
+
+
          } // end inner loop
-
 
 
 
@@ -438,6 +451,7 @@ class LaunchController extends Controller
 
       // 1.5: prepare categories
       $response->categories = $contentArray;
+
 
       return $response;
    } // end function
