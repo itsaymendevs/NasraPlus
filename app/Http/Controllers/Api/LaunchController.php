@@ -288,7 +288,7 @@ class LaunchController extends Controller
       // 1: get data
       $generalBlocks = GeneralSetting::all()->first();
 
-      $response->isOrderingBlocked = boolval($generalBlocks->stopOrders);
+      $response->isOrderingBlocked = ! boolval($generalBlocks->isOrderingActive);
 
       return $response;
    } // end function
@@ -561,7 +561,7 @@ class LaunchController extends Controller
          $content->lettersCode = $country->code;
          $content->toSDG = strval($country->toSDG);
          $content->isActive = boolval($country->isServiceActive);
-         $content->isCountryOrderingBlocked = !boolval($country->isOrderingActive);
+         $content->isCountryOrderingBlocked = ! boolval($country->isOrderingActive);
 
 
 
