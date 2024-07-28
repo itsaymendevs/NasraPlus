@@ -314,7 +314,23 @@ class OrdersView extends Component
 
         } elseif ($this->order?->orderStatus == 'Processing') {
 
+
+
+
+            // 1.2.5: checkPayment
+            if (! $this->order?->isPaymentDone) {
+
+                $this->makeAlert('info', 'Payment has not been completed');
+                return false;
+
+            } // end if
+
+
+
+
+            // :: continue
             $order->orderStatus = 'Completed';
+
 
         } // end if
 

@@ -119,7 +119,7 @@
 
                 {{-- name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $product->name }}</label>
+                    <label class="col-form-label form--label row--label me-3">{{ $product?->name }}</label>
                 </div>
 
 
@@ -127,7 +127,7 @@
 
                 {{-- nameAr --}}
                 <div class="col-5">
-                    <label class="col-form-label form--label row--label">{{ $product->nameAr }}</label>
+                    <label class="col-form-label form--label row--label me-3">{{ $product?->nameAr }}</label>
                 </div>
 
 

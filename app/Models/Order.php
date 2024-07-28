@@ -28,18 +28,18 @@ class Order extends Model
     }
 
 
-    public function state()
-    {
-        return $this->belongsTo(State::class, 'stateId');
-    }
-
-
     public function deliveryRegion()
     {
         return $this->belongsTo(DeliveryRegion::class, 'deliveryRegionId');
     }
 
 
+
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'stateId');
+    }
 
 
 

@@ -215,6 +215,13 @@ class Orders extends Component
 
 
 
+        // :: initTooltips
+        $this->dispatch('initTooltips');
+
+
+
+
+
         return view('livewire.dashboard.orders', compact('countries', 'stores', 'statuses', 'orders'));
 
 

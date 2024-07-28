@@ -380,22 +380,68 @@
                         {{-- topRow --}}
                         <div class="row justify-content-between order--caption">
 
-                            {{-- serial --}}
+
+
+                            {{-- pickupCode & serial --}}
+                            @if ($order?->pickupCode)
+
+
+
                             <div class="col-6">
-                                <p class='fs-11 ms-2 fw-semibold d-inline-block'><span
-                                        class='fs-10 me-1 fw-semibold'>SN.</span>{{
-                                    $order->orderNumber}}</p>
+
+                                <p class='fs-11 ms-2 fw-semibold d-inline-block' data-bs-toggle="tooltip"
+                                    data-bss-tooltip="" data-bs-placement="top" title="Serial / Pickup Code">
+                                    <span class='fs-10 me-1 fw-semibold'>SN.</span>{{
+                                    $order->orderNumber}}
+                                    <span class='mx-2'>/</span>
+                                    {{ $order->pickupCode}}
+                                </p>
+
                             </div>
 
 
 
 
-                            {{-- date --}}
+                            {{-- onlySerial --}}
+                            @else
+
+
+
+                            <div class="col-6">
+                                <p class='fs-11 ms-2 fw-semibold d-inline-block' data-bs-toggle="tooltip"
+                                    data-bss-tooltip="" data-bs-placement="top" title="Serial"><span
+                                        class='fs-10 me-1 fw-semibold'>SN.</span>{{ $order->orderNumber}}</p>
+                            </div>
+
+
+
+                            @endif
+                            {{-- end if --}}
+
+
+
+
+
+
+                            {{-- ---------------------------------- --}}
+                            {{-- ---------------------------------- --}}
+                            {{-- ---------------------------------- --}}
+
+
+
+
+                            {{-- dateTime --}}
                             <div class="col-6 text-end">
                                 <p class='fs-11 me-2 fw-semibold d-inline-block'>{{ date('d / m / Y - h:i A',
                                     strtotime($order->orderDateTime))}}</p>
                             </div>
+
+
                         </div>
+                        {{-- endTop --}}
+
+
+
 
 
 
@@ -558,19 +604,63 @@
 
 
 
-                                        {{-- paymentMethod --}}
+
+
+
+
+                                        {{-- country (inter)--}}
+                                        @if ($order?->country?->name != 'Sudan')
+
+
                                         <div class="col-4 mb-4">
                                             <div class="profile--title-wrap">
-                                                <label class="form-label profile--span-title">Payment</label>
-                                                <p>{{ $order?->payment?->name }}</p>
+                                                <label class="form-label profile--span-title">Country</label>
+                                                <p>{{ $order->country?->name }}</p>
                                             </div>
                                         </div>
+
+
+
+                                        {{-- local --}}
+                                        @else
+
+                                        <div class="col-4 mb-4">
+                                            <div class="profile--title-wrap">
+                                                <label class="form-label profile--span-title">Country</label>
+                                                <p>{{ $order?->state?->name. ', ' . $order->country?->name }}</p>
+                                            </div>
+                                        </div>
+
+
+                                        @endif
+                                        {{-- end if --}}
+
+
+
+
+
+
+
+
+
+
+
+                                        {{-- --------------------------- --}}
+                                        {{-- --------------------------- --}}
+
+
 
 
 
 
 
                                         {{-- addressLocation --}}
+
+                                        {{-- withRegion --}}
+                                        @if ($order->deliveryRegionId)
+
+
+
                                         <div class="col-12 mb-4">
                                             <div class="profile--title-wrap">
                                                 <label class="form-label profile--span-title">Rough Address</label>
@@ -580,6 +670,42 @@
 
 
 
+
+                                        {{-- noRegion --}}
+                                        @else
+
+
+
+                                        {{-- empty --}}
+                                        <div class="col-12"></div>
+
+
+                                        @endif
+                                        {{-- end if --}}
+
+
+
+
+
+
+
+
+
+                                        {{-- --------------------------------- --}}
+                                        {{-- --------------------------------- --}}
+
+
+
+
+
+
+                                        {{-- paymentMethod --}}
+                                        <div class="col-4 mb-4">
+                                            <div class="profile--title-wrap">
+                                                <label class="form-label profile--span-title">Payment</label>
+                                                <p>{{ $order?->payment?->name }}</p>
+                                            </div>
+                                        </div>
 
 
                                         {{-- ----------------------------- --}}

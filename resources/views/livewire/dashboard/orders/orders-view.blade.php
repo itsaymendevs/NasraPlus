@@ -93,17 +93,39 @@
 
 
                 {{-- orderNumber --}}
-                <div class="col-3 mb-4">
+                <div class="@if ($order->pickupCode) col-2 @else col-3 @endif mb-4">
                     <div class="profile--title-wrap">
-                        <label class="form-label profile--span-title">Order Number</label>
+                        <label class="form-label profile--span-title">Order No.</label>
                         <p>{{ $order?->orderNumber }}</p>
                     </div>
                 </div>
 
 
 
+
+
+
+                {{-- pickupCode --}}
+                @if ($order->pickupCode)
+
+                <div class="col-3 mb-4">
+                    <div class="profile--title-wrap">
+                        <label class="form-label profile--span-title">Pickup Code</label>
+                        <p>{{ $order?->pickupCode }}</p>
+                    </div>
+                </div>
+
+                @endif
+                {{-- end if --}}
+
+
+
+
+
+
+
                 {{-- dateTime --}}
-                <div class="col-4 mb-4">
+                <div class="@if ($order->pickupCode) col-3 @else col-5 @endif mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">DateTime</label>
                         <p>{{ date('d M Y - h:i A', strtotime($order?->orderDateTime)) }}</p>
@@ -111,10 +133,19 @@
                 </div>
 
 
+
+
+
+                {{-- ------------------------------ --}}
+                {{-- ------------------------------ --}}
+
+
+
+
                 {{-- print - printForPickup --}}
-                <div class="col-5 text-end align-self-end mb-4">
-                    <a class="btn btn--export scale--3 px-4 me-2" role="button" href="javascript:void(0);">Print</a>
-                    <a class="btn btn--export scale--3 px-4" role="button" href="javascript:void(0);">Print for
+                <div class="col-4 text-end align-self-end mb-4">
+                    <a class="btn btn--export scale--3 px-3 me-1" role="button" href="javascript:void(0);">Print</a>
+                    <a class="btn btn--export scale--3 px-3" role="button" href="javascript:void(0);">Pickup for
                         pickup</a>
                 </div>
             </div>
@@ -874,7 +905,7 @@
                     <label class="col-form-label form--label profile--label scale--3">
                         <span class="profile--span-title one-line" style="line-height: initial">Products
                             Price</span>
-                        <span class="fs-6 fw-bold">{{ number_format(($order?->productsPrice ?? 0) / $toSDG, 1) }}</span>
+                        <span class="fs-6 fw-bold">{{ number_format(($order?->productsPrice ?? 0) / $toSDG, 2) }}</span>
                     </label>
                 </div>
 
@@ -891,7 +922,7 @@
                         <span class="profile--span-title one-line" style="line-height: initial">Delivery
                             Price</span>
                         <span class="fs-6 fw-bold">
-                            {{ number_format(($order?->deliveryPrice ?? 0) / $toSDG, 1) }}</span>
+                            {{ number_format(($order?->deliveryPrice ?? 0) / $toSDG, 2) }}</span>
                     </label>
                 </div>
 
@@ -911,7 +942,7 @@
                     <label class="col-form-label text-center form--label profile--label scale--3">
                         <span class="profile--span-title one-line" style="line-height: initial">Total Price</span>
                         <span class="fs-6 fw-bold text-theme">
-                            {{ number_format(($order?->orderTotalPrice ?? 0) / $toSDG, 1) }}
+                            {{ number_format(($order?->orderTotalPrice ?? 0) / $toSDG, 2) }}
                         </span>
                     </label>
                 </div>
@@ -1294,8 +1325,6 @@
 
 
 
-
-
                 {{-- country --}}
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
@@ -1332,6 +1361,7 @@
                 @if ($order?->country?->name != 'Sudan')
 
 
+
                 <div class="col-4 mb-4">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Region</label>
@@ -1341,12 +1371,14 @@
 
 
 
+
                 {{-- local --}}
                 @else
 
 
 
-                <div class="col-4 mb-4">
+
+                <div class="col-4 mb-4 d-none">
                     <div class="profile--title-wrap">
                         <label class="form-label profile--span-title">Region</label>
                         <p>{{ $order?->deliveryRegion?->name }}</p>
@@ -1354,8 +1386,12 @@
                 </div>
 
 
+
+
                 @endif
                 {{-- end if --}}
+
+
 
 
 
@@ -1372,23 +1408,9 @@
 
 
 
-                {{-- noRegion --}}
-                @else
-
-
-
-                {{-- address --}}
-                <div class="col-12 mb-4">
-                    <div class="profile--title-wrap">
-                        <label class="form-label profile--span-title">Rough Address</label>
-                        <p>{{ $order?->address }}</p>
-                    </div>
-                </div>
-
-
-
                 @endif
                 {{-- end if --}}
+
 
 
 
@@ -1490,7 +1512,7 @@
 
                 {{-- 2: name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $orderProduct?->name }}</label>
+                    <label class="col-form-label form--label row--label me-3">{{ $orderProduct?->name }}</label>
                 </div>
 
 
@@ -1503,9 +1525,8 @@
 
                 {{-- 4: pricePerOne --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ number_format($orderProduct->sellPrice ?? 0,
-                        1)
-                        }}</label>
+                    <label class="col-form-label form--label row--label">{{ number_format(($orderProduct?->sellPrice ??
+                        0) / $toSDG, 2) }}</label>
                 </div>
 
 
@@ -1513,10 +1534,8 @@
                 {{-- 5: totalPrice --}}
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">{{
-                        number_format($orderProduct->orderProductPrice ??
-                        0,
-                        1)
-                        }}</label>
+                        number_format(($orderProduct?->orderProductPrice ??
+                        0) / $toSDG, 2) }}</label>
                 </div>
             </div>
 

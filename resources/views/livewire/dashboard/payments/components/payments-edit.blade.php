@@ -102,22 +102,36 @@
 
 
 
-                    {{-- accountName (hidden) --}}
-                    <div class="col-6 mb-4 d-none">
+
+                    {{-- onlineBankingPayment --}}
+                    @if ($instance?->type == 'Online Banking Payment')
+
+
+
+
+
+                    {{-- accountName --}}
+                    <div class="col-6 mb-4">
                         <label class="form-label form--label">Account Name</label>
-                        <input type="text" class="form--input" wire:model='instance.accountName'>
+                        <input type="text" class="form--input" wire:model='instance.accountName' required>
                     </div>
 
 
 
 
-                    {{-- accountNumber (hidden) --}}
-                    <div class="col-6 mb-4 d-none">
+                    {{-- accountNumber --}}
+                    <div class="col-6 mb-4">
                         <label class="form-label form--label">Account Number</label>
-                        <input type="text" class="form--input" wire:model='instance.accountNumber'>
+                        <input type="text" class="form--input" wire:model='instance.accountNumber' required>
                     </div>
 
 
+
+
+
+
+                    @endif
+                    {{-- end if --}}
 
 
 

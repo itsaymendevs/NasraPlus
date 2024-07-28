@@ -37,7 +37,7 @@ class MessagesGlobalPickupProcessing extends Component
             ->first();
 
 
-        foreach ($message->toArray() ?? [] as $key => $value)
+        foreach ($message?->toArray() ?? [] as $key => $value)
             $this->instance->{$key} = $value;
 
 

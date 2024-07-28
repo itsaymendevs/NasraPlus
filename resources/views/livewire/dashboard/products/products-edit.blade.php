@@ -470,7 +470,7 @@
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">No. of Units</label>
                     <input class="form-control form--input" type="number" step='0.01' min='0'
-                        wire:model.live='instance.units' required>
+                        wire:model='instance.units' wire:change='calculateTotal' wire:loading.attr='readonly'>
                 </div>
 
 
@@ -478,8 +478,8 @@
                 {{-- quantityPerUnit --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Quantity / Unit</label>
-                    <input class="form-control form--input" step='0.01' min='0'
-                        wire:model.live='instance.quantityPerUnit' required>
+                    <input class="form-control form--input" step='0.01' min='0' wire:model='instance.quantityPerUnit'
+                        wire:change='calculateTotal' wire:loading.attr='readonly'>
                 </div>
 
 
@@ -488,7 +488,7 @@
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Total Quantity</label>
                     <input class="form-control form--input" type="number" readonly="" step='0.01' min='0'
-                        wire:model.live='instance.quantity' required>
+                        wire:model='instance.quantity' required>
                 </div>
 
 

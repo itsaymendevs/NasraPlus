@@ -255,6 +255,28 @@ class ProductsCreate extends Component
 
 
 
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function calculateTotal()
+    {
+
+
+        // 1: getTotal
+        $this->instance->quantity = ($this->instance?->units > 0 ? $this->instance->units : 0) * ($this->instance?->quantityPerUnit ? $this->instance->quantityPerUnit : 0);
+
+
+    } // end function
+
+
+
+
+
+
 
 
     // ---------------------------------------------------------------------------
@@ -280,10 +302,6 @@ class ProductsCreate extends Component
 
 
 
-
-
-        // 1.2: calculateQuantity
-        $this->instance->quantity = ($this->instance?->units > 0 ? $this->instance->units : 0) * ($this->instance?->quantityPerUnit ? $this->instance->quantityPerUnit : 0);
 
 
 

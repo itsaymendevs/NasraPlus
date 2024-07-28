@@ -541,14 +541,15 @@
 
                 {{-- 1.2: name --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label me-1">{{ $product?->name }}</label>
+                    <label class="col-form-label form--label row--label me-3">{{ $product?->name }}</label>
                 </div>
 
 
                 {{-- 1.3: sizeOrWeight --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ $product->weight ?? 1 }} {{
-                        $product?->unit?->name }}</label>
+                    <label class="col-form-label form--label row--label">{{ $product->weight ?? 1 }}<span
+                            class='fs-11 ms-1'>{{ $product?->unit ? "({$product->unit?->abbreviation})" : ''
+                            }}</span></label>
                 </div>
 
 

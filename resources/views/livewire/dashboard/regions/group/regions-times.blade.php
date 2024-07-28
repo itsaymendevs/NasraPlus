@@ -78,27 +78,6 @@
 
 
 
-                {{-- title --}}
-                <div class="col-6 mb-4">
-                    <label class="form-label form--label">Title</label>
-                    <input class="form-control form--input" type="text" required wire:model='instance.title' />
-                </div>
-
-
-
-                {{-- titleAr --}}
-                <div class="col-6 mb-4">
-                    <label class="form-label form--label">Title
-                        <span class="lang--span">العربية</span>
-                    </label>
-
-                    <input class="form-control form--input" type="text" required wire:model='instance.titleAr' />
-                </div>
-
-
-
-
-
 
                 {{-- content --}}
                 <div class="col-6 mb-4">
@@ -164,10 +143,7 @@
                 <div class="col-2">
                     <label class="col-form-label form--label row--label">Serial</label>
                 </div>
-                <div class="col-4">
-                    <label class="col-form-label form--label row--label">Title</label>
-                </div>
-                <div class="col-5">
+                <div class="col-9">
                     <label class="col-form-label form--label row--label">Timing</label>
                 </div>
                 <div class="col-1">
@@ -204,15 +180,9 @@
 
 
 
-                {{-- 2: title --}}
-                <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $deliveryTime->title }}</label>
-                </div>
-
-
 
                 {{-- content --}}
-                <div class="col-5">
+                <div class="col-9">
                     <label class="col-form-label form--label row--label">{{ $deliveryTime->content }}</label>
                 </div>
 

@@ -10,7 +10,7 @@
 
     {{-- 2: name --}}
     <div class="col-3">
-        <label class="col-form-label form--label row--label me-1">{{ $instance->name }}</label>
+        <label class="col-form-label form--label row--label me-3">{{ $instance?->name }}</label>
     </div>
 
 

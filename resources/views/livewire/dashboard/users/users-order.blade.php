@@ -440,7 +440,8 @@
                 {{-- productsPrice --}}
                 <div class="col-3 offset-1 text-center mb-4">
                     <label class="form-label text-uppercase fw-semibold fs-12">Products Price</label>
-                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{( $order?->productsPrice ?? 0) / $toSDG }}</h4>
+                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{
+                        number_format(($order?->productsPrice ?? 0) / $toSDG, 2) }}</h4>
                 </div>
 
 
@@ -449,7 +450,8 @@
                 {{-- totalPrice --}}
                 <div class="col-3 text-center mb-4">
                     <label class="form-label text-uppercase fw-semibold fs-12">Total Price</label>
-                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{ ($order?->orderTotalPrice ?? 0) / $toSDG }}</h4>
+                    <h4 class="mt-2 mb-0 fw-bold text-theme">{{
+                        number_format(($order?->orderTotalPrice ?? 0) / $toSDG, 2) }}</h4>
                 </div>
             </div>
         </div>
@@ -532,7 +534,7 @@
 
                 {{-- name --}}
                 <div class="col-4">
-                    <label class="col-form-label form--label row--label">{{ $orderProduct?->name }}</label>
+                    <label class="col-form-label form--label row--label me-3">{{ $orderProduct?->name }}</label>
                 </div>
 
 
@@ -546,15 +548,15 @@
 
                 {{-- sellPrice --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ ($orderProduct?->sellPrice ?? 0) / $toSDG
-                        }}</label>
+                    <label class="col-form-label form--label row--label">{{
+                        number_format(($orderProduct?->sellPrice ?? 0) / $toSDG, 2) }}</label>
                 </div>
 
 
                 {{-- totalPrice --}}
                 <div class="col-2">
-                    <label class="col-form-label form--label row--label">{{ ($orderProduct?->orderProductPrice ?? 0) *
-                        $toSDG }}</label>
+                    <label class="col-form-label form--label row--label">{{
+                        number_format(($orderProduct?->orderProductPrice ?? 0) / $toSDG, 2) }}</label>
                 </div>
             </div>
 

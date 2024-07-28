@@ -44,6 +44,12 @@ class ProductsEdit extends Component
 
 
 
+        // 1.1: resetUnits
+        $this->instance->units = null;
+        $this->instance->quantityPerUnit = null;
+
+
+
 
         // 1.2 imageFile - convertBoolean
         $this->instance->imageFileName = $this->instance->imageFile ?? null;
@@ -365,6 +371,28 @@ class ProductsEdit extends Component
 
 
 
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function calculateTotal()
+    {
+
+
+        // 1: getTotal
+        $this->instance->quantity = ($this->instance?->units > 0 ? $this->instance->units : 0) * ($this->instance?->quantityPerUnit ? $this->instance->quantityPerUnit : 0);
+
+
+    } // end function
+
+
+
+
+
+
 
     // ---------------------------------------------------------------------------
 
@@ -403,13 +431,6 @@ class ProductsEdit extends Component
 
 
 
-
-
-
-
-
-        // 1.3: calculateQuantity
-        $this->instance->quantity = ($this->instance?->units > 0 ? $this->instance->units : 0) * ($this->instance?->quantityPerUnit ? $this->instance->quantityPerUnit : 0);
 
 
 

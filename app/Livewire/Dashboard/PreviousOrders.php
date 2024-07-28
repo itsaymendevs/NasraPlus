@@ -405,6 +405,13 @@ class PreviousOrders extends Component
 
 
 
+        // :: initTooltips
+        $this->dispatch('initTooltips');
+
+
+
+
+
 
         return view('livewire.dashboard.previous-orders', compact('countries', 'stores', 'statuses', 'orders', 'rawOrders'));
 

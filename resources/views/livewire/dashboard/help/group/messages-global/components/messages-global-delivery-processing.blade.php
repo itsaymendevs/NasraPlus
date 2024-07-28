@@ -8,7 +8,7 @@
             aria-controls="results--sms-delivery .item-1" wire:ignore.self>
             <span style="width: 50%">Processing</span>
             <span class="text-end" style="width: 40%"><small
-                    class="sms--indicator @if (!$instance->isActive) inactive @endif">User</small></span>
+                    class="sms--indicator @if (!$instanceReceiver->isActive) inactive @endif">Receiver</small></span>
         </button>
     </h2>
 
@@ -94,11 +94,12 @@
 
                         {{-- tabLinks --}}
                         <ul class="nav nav-pills nav-justified" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" role="tab" data-bs-toggle="pill" href="#user-tab-1">User</a>
+                            <li class="nav-item d-none" role="presentation">
+                                <a class="nav-link" role="tab" data-bs-toggle="pill" href="#user-tab-1">User</a>
                             </li>
                             <li class="nav-item d-none" role="presentation">
-                                <a class="nav-link" role="tab" data-bs-toggle="pill" href="#receiver-tab-1">Receiver</a>
+                                <a class="nav-link active" role="tab" data-bs-toggle="pill"
+                                    href="#receiver-tab-1">Receiver</a>
                             </li>
                         </ul>
 
@@ -121,7 +122,7 @@
 
 
                             {{-- 1: user --}}
-                            <div class="tab-pane active" role="tabpanel" id="user-tab-1">
+                            <div class="tab-pane" role="tabpanel" id="user-tab-1">
                                 <form wire:submit='update' wire:loading.class='disabled' class="row align-items-center">
 
 
@@ -182,7 +183,7 @@
 
 
                             {{-- 2: receiver --}}
-                            <div class="tab-pane" role="tabpanel" id="receiver-tab-1">
+                            <div class="tab-pane active" role="tabpanel" id="receiver-tab-1">
                                 <form wire:submit='updateReceiver' wire:loading.class='disabled'
                                     class="row align-items-center">
 

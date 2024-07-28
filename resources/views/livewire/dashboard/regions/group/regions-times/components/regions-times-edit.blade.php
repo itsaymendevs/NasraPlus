@@ -27,27 +27,6 @@
                 <div class="row align-items-center">
 
 
-                    {{-- title --}}
-                    <div class="col-6 mb-4">
-                        <label class="form-label form--label">Title</label>
-                        <input class="form-control form--input" type="text" required wire:model='instance.title' />
-                    </div>
-
-
-
-                    {{-- titleAr --}}
-                    <div class="col-6 mb-4">
-                        <label class="form-label form--label">Title
-                            <span class="lang--span">العربية</span>
-                        </label>
-
-                        <input class="form-control form--input" type="text" required wire:model='instance.titleAr' />
-                    </div>
-
-
-
-
-
 
                     {{-- content --}}
                     <div class="col-6 mb-4">

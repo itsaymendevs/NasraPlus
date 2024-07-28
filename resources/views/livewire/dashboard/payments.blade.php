@@ -73,7 +73,7 @@
 
                 {{-- 1: paymentTypes --}}
                 <div class="col-4 mb-4">
-                    <label class="form-label form--label">Payment Type</label>
+                    <label class="form-label form--label">Type</label>
                     <div class="select--single-wrapper" wire:ignore>
                         <select class="form-select form--select payment--select" required data-instance='instance.type'>
                             <option value=""></option>
@@ -119,11 +119,15 @@
 
 
 
+                {{-- onlineBankingPayment --}}
+                @if ($instance->type == 'Online Banking Payment')
 
-                {{-- 4: accountName (hidden) --}}
-                <div class="col-4 mb-4 d-none">
+
+
+                {{-- 4: accountName --}}
+                <div class="col-6 mb-4">
                     <label class="form-label form--label">Account Name</label>
-                    <input class="form-control form--input" type="text" wire:model='instance.accountName' />
+                    <input class="form-control form--input" type="text" wire:model='instance.accountName' required />
                 </div>
 
 
@@ -131,11 +135,16 @@
 
 
 
-                {{-- 5: accountNumber (hidden) --}}
-                <div class="col-4 mb-4 d-none">
+                {{-- 5: accountNumber --}}
+                <div class="col-6 mb-4">
                     <label class="form-label form--label">Account Number</label>
-                    <input class="form-control form--input" type="text" wire:model='instance.accountNumber' />
+                    <input class="form-control form--input" type="text" wire:model='instance.accountNumber' required />
                 </div>
+
+
+                @endif
+                {{-- end if --}}
+
 
 
 

@@ -778,8 +778,8 @@
 
                             {{-- totalPrice --}}
                             <div class="col-1">
-                                <label class="col-form-label form--label row--label">{{ ($order?->orderTotalPrice ?? 0)
-                                    / $toSDG }}</label>
+                                <label class="col-form-label form--label row--label">{{
+                                    number_format(($order?->orderTotalPrice ?? 0) / $toSDG, 2) }}</label>
                             </div>
 
 
@@ -923,7 +923,7 @@
 
                             {{-- 2: name --}}
                             <div class="col-3">
-                                <label class="col-form-label form--label row--label me-1">{{ $favorite->product->name
+                                <label class="col-form-label form--label row--label me-2">{{ $favorite->product?->name
                                     }}</label>
                             </div>
 
@@ -933,9 +933,10 @@
 
                             {{-- 3: sell - offerPrice --}}
                             <div class="col-3">
-                                <label class="col-form-label form--label row--label">{{ (($favorite->product?->sellPrice
-                                    ?? 0) / $toSDG) }} / {{ $favorite?->product?->offerPrice ?
-                                    $favorite->product->offerPrice / $toSDG : '-' }}</label>
+                                <label class="col-form-label form--label row--label">{{
+                                    number_format(($favorite->product?->sellPrice ?? 0) / $toSDG, 2) }} / {{
+                                    $favorite?->product?->offerPrice ?
+                                    number_format($favorite->product->offerPrice / $toSDG, 2) : '-' }}</label>
                             </div>
 
 

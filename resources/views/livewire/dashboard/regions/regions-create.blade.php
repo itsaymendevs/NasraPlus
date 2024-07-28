@@ -152,7 +152,7 @@
                             <option value=""></option>
 
                             @foreach ($deliveryTimes ?? [] as $deliveryTime)
-                            <option value="{{ $deliveryTime->id }}">{{ $deliveryTime->title }}</option>
+                            <option value="{{ $deliveryTime->id }}">{{ $deliveryTime->content }}</option>
                             @endforeach
 
                         </select>

@@ -9,10 +9,10 @@ class DeliveryTimeForm extends Form
 {
     // :: variables
     #[Validate('required')]
-    public $title, $titleAr, $content, $contentAr;
+    public $content, $contentAr;
 
 
-    public $id;
+    public $id, $title, $titleAr;
 
 
 

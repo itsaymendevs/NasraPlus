@@ -51,6 +51,7 @@
 
         {{-- 1.5: stylesheets --}}
         <link rel="stylesheet" href="{{url('assets/bootstrap/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="{{url('assets/css/aos.min.css')}}">
         <link rel="stylesheet" href="{{url('assets/css/variables.css')}}">
         <link rel="stylesheet" href="{{url('assets/css/animation.css')}}">
@@ -69,8 +70,6 @@
         <link rel="stylesheet" href="{{url('assets/css/sort.css')}}">
         <link rel="stylesheet" href="{{url('assets/css/styles.css')}}">
         <link rel="stylesheet" href="{{url('assets/css/uploader.css')}}">
-
-
 
 
 
