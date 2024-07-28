@@ -829,7 +829,7 @@
 
                 {{-- paymentMethod - dateTime --}}
                 <label class="form-label text-center hr--label mb-0" s="" style="min-width: 160px">
-                    <span class="d-block mb-1 fw-bold">{{ $order->payment?->name }}</span>
+                    <span class="d-block mb-1 fw-bold">{{ $order?->paymentEmployee?->name }}</span>
                     <span class="d-block mb-1">{{ $order?->paymentDateTime ?
                         date('d M Y - h:i A', strtotime($order->paymentDateTime)) : '' }}</span>
                 </label>
@@ -899,6 +899,24 @@
 
 
 
+                {{-- paymentMethod --}}
+                @if ($order->country->name != 'Sudan')
+
+
+                <div class="col-12 text-center mb-4">
+                    <label class="col-form-label text-center form--label profile--label scale--3">
+                        <span class="fs-5 fw-bold" style="border-bottom: 2px dashed var(--color-theme)">
+                            {{ $order?->payment?->name }}
+                        </span>
+                    </label>
+                </div>
+
+
+                @endif
+                {{-- end if --}}
+
+
+
 
                 {{-- productsPrice --}}
                 <div class="col-2 text-center mb-4">
@@ -935,8 +953,6 @@
 
 
 
-
-
                 {{-- totalPrice --}}
                 <div class="col-2 text-center mb-4">
                     <label class="col-form-label text-center form--label profile--label scale--3">
@@ -946,6 +962,18 @@
                         </span>
                     </label>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
             {{-- endRow --}}
@@ -965,6 +993,8 @@
 
 
             {{-- paymentRow --}}
+            @if ($order->country->name == 'Sudan')
+
             <div class="row g-0 justify-content-center" id="payment--local">
                 <div class="col">
                     <div class="tab--wrap">
@@ -1128,6 +1158,8 @@
                     </div>
                 </div>
             </div>
+
+            @endif
             {{-- endRow --}}
 
 
@@ -1147,7 +1179,7 @@
 
                 {{-- 1: account --}}
                 <div class="col-6">
-                    <label class="col-form-label text-center form--label profile--label scale--3 me-3">
+                    <label class="col-form-label text-start form--label profile--label scale--3 me-3">
                         <span class="fw-600 profile--span-title one-line" style="line-height: initial">Account
                             Owner</span>Aymen Sami Ahmed</label>
                 </div>
@@ -1157,7 +1189,7 @@
 
                 {{-- 2: billNumber --}}
                 <div class="col-6">
-                    <label class="col-form-label text-center form--label profile--label scale--3 me-3">
+                    <label class="col-form-label text-start form--label profile--label scale--3 me-3">
                         <span class="fw-600 profile--span-title one-line" style="line-height: initial">Bill
                             No.</span>95014458192</label>
                 </div>

@@ -100,6 +100,7 @@ class Login extends Component
             Session::put('employeeId', $employee->id);
             Session::put('employeeName', $employee->name);
             Session::put('employeeNameAr', $employee->nameAr);
+            Session::put('employeePermission', $employee->permission);
 
 
             return $this->redirect(route('dashboard.products'), navigate: false);

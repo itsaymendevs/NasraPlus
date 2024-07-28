@@ -356,6 +356,31 @@
 
 
 
+                {{-- emloyee --}}
+                <div class="col-4 mb-4">
+                    <label class="form-label form--label">Employee</label>
+                    <div class="select--single-wrapper" wire:ignore>
+                        <select class="form--select" data-instance='searchEmployee' data-clear='true'>
+                            <option value=""></option>
+
+                            {{-- loop - employees --}}
+                            @foreach ($employees ?? [] as $employee)
+
+                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+
+                            @endforeach
+                            {{-- end loop --}}
+
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+
                 {{-- sortType --}}
                 <div class="col-4 mb-4">
                     <label class="form-label form--label">Sort</label>
@@ -368,6 +393,7 @@
                         </select>
                     </div>
                 </div>
+
 
 
 
@@ -755,6 +781,54 @@
 
 
 
+
+
+
+
+                                        {{-- country (inter)--}}
+                                        @if ($order?->country?->name != 'Sudan')
+
+
+                                        <div class="col-4 mb-4">
+                                            <div class="profile--title-wrap">
+                                                <label class="form-label profile--span-title">Country</label>
+                                                <p>{{ $order->country?->name }}</p>
+                                            </div>
+                                        </div>
+
+
+
+                                        {{-- local --}}
+                                        @else
+
+                                        <div class="col-4 mb-4">
+                                            <div class="profile--title-wrap">
+                                                <label class="form-label profile--span-title">Country</label>
+                                                <p>{{ ($order?->state ? $order->state?->name . ', ' : '') .
+                                                    $order->country?->name }}</p>
+                                            </div>
+                                        </div>
+
+
+                                        @endif
+                                        {{-- end if --}}
+
+
+
+
+
+
+
+
+
+                                        {{-- --------------------------------- --}}
+                                        {{-- --------------------------------- --}}
+
+
+
+
+
+
                                         {{-- paymentMethod --}}
                                         <div class="col-4 mb-4">
                                             <div class="profile--title-wrap">
@@ -767,13 +841,49 @@
 
 
 
+
+                                        {{-- --------------------------- --}}
+                                        {{-- --------------------------- --}}
+
+
+
+
+
+
+
                                         {{-- addressLocation --}}
-                                        <div class="col-12 mb-4">
+
+                                        {{-- withRegion --}}
+                                        @if ($order->deliveryRegionId)
+
+
+
+                                        <div class="col-8 mb-4">
                                             <div class="profile--title-wrap">
                                                 <label class="form-label profile--span-title">Rough Address</label>
                                                 <p>{{ $order?->address }}</p>
                                             </div>
                                         </div>
+
+
+
+
+                                        {{-- noRegion --}}
+                                        @else
+
+
+
+                                        {{-- empty --}}
+                                        <div class="col-12"></div>
+
+
+                                        @endif
+                                        {{-- end if --}}
+
+
+
+
+
 
 
 

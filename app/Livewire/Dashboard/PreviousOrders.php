@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Exports\PreviousOrderExport;
 use App\Models\Country;
+use App\Models\Employee;
 use App\Models\Order;
 use App\Models\PickupStore;
 use App\Traits\HelperTrait;
@@ -23,7 +24,7 @@ class PreviousOrders extends Component
 
 
     // :: variables
-    public $searchReceivingOption, $searchCountry, $searchState, $searchRegion, $searchStore, $searchOrderNumber, $searchSort, $searchStatus, $searchFromDate, $searchUntilDate;
+    public $searchReceivingOption, $searchCountry, $searchState, $searchRegion, $searchStore, $searchOrderNumber, $searchSort, $searchEmployee, $searchStatus, $searchFromDate, $searchUntilDate;
 
 
 
@@ -262,6 +263,7 @@ class PreviousOrders extends Component
         // 1: dependencies
         $countries = Country::all();
         $stores = PickupStore::all();
+        $employees = Employee::all();
         $statuses = ['Canceled', 'Completed'];
 
 
@@ -302,6 +304,15 @@ class PreviousOrders extends Component
         $filtered = $orders->filter(function ($item) {
 
             $toReturn = true;
+
+
+
+
+            // 1.5: employee
+            $this->searchEmployee ? ($item?->orderEmployeeId == $this->searchEmployee || $item?->paymentEmployeeId == $this->searchEmployee || $item?->refundEmployeeId == $this->searchEmployee) ? $toReturn = true : $toReturn = false : null;
+
+
+
 
 
 
@@ -413,7 +424,7 @@ class PreviousOrders extends Component
 
 
 
-        return view('livewire.dashboard.previous-orders', compact('countries', 'stores', 'statuses', 'orders', 'rawOrders'));
+        return view('livewire.dashboard.previous-orders', compact('countries', 'stores', 'statuses', 'orders', 'rawOrders', 'employees'));
 
 
 

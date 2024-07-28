@@ -129,6 +129,31 @@ class Employees extends Component
 
 
 
+
+    // ---------------------------------------------------------------------------
+
+
+
+
+
+
+    public function resetPersonalPassword($id)
+    {
+
+
+
+        // 1: dispatchEvent
+        $this->dispatch('resetPersonalEmployeePassword', $id);
+
+
+
+    } // end function
+
+
+
+
+
+
     // ---------------------------------------------------------------------------
 
 

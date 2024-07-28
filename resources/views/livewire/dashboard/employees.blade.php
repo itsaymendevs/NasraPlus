@@ -286,21 +286,62 @@
 
 
                             {{-- 2: resetPassword --}}
+                            @if (session('employeePermission') == 'High Permission')
+
+
+
+
+                            {{-- 2.1: forAdmin --}}
+                            @if (session('employeeName') == 'Administrator')
+
+
                             <a class="dropdown-item pointer" href='javascript:void(0);'
                                 data-bs-target="#employees-password-reset" data-bs-toggle="modal"
                                 wire:click='resetPassword({{ $employee->id }})'>Reset Password</a>
 
 
 
+                            {{-- 2.2: forEmployee --}}
+                            @elseif ($employee->id == session('employeeId'))
+
+
+                            <a class="dropdown-item pointer" href='javascript:void(0);'
+                                data-bs-target="#employees-personal-password-reset" data-bs-toggle="modal"
+                                wire:click='resetPersonalPassword({{ $employee->id }})'>Change Password</a>
+
+                            @endif
+                            {{-- end if --}}
+
+
+
+
+                            @endif
+                            {{-- end if --}}
+
+
+
+
+
+
+                            {{-- ---------------------------- --}}
+                            {{-- ---------------------------- --}}
+
 
 
 
 
                             {{-- 3: toggleActive --}}
+                            @if (session('employeeName') == 'Administrator')
+
                             <a class="dropdown-item pointer" href='javascript:void(0);' role='button'
                                 wire:click='toggleActive({{ $employee->id }})'>
                                 @if ($employee->isActive) Deactivate Account @else Activate Account @endif
                             </a>
+
+                            @endif
+                            {{-- end if --}}
+
+
 
 
                         </div>
@@ -383,6 +424,9 @@
     {{-- 2: resetPassword --}}
     <livewire:dashboard.employees.components.employees-password-reset />
 
+
+    {{-- 2.5: personalResetPassword --}}
+    <livewire:dashboard.employees.components.employees-personal-password-reset />
 
 
     @endsection

@@ -627,7 +627,8 @@
                                         <div class="col-4 mb-4">
                                             <div class="profile--title-wrap">
                                                 <label class="form-label profile--span-title">Country</label>
-                                                <p>{{ $order?->state?->name. ', ' . $order->country?->name }}</p>
+                                                <p>{{ ($order?->state ? $order->state?->name . ', ' : '') .
+                                                    $order->country?->name }}</p>
                                             </div>
                                         </div>
 
@@ -639,6 +640,25 @@
 
 
 
+
+
+
+
+                                        {{-- --------------------------------- --}}
+                                        {{-- --------------------------------- --}}
+
+
+
+
+
+
+                                        {{-- paymentMethod --}}
+                                        <div class="col-4 mb-4">
+                                            <div class="profile--title-wrap">
+                                                <label class="form-label profile--span-title">Payment</label>
+                                                <p>{{ $order?->payment?->name }}</p>
+                                            </div>
+                                        </div>
 
 
 
@@ -661,7 +681,7 @@
 
 
 
-                                        <div class="col-12 mb-4">
+                                        <div class="col-8 mb-4">
                                             <div class="profile--title-wrap">
                                                 <label class="form-label profile--span-title">Rough Address</label>
                                                 <p>{{ $order?->address }}</p>
@@ -691,21 +711,6 @@
 
 
 
-                                        {{-- --------------------------------- --}}
-                                        {{-- --------------------------------- --}}
-
-
-
-
-
-
-                                        {{-- paymentMethod --}}
-                                        <div class="col-4 mb-4">
-                                            <div class="profile--title-wrap">
-                                                <label class="form-label profile--span-title">Payment</label>
-                                                <p>{{ $order?->payment?->name }}</p>
-                                            </div>
-                                        </div>
 
 
                                         {{-- ----------------------------- --}}
