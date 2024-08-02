@@ -21,7 +21,7 @@ class StripeController extends Controller
 
         // ::root
         $order = Order::where('orderNumber', $orderNumber)->first();
-        $amount = doubleval($order->orderTotalPrice);
+        $orderAmount = doubleval($order->orderTotalPrice);
         $currency = $order->country->currency;
 
         // ::root - fake
@@ -35,10 +35,19 @@ class StripeController extends Controller
         $stripe = new StripeClient(env('STRIPE_SECRET'));
 
 
+        $amount = doubleval(number_format($orderAmount / $order->toSDG, 2, '.', ''));
+
+        // minimun Value is 0.6
+        // $amount = 0.6;
+
+
+        //if payment amount lower than 0.5 make it 0.6
+        $amount = $amount < 0.5 ? 0.6 : $amount;
+
         // 1.2: init intent
         $paymentIntent = $stripe->paymentIntents->create([
 
-            'amount' => doubleval($amount) * 100,
+            'amount' => doubleval($amount * 100),
             'currency' => $currency,
             'automatic_payment_methods' => [
                 'enabled' => true,
@@ -55,8 +64,6 @@ class StripeController extends Controller
 
 
         return view('stripe.index', compact('clientSecret', 'publicKey', 'secretKey', 'amount', 'currency', 'orderNumber'));
-
-
     } // end function
 
 
@@ -78,7 +85,7 @@ class StripeController extends Controller
 
 
         // :: check params
-        if (! empty($request->payment_intent) && ! empty($request->payment_intent_client_secret)) {
+        if (!empty($request->payment_intent) && !empty($request->payment_intent_client_secret)) {
 
 
             // 1: updateOrder
@@ -98,16 +105,12 @@ class StripeController extends Controller
             $stripePayment->paymentIntent = $request->payment_intent;
             $stripePayment->clientSecret = $request->payment_intent_client_secret;
             $stripePayment->save();
-
-
         } // end if
 
 
 
 
         return redirect()->route('stripe.success');
-
-
     } // end function
 
 
@@ -132,8 +135,6 @@ class StripeController extends Controller
 
 
         return view('stripe.success');
-
-
     } // end function
 
 
