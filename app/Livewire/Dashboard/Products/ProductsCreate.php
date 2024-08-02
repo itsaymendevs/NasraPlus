@@ -134,7 +134,7 @@ class ProductsCreate extends Component
         // 2.3: buyPrice - sellPrice - offerPrice
         $product->buyPrice = $this->instance->buyPrice ?? null;
         $product->sellPrice = $this->instance->sellPrice ?? null;
-        $product->offerPrice = $this->instance->offerPrice ?? null;
+        $product->offerPrice = $this->instance?->offerPrice ?? null;
 
 
 
@@ -219,7 +219,23 @@ class ProductsCreate extends Component
 
 
 
+
+
+
+
+
+        // 3: resetStrings
+        $product->units == "" ? $product->units = null : null;
+        $product->offerPrice == "" ? $product->offerPrice = null : null;
+        $product->quantityPerUnit == "" ? $product->quantityPerUnit = null : null;
+
+
+
+
+
         $product->save();
+
+
 
 
 

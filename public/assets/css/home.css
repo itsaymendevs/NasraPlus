@@ -3,7 +3,7 @@
 }
 
 .results--header {
-    padding: 3px 10px 5px;
+    padding: 3px 10px;
 }
 
 .results--header label {
@@ -25,8 +25,8 @@
     background-color: var(--bg-alternate);
     padding: 14px 10px;
     border-radius: var(--input-radius);
-    margin-bottom: 15px;
-    border: 1px solid var(--bs-gray-500);
+    margin-bottom: 10px;
+    border: 1px solid var(--bs-gray);
 }
 
 .results--item:nth-of-type(odd) {

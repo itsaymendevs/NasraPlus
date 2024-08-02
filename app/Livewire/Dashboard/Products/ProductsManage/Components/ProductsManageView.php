@@ -63,21 +63,52 @@ class ProductsManageView extends Component
 
 
 
-
-
         // 1: get instance
         $product = Product::find($this->instance->id);
 
 
-
-        // 1.2: buyPrice - sellPrice - offerPrice
-        $product->sellPrice = $this->instance->sellPrice ?? null;
-        $product->offerPrice = $this->instance->offerPrice ?? null;
-        $product->quantity = $this->instance->quantity ?? 0;
+        if ($this->instance?->sellPrice) {
 
 
 
-        $product->save();
+
+            // 1.2: buyPrice - sellPrice - offerPrice
+            $product->sellPrice = $this->instance->sellPrice ?? null;
+            $product->offerPrice = $this->instance->offerPrice ?? null;
+            $product->quantity = $this->instance->quantity ?? 0;
+
+
+
+
+
+
+            // 1.3: checkOfferPrice
+            if ($this->instance?->offerPrice && $this->instance?->offerPrice > $this->instance->sellPrice) {
+
+                $this->makeAlert('info', 'Sell price cannot be less than offer price!');
+
+                return false;
+
+            } // end if
+
+
+
+
+
+
+            // 2: reset
+            $product->quantity == "" ? $product->quantity = 0 : null;
+            $product->offerPrice == "" ? $product->offerPrice = null : null;
+
+
+            $product->save();
+
+
+
+        } // end if
+
+
+
 
 
 

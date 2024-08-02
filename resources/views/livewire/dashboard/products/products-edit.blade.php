@@ -274,7 +274,7 @@
                 {{-- buyPrice --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Buy Price</label>
-                    <input class="form-control form--input" type="number" step='0.01' min='0'
+                    <input class="form-control form--input" type="number" step='1' min='0'
                         wire:model='instance.buyPrice' required>
                 </div>
 
@@ -282,8 +282,8 @@
                 {{-- sellPrice --}}
                 <div class="col-3 mb-4">
                     <label class="form-label form--label">Sell Price</label>
-                    <input class="form-control form--input" type="number" step='0.01' min='0'
-                        wire:model='instance.sellPrice' required>
+                    <input class="form-control form--input" type="number" step='1' min='0'
+                        wire:model.live='instance.sellPrice' required>
                 </div>
 
 
@@ -295,8 +295,9 @@
                     <label class="form-label form--label">Offer Price
                         <small class="tag--optional">optional</small>
                     </label>
-                    <input class="form-control form--input" type="number" step='0.01' min='0'
-                        wire:model='instance.offerPrice'>
+                    <input class="form-control form--input" type="number" step='1' min='0'
+                        wire:model='instance.offerPrice' @if ($instance?->sellPrice) max='{{ $instance?->sellPrice
+                    }}' @endif>
                 </div>
 
 

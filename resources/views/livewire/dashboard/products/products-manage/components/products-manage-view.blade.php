@@ -16,7 +16,7 @@
 
     {{-- 3: sellingPrice --}}
     <div class="col-2">
-        <input type="number" class="form--input in-row" min="0" step="0.01" wire:model='instance.sellPrice' required
+        <input type="number" class="form--input in-row" min="0" step="1" wire:model='instance.sellPrice' required
             wire:change='update' wire:loading.class='disabled' />
     </div>
 
@@ -24,7 +24,7 @@
 
     {{-- 4: offerPrice--}}
     <div class="col-2">
-        <input type="number" class="form--input in-row" min="0" step="0.01" wire:model='instance.offerPrice'
+        <input type="number" class="form--input in-row" min="0" step="1" wire:model='instance.offerPrice'
             wire:change='update' required wire:loading.class='disabled' />
     </div>
 
