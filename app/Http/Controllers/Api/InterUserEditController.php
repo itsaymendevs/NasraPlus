@@ -440,7 +440,7 @@ class InterUserEditController extends Controller {
         // 3.3: not-valid
         } else {
 
-            $response->errors[0] = 13;
+            $response->errors[0] = "13";
 
             return response()->json($response);
 
