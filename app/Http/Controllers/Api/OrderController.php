@@ -933,7 +933,7 @@ class OrderController extends Controller
       $orderTotalPrice = $productsTotalPrice;
 
       if ($receivingOption == "Delivery")
-         $orderTotalPrice = $productsTotalPrice + doubleval($newOrder->deliveryPrice);
+         $orderTotalPrice = $productsTotalPrice + $newOrder->deliveryPrice;
 
 
 
