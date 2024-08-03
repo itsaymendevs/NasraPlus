@@ -17,8 +17,8 @@ return new class extends Migration {
 
             // 1: general
             $table->double('orderProductQuantity', 15, 2)->nullable();
-            $table->double('orderProductPrice', 15, 2)->nullable();
-            $table->double('orderBuyProductPrice', 15, 2)->nullable();
+            $table->double('orderProductPrice')->nullable();
+            $table->double('orderBuyProductPrice')->nullable();
 
 
 
@@ -27,8 +27,8 @@ return new class extends Migration {
             $table->string('serial', 255)->nullable();
             $table->string('name', 255)->nullable();
             $table->string('nameAr', 255)->nullable();
-            $table->double('sellPrice', 15, 2)->nullable();
-            $table->double('buyPrice', 15, 2)->nullable();
+            $table->double('sellPrice')->nullable();
+            $table->double('buyPrice')->nullable();
 
             $table->bigInteger('productId')->unsigned()->nullable();
             $table->foreign('productId')->references('id')->on('products')->onDelete('set null');

@@ -120,7 +120,7 @@ return new class extends Migration {
 
 
             // 3.3: deliveryTime
-            $table->double('deliveryPrice', 15)->nullable();
+            $table->double('deliveryPrice')->nullable();
 
 
 
@@ -161,8 +161,8 @@ return new class extends Migration {
 
 
             // 4: totalPrices
-            $table->double('productsPrice', 15)->nullable();
-            $table->double('orderTotalPrice', 15)->nullable();
+            $table->double('productsPrice')->nullable();
+            $table->double('orderTotalPrice')->nullable();
 
 
 
