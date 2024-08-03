@@ -178,7 +178,7 @@
                 {{-- 5: deliveryPrice --}}
                 <div class="col-6 mb-4">
                     <label class="form-label form--label">Delivery Price</label>
-                    <input class="form-control form--input" type="number" step='0.01' required min='0'
+                    <input class="form-control form--input" type="number" step='1' required min='0'
                         wire:model='instance.price' />
                 </div>
 
