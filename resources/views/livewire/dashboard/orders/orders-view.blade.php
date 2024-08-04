@@ -145,8 +145,19 @@
                 {{-- print - printForPickup --}}
                 <div class="col-4 text-end align-self-end mb-4">
                     <a class="btn btn--export scale--3 px-3 me-1" role="button" href="javascript:void(0);">Print</a>
-                    <a class="btn btn--export scale--3 px-3" role="button" href="javascript:void(0);">Pickup for
-                        pickup</a>
+
+
+
+                    {{-- 2: forPickup --}}
+                    @if ($order->receivingOption == 'Pickup')
+
+                    <a class="btn btn--export scale--3 px-3" role="button" href="javascript:void(0);">
+                        Print for pickup</a>
+
+                    @endif
+                    {{-- end if --}}
+
+
                 </div>
             </div>
         </div>
@@ -745,6 +756,30 @@
                                         <input type="text" class="form--input"
                                             wire:model='instance.refundInvoiceNumber' />
                                     </div>
+
+
+
+
+
+
+                                    {{-- 1.5: refundMethod --}}
+                                    <div class="col-4">
+                                        <label class="form-label form--label">Payment Method</label>
+                                        <div class="select--single-wrapper" wire:ignore>
+                                            <select id='refund-payment-select' class="form--select"
+                                                data-instance='instance.refundPaymentId' data-trigger='true' required
+                                                value='{{ $order?->refundPaymentId }}'>
+                                                <option value=""></option>
+
+                                                @foreach ($refundMethods ?? [] as $refundMethod)
+                                                <option value="{{ $refundMethod->id }}">{{ $refundMethod->name }}
+                                                </option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+
 
 
                                     @endif

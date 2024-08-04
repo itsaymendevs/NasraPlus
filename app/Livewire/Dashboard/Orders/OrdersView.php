@@ -24,7 +24,7 @@ class OrdersView extends Component
     public OrderForm $instance;
     public OrderOTPForm $instanceOTP;
 
-    public $order, $paymentMethods, $toSDG;
+    public $order, $paymentMethods, $refundMethods, $toSDG;
 
 
 
@@ -138,7 +138,40 @@ class OrdersView extends Component
 
 
         // 2: dependencies
-        $this->paymentMethods = Payment::where('type', $this->order?->paymentType)->get();
+
+
+        // 2.1: payment - refund
+        if ($this->order->receivingOption == 'Pickup') {
+
+
+            $this->paymentMethods = Payment::where('isActive', 1)
+                ->where('isForPickup', 1)
+                ->where('type', $this->order?->paymentType)->get();
+
+
+
+            $this->refundMethods = Payment::where('isActive', 1)
+                ->where('isForRefund', 1)
+                ->where('type', $this->order?->paymentType)->get();
+
+
+
+        } else {
+
+            $this->paymentMethods = Payment::where('isActive', 1)
+                ->where('isForDelivery', 1)
+                ->where('type', $this->order?->paymentType)->get();
+
+
+
+            $this->refundMethods = Payment::where('isActive', 1)
+                ->where('isForRefund', 1)
+                ->where('type', $this->order?->paymentType)->get();
+
+
+
+        } // end if
+
 
 
 
