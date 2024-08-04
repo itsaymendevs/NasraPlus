@@ -101,6 +101,14 @@ class Order extends Model
     }
 
 
+
+    public function refundPayment()
+    {
+        return $this->belongsTo(Payment::class, 'refundPaymentId');
+    }
+
+
+
     public function products()
     {
         return $this->hasMany(OrderProduct::class, 'orderId', 'id');

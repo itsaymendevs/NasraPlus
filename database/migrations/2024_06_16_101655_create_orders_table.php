@@ -260,6 +260,8 @@ return new class extends Migration {
             $table->bigInteger('refundEmployeeId')->unsigned()->nullable();
             $table->foreign('refundEmployeeId')->references('id')->on('employees')->onDelete('set null');
 
+            $table->bigInteger('refundPaymentId')->unsigned()->nullable();
+            $table->foreign('refundPaymentId')->references('id')->on('payments')->onDelete('set null');
 
 
 

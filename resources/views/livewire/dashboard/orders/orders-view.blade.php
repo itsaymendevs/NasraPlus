@@ -230,17 +230,16 @@
 
                             {{-- 1: processingOrder --}}
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" role="tab" data-bs-toggle="pill"
-                                    href="#processing-tab">Processing
-                                    Order</a>
+                                <a class="nav-link @if ($instance->orderStatus != 'Canceled') active @endif" role="tab"
+                                    data-bs-toggle="pill" href="#processing-tab">Processing Order</a>
                             </li>
 
 
 
                             {{-- 2: cancel Order --}}
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" role="tab" data-bs-toggle="pill" href="#cancelling-tab">Cancelling
-                                    Order</a>
+                                <a class="nav-link @if ($instance->orderStatus == 'Canceled') active @endif" role="tab"
+                                    data-bs-toggle="pill" href="#cancelling-tab">Cancelling Order</a>
                             </li>
                         </ul>
                         {{-- end tabLinks --}}
@@ -264,7 +263,8 @@
 
                         {{-- tabContent --}}
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" role="tabpanel" id="processing-tab" wire:ignore.self>
+                            <div class="tab-pane fade @if ($instance->orderStatus != 'Canceled') show active @endif"
+                                role="tabpanel" id="processing-tab" wire:ignore.self>
                                 <div class="row mx-0">
 
 
@@ -743,9 +743,10 @@
 
 
                             {{-- 2: cancelTab --}}
-                            <div class="tab-pane fade" role="tabpanel" id="cancelling-tab" wire:ignore.self>
+                            <div class="tab-pane fade @if ($instance->orderStatus == 'Canceled') show active @endif"
+                                role="tabpanel" id="cancelling-tab" wire:ignore.self>
                                 <form wire:submit='cancelOrder' wire:loading.class='disabled'
-                                    class="row g-0 align-items-end">
+                                    class="row  align-items-end">
 
 
                                     {{-- 1: refundBilll --}}
@@ -763,11 +764,13 @@
 
 
                                     {{-- 1.5: refundMethod --}}
-                                    <div class="col-4">
-                                        <label class="form-label form--label">Payment Method</label>
+                                    @if ($order?->country?->name == 'Sudan')
+
+                                    <div class="col-4 mb-4">
+                                        <label class="form-label form--label">Refund Method</label>
                                         <div class="select--single-wrapper" wire:ignore>
                                             <select id='refund-payment-select' class="form--select"
-                                                data-instance='instance.refundPaymentId' data-trigger='true' required
+                                                data-instance='instance.refundPaymentId' data-trigger='true'
                                                 value='{{ $order?->refundPaymentId }}'>
                                                 <option value=""></option>
 
@@ -779,6 +782,11 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    @endif
+                                    {{-- end if --}}
+
+
 
 
 
@@ -796,7 +804,7 @@
 
                                     {{-- 2: note --}}
                                     <div class="col-9">
-                                        <label class="form-label form--label">Note about cancellation</label>
+                                        <label class="form-label form--label">Note About Cancellation</label>
                                         <textarea class="form--input form--textarea w-100"
                                             wire:model='instance.orderCancellationNote' required></textarea>
                                     </div>

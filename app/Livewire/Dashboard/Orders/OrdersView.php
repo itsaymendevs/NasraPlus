@@ -175,7 +175,6 @@ class OrdersView extends Component
 
 
 
-
     } // end function
 
 
@@ -695,6 +694,17 @@ class OrdersView extends Component
 
             } // end if
 
+
+
+
+            if (boolval($this->instance->isPaymentDone) && $this->order->country?->name == 'Sudan' && empty($this->instance->refundPaymentId)) {
+
+                $this->makeAlert('info', 'Please fill the refund Method');
+                return false;
+
+            } // end if
+
+
         } // end if
 
 
@@ -768,6 +778,7 @@ class OrdersView extends Component
 
         // 1.3: refundDetails
         $order->refundInvoiceNumber = $this->instance->refundInvoiceNumber ?? null;
+        $order->refundPaymentId = $this->instance->refundPaymentId ?? null;
 
 
 
@@ -897,6 +908,13 @@ class OrdersView extends Component
         $order->paymentId = null;
         $order->invoiceNumber = null;
 
+
+        // 1.4: refundDetails
+        $order->refundInvoiceNumber = null;
+        $order->refundDateTime = null;
+        $order->refundEmployeeId = null;
+        $order->refundPaymentId = null;
+
         $order->save();
 
 
@@ -1022,6 +1040,8 @@ class OrdersView extends Component
         // 2: remount
         $this->remount();
         $this->makeAlert('info', 'Payment has been confirmed');
+        $this->dispatch('setSelect', id: '#refund-payment-select', value: $order->refundPaymentId);
+
 
 
 
