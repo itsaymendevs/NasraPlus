@@ -325,7 +325,7 @@ class InterOrderController extends Controller
 
       //musab way
       $paymentType = 'Direct Payment';
-      $paymentMethod = Payment::find(3);
+      $paymentMethod = Payment::find(1);
 
 
 
@@ -1403,8 +1403,8 @@ class InterOrderController extends Controller
          $content->title = $store->title;
          $content->titleAr = $store->titleAr;
 
-         $content->storeLocation = $store->desc;
-         $content->storeLocationAr = $store->descAr;
+         $content->storeLocation = $store->information;
+         $content->storeLocationAr = $store->informationAr;
 
          $content->latitude = strval($store->latitude);
          $content->longitude = strval($store->longitude);
