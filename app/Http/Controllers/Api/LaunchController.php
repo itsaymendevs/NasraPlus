@@ -288,7 +288,7 @@ class LaunchController extends Controller
       // 1: get data
       $generalBlocks = GeneralSetting::all()->first();
 
-      $response->isOrderingBlocked = ! boolval($generalBlocks->isOrderingActive);
+      $response->isOrderingBlocked = !boolval($generalBlocks->isOrderingActive);
 
       return $response;
    } // end function
@@ -420,14 +420,21 @@ class LaunchController extends Controller
                $counterTwo = 0;
                foreach ($subCategory->types->sortBy('index') as $type) {
 
-                  $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
 
-                  $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
-                  $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
-                  $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
+                  // check if type has products and its not hidden
+                  if ($type?->products?->where('isHidden', false)->count() > 0) {
 
-                  // ::inc counterTwo
-                  $counterTwo++;
+                     $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
+
+                     $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
+                     $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
+                     $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
+
+                     // ::inc counterTwo
+                     $counterTwo++;
+                  } //end of if subCategory has types
+
+
                } // end loop
 
 
@@ -561,7 +568,7 @@ class LaunchController extends Controller
          $content->lettersCode = $country->code;
          $content->toSDG = strval($country->toSDG);
          $content->isActive = boolval($country->isServiceActive);
-         $content->isCountryOrderingBlocked = ! boolval($country->isOrderingActive);
+         $content->isCountryOrderingBlocked = !boolval($country->isOrderingActive);
 
 
 
