@@ -312,10 +312,11 @@ class InterOrderController extends Controller
 
       //musab way
       $paymentType = 'Direct Payment';
-      $paymentMethod = Payment::where('name', 'LIKE', "%{stripe}%")->first();
+      $paymentMethod = Payment::where('name', 'LIKE', 'stripe')
+      ->where('type', 'Direct Payment')
+      ->first();
 
-
-      if (empty($paymentMethod)) {
+      if ($paymentMethod == null) {
 
          $response = new stdClass();
          $response->unMatchedInformation = new stdClass();
