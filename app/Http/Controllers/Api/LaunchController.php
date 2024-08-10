@@ -81,7 +81,7 @@ class LaunchController extends Controller
 
 
       // 8: seventh action - favData
-      $products = Product::whereIn('id', $request->favData->productsID)->get();
+      $products = Product::whereIn('id', $request->favData->productsID)->where('isHidden', false)->get();
       $contentArray = array();
 
 
@@ -188,7 +188,6 @@ class LaunchController extends Controller
             // 8.2.4: Favorites is returned / appended later on to returned
             $favoritesID = UserFavorite::where('userId', auth()->user()->id)->get(['productId'])->toArray();
             $favoriteProducts = Product::whereIn('id', $favoritesID)->where('isHidden', false)->get();
-
 
 
 
