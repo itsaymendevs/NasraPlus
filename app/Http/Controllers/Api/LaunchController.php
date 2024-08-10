@@ -187,7 +187,7 @@ class LaunchController extends Controller
 
             // 8.2.4: Favorites is returned / appended later on to returned
             $favoritesID = UserFavorite::where('userId', auth()->user()->id)->get(['productId'])->toArray();
-            $favoriteProducts = Product::whereIn('id', $favoritesID)->get();
+            $favoriteProducts = Product::whereIn('id', $favoritesID)->where('isHidden', false)->get();
 
 
 
@@ -418,7 +418,7 @@ class LaunchController extends Controller
 
                // 1.3: insert types
                $counterTwo = 0;
-               foreach ($subCategory->types->sortBy('index') as $type) {
+               foreach ($subCategory?->types?->sortBy('index') as $type) {
 
 
                   // check if type has products and its not hidden

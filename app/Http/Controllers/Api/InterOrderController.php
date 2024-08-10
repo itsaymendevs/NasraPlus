@@ -33,10 +33,10 @@ class InterOrderController extends Controller
       $response = new stdClass();
       $response->errors = array();
 
-      $request = (Object) $request->all();
-      $request->generalInfo = (Object) $request->generalInfo;
-      $request->deliveryOrder = (Object) $request->deliveryOrder;
-      $request->pickupOrder = (Object) $request->pickupOrder;
+      $request = (object) $request->all();
+      $request->generalInfo = (object) $request->generalInfo;
+      $request->deliveryOrder = (object) $request->deliveryOrder;
+      $request->pickupOrder = (object) $request->pickupOrder;
 
 
 
@@ -81,7 +81,6 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->isUKOrderingBlocked = ! boolval($user->country->isOrderingActive);
 
             return response()->json($response);
-
          } else {
 
             $response = new stdClass();
@@ -91,10 +90,7 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->isIRLOrderingBlocked = ! boolval($user->country->isOrderingActive);
 
             return response()->json($response);
-
          }
-
-
       } // end if
 
 
@@ -103,7 +99,6 @@ class InterOrderController extends Controller
 
          $response->errors[0] = "Unauthorized Access";
          return response()->json($response);
-
       } // end if
 
 
@@ -114,21 +109,19 @@ class InterOrderController extends Controller
 
          $response->errors[0] = "InvalidOrder";
          return response()->json($response);
-
       } // end if
 
 
 
 
       // 1.3: isOrderingBlocked
-      if ( ! boolval($generalBlock->isOrderingActive)) {
+      if (! boolval($generalBlock->isOrderingActive)) {
 
          $response = new stdClass();
          $response->unMatchedInformation = new stdClass();
          $response->unMatchedInformation->isOrderingBlocked = true;
 
          return response()->json($response);
-
       } // end if
 
 
@@ -144,7 +137,6 @@ class InterOrderController extends Controller
 
          $response->errors[0] = "Invalid Receiver";
          return response()->json($response);
-
       } // end if
 
 
@@ -160,7 +152,6 @@ class InterOrderController extends Controller
          $response->unMatchedInformation->toSDG = strval($toSDG);
 
          return response()->json($response);
-
       } // end if
 
 
@@ -190,14 +181,13 @@ class InterOrderController extends Controller
 
 
          // 2.1.1: PickupBlocked
-         if ( ! boolval($generalBlock->isPickupActive)) {
+         if (! boolval($generalBlock->isPickupActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
             $response->unMatchedInformation->pdp = $this->mainCall();
 
             return response()->json($response);
-
          } // end if
 
 
@@ -212,7 +202,6 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->pdp = $this->mainCall();
 
             return response()->json($response);
-
          } // end if
 
 
@@ -228,14 +217,13 @@ class InterOrderController extends Controller
 
 
          // 2.2.1: DeliveryBlocked
-         if ( ! boolval($generalBlock->isDeliveryActive)) {
+         if (! boolval($generalBlock->isDeliveryActive)) {
 
             $response = new stdClass();
             $response->unMatchedInformation = new stdClass();
             $response->unMatchedInformation->pdp = $this->mainCall();
 
             return response()->json($response);
-
          } // end if
 
 
@@ -293,7 +281,6 @@ class InterOrderController extends Controller
 
 
             return response()->json($response);
-
          } // end if
 
 
@@ -325,9 +312,17 @@ class InterOrderController extends Controller
 
       //musab way
       $paymentType = 'Direct Payment';
-      $paymentMethod = Payment::find(1);
+      $paymentMethod = Payment::where('name', 'LIKE', "%{stripe}%")->first();
 
 
+      if (empty($paymentMethod)) {
+
+         $response = new stdClass();
+         $response->unMatchedInformation = new stdClass();
+         $response->unMatchedInformation->pdp = $this->mainCall();
+
+         return response()->json($response);
+      }
 
 
       // 3.2.1: For Delivery
@@ -340,7 +335,6 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->pdp = $this->mainCall();
 
             return response()->json($response);
-
          } // end if
 
 
@@ -355,7 +349,6 @@ class InterOrderController extends Controller
             $response->unMatchedInformation->pdp = $this->mainCall();
 
             return response()->json($response);
-
          } // end if
 
       } // end else
@@ -398,7 +391,7 @@ class InterOrderController extends Controller
 
 
          // 4.1.1: Objectified
-         $orderProducts[$i] = (Object) $orderProducts[$i];
+         $orderProducts[$i] = (object) $orderProducts[$i];
 
 
 
@@ -429,7 +422,6 @@ class InterOrderController extends Controller
             // ::FlagInErrors / inc. counter
             $counter++;
             $productsWithErrors[$i] = true;
-
          } // end if
 
 
@@ -519,7 +511,6 @@ class InterOrderController extends Controller
 
 
                array_push($mixedProducts, $content);
-
             } // end if
 
 
@@ -582,8 +573,6 @@ class InterOrderController extends Controller
 
 
                array_push($outOfStockProducts, $content);
-
-
             } // end if
 
          } // end if
@@ -632,7 +621,6 @@ class InterOrderController extends Controller
             if (! empty($product->offerPrice)) {
 
                $currentProductPrice = $product->offerPrice;
-
             } // end if
 
 
@@ -661,7 +649,6 @@ class InterOrderController extends Controller
 
 
                array_push($invalidPriceProducts, $content);
-
             } // end if
 
          } // end if
@@ -719,7 +706,6 @@ class InterOrderController extends Controller
       if (count($hiddenProducts) > 0 || count($mixedProducts) > 0 || count($outOfStockProducts) > 0 || count($invalidPriceProducts) > 0) {
 
          return response()->json($response);
-
       } // end if
 
 
@@ -767,7 +753,6 @@ class InterOrderController extends Controller
             break;
          else
             $orderNumber = $this->generateSerial();
-
       } // end while
 
 
@@ -846,17 +831,12 @@ class InterOrderController extends Controller
                break;
             else
                $pickupSerial = $this->generatePickupSerial();
-
-
          } //end of while
 
 
 
          $newOrder->pickupCode = $pickupSerial;
          $newOrder->storeId = $request->pickupOrder->storeId;
-
-
-
       } // end if
 
 
@@ -946,7 +926,6 @@ class InterOrderController extends Controller
          if (! empty($product->offerPrice)) {
 
             $newOrderProduct->sellPrice = $product->offerPrice;
-
          } // end if
 
 
@@ -977,7 +956,6 @@ class InterOrderController extends Controller
 
 
             $productsTotalPrice += $newOrderProduct->orderProductPrice;
-
          } // end if
 
 
@@ -1011,8 +989,6 @@ class InterOrderController extends Controller
          $content->offerPrice = strval($product->offerPrice);
 
          array_push($updateProducts, $content);
-
-
       } // end loop
 
 
@@ -1065,7 +1041,6 @@ class InterOrderController extends Controller
          $response->orderTotalPrice = strval($orderTotalPrice);
 
          return response()->json($response);
-
       } // end if
 
 
@@ -1104,8 +1079,6 @@ class InterOrderController extends Controller
 
 
       return response()->json($response);
-
-
    } // end function
 
 
@@ -1135,7 +1108,6 @@ class InterOrderController extends Controller
       // 1: make 7-Digits
       $serial = mt_rand(1000000, 9999999);
       return $serial;
-
    } // end function
 
 
@@ -1163,7 +1135,6 @@ class InterOrderController extends Controller
          base_convert(random_int(0, $max), 10, 36),
          base_convert(random_int(0, $max), 10, 36)
       ));
-
    } // end function
 
 
@@ -1202,7 +1173,6 @@ class InterOrderController extends Controller
       $response = $this->paymentMethodDetails($response);
 
       return $response;
-
    } // end function
 
 
@@ -1249,7 +1219,6 @@ class InterOrderController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1282,7 +1251,6 @@ class InterOrderController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1318,7 +1286,6 @@ class InterOrderController extends Controller
 
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1348,7 +1315,6 @@ class InterOrderController extends Controller
          $content->contentAr = $paymentCondition->contentAr;
 
          array_push($contentArray, $content);
-
       } // end loop
 
 
@@ -1361,8 +1327,6 @@ class InterOrderController extends Controller
 
       // :: return response
       return $response;
-
-
    } // end function
 
 
@@ -1416,7 +1380,6 @@ class InterOrderController extends Controller
          $content->isMainStore = boolval($store->isMainStore);
 
          array_push($contentArray, $content);
-
       } // end loop
 
       // ::prepare response
@@ -1443,7 +1406,6 @@ class InterOrderController extends Controller
          $content->contentAr = $condition->contentAr;
 
          array_push($contentArray, $content);
-
       } // end loop
 
       // ::prepare response
@@ -1503,7 +1465,6 @@ class InterOrderController extends Controller
          $content->contentAr = $condition->contentAr;
 
          array_push($contentArray, $content);
-
       } // end loop
 
       // ::prepare response
@@ -1547,7 +1508,6 @@ class InterOrderController extends Controller
 
 
       return $response;
-
    } // end function
 
 
