@@ -313,8 +313,8 @@ class InterOrderController extends Controller
       //musab way
       $paymentType = 'Direct Payment';
       $paymentMethod = Payment::where('name', 'LIKE', 'stripe')
-      ->where('type', 'Direct Payment')
-      ->first();
+         ->where('type', 'Direct Payment')
+         ->first();
 
       if ($paymentMethod == null) {
 
@@ -1246,9 +1246,9 @@ class InterOrderController extends Controller
          $content->accountNumber = $atReceivingPayment->accountNumber;
 
 
-         $content->isForDelivery = strval($atReceivingPayment->isForDelivery);
-         $content->isForPickup = strval($atReceivingPayment->isForPickup);
-         $content->isForRefund = strval($atReceivingPayment->isForRefund);
+         $content->isForDelivery = boolval($atReceivingPayment->isForDelivery);
+         $content->isForPickup = boolval($atReceivingPayment->isForPickup);
+         $content->isForRefund = boolval($atReceivingPayment->isForRefund);
 
 
          array_push($contentArray, $content);
@@ -1281,9 +1281,9 @@ class InterOrderController extends Controller
          $content->accountNumber = $directPayment->accountNumber;
 
 
-         $content->isForDelivery = strval($directPayment->isForDelivery);
-         $content->isForPickup = strval($directPayment->isForPickup);
-         $content->isForRefund = strval($directPayment->isForRefund);
+         $content->isForDelivery = boolval($directPayment->isForDelivery);
+         $content->isForPickup = boolval($directPayment->isForPickup);
+         $content->isForRefund = boolval($directPayment->isForRefund);
 
 
          array_push($contentArray, $content);
