@@ -115,7 +115,7 @@ class Categories extends Component
         // 1: prepExport
         $categories = Category::where('name', 'LIKE', '%' . $this->searchCategory . '%')
             ->orWhere('nameAr', 'LIKE', '%' . $this->searchCategory . '%')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('index', 'asc')
             ->paginate(env('PAGINATE_XXL'));
 
 
@@ -373,7 +373,7 @@ class Categories extends Component
         // 1: dependencies
         $categories = Category::where('name', 'LIKE', '%' . $this->searchCategory . '%')
             ->orWhere('nameAr', 'LIKE', '%' . $this->searchCategory . '%')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('index', 'asc')
             ->paginate(env('PAGINATE_XXL'));
 
 

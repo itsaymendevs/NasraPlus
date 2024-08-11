@@ -102,11 +102,8 @@
 
 
                     {{-- 2: import --}}
-                    <label class="btn btn--export scale--3 px-4" role="button" wire:loading.class='disabled'
-                        for='file-import' wire:target='importFile, import' data-bs-toggle="tooltip" data-bss-tooltip=""
-                        data-bs-placement="bottom" data-bs-html="true"
-                        title="<h5 class='fw-semibold fs-11 text-white mt-2 text-decoration-underline'>Columns</h5>
-                        <p class='text-start text-white mb-0 fs-10'>SN <br />Name <br />Name in Arabic <br />Company ID <br />Type ID <br />Buy Price <br />Sell Price <br />Offer Price <br />Weight / Size Option : <br />[Namefull - Fixed - Dynamic]<br />Weight / Size <br />Unit ID <br />no. Of Units <br />Quantity / Unit <br />Total Quantity <br />Maximum Quantity / Order <br />Description <br />Description in Arabic <br />Hide Product <br />Show on Home</p>">
+                    <label class="btn btn--export scale--3 px-4" role="button" data-bs-toggle='modal'
+                        data-bs-target="#import-modal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                             class="bi bi-box-arrow-down-right me-2" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -114,12 +111,6 @@
                             <path fill-rule="evenodd"
                                 d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0z" />
                         </svg>Import
-
-
-                        {{-- input --}}
-                        <input type="file" class='d-none' id='file-import' wire:model='importFile' wire:change="import"
-                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                            required>
                     </label>
 
 
@@ -760,6 +751,14 @@
 
     {{-- 1: sort --}}
     <livewire:dashboard.products.components.products-prepare-sort />
+
+
+
+    {{-- 2: import --}}
+    <livewire:dashboard.products.components.products-import />
+
+
+
 
 
     @endsection

@@ -151,6 +151,11 @@ class ProductImport implements ToCollection
 
 
 
+
+                    // 2.9.6: imageFile
+                    $product->imageFile = $product?->serial ? "{$product->serial}.png" : null;
+
+
                     $product->save();
 
 

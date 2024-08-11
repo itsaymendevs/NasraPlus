@@ -396,6 +396,56 @@ trait HelperTrait
 
 
 
+
+
+
+
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+    // --------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    protected function replaceImportFile($instanceFile, $path)
+    {
+
+
+        // 1: removeFile
+        Storage::disk('public')->delete($path . '/' . $instanceFile->getClientOriginalName());
+
+
+
+
+
+
+        // 2: uploadFile - makeFileName
+        $fileName = $instanceFile->getClientOriginalName();
+        $instanceFile->storeAs($path, $fileName, 'public');
+
+
+        // 1.2: return fileName
+        return $fileName;
+
+
+
+    } // end function
+
+
+
+
+
+
+
+
+
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     // --------------------------------------------------------------

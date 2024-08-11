@@ -228,6 +228,13 @@ input::placeholder {
     font-size: var(--input-font);
 }
 
+.form--file {
+    display: block;
+    height: auto;
+    padding: 13px 10px;
+    font-size: 13px;
+}
+
 /* textarea */
 
 .form--textarea {
