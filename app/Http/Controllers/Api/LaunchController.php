@@ -81,7 +81,7 @@ class LaunchController extends Controller
 
 
       // 8: seventh action - favData
-      $products = Product::whereIn('id', $request->favData->productsID)->get();
+      $products = Product::whereIn('id', $request->favData->productsID)->where('isHidden', false)->get();
       $contentArray = array();
 
 
@@ -187,8 +187,7 @@ class LaunchController extends Controller
 
             // 8.2.4: Favorites is returned / appended later on to returned
             $favoritesID = UserFavorite::where('userId', auth()->user()->id)->get(['productId'])->toArray();
-            $favoriteProducts = Product::whereIn('id', $favoritesID)->get();
-
+            $favoriteProducts = Product::whereIn('id', $favoritesID)->where('isHidden', false)->get();
 
 
 
@@ -288,7 +287,7 @@ class LaunchController extends Controller
       // 1: get data
       $generalBlocks = GeneralSetting::all()->first();
 
-      $response->isOrderingBlocked = ! boolval($generalBlocks->isOrderingActive);
+      $response->isOrderingBlocked = !boolval($generalBlocks->isOrderingActive);
 
       return $response;
    } // end function
@@ -418,16 +417,23 @@ class LaunchController extends Controller
 
                // 1.3: insert types
                $counterTwo = 0;
-               foreach ($subCategory->types->sortBy('index') as $type) {
+               foreach ($subCategory?->types?->sortBy('index') as $type) {
 
-                  $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
 
-                  $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
-                  $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
-                  $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
+                  // check if type has products and its not hidden
+                  if ($type?->products?->where('isHidden', false)->count() > 0) {
 
-                  // ::inc counterTwo
-                  $counterTwo++;
+                     $content->subCategories[$counterOne]->types[$counterTwo] = new stdClass();
+
+                     $content->subCategories[$counterOne]->types[$counterTwo]->id = strval($type->id);
+                     $content->subCategories[$counterOne]->types[$counterTwo]->name = $type->name;
+                     $content->subCategories[$counterOne]->types[$counterTwo]->nameAr = $type->nameAr;
+
+                     // ::inc counterTwo
+                     $counterTwo++;
+                  } //end of if subCategory has types
+
+
                } // end loop
 
 
@@ -561,7 +567,7 @@ class LaunchController extends Controller
          $content->lettersCode = $country->code;
          $content->toSDG = strval($country->toSDG);
          $content->isActive = boolval($country->isServiceActive);
-         $content->isCountryOrderingBlocked = ! boolval($country->isOrderingActive);
+         $content->isCountryOrderingBlocked = !boolval($country->isOrderingActive);
 
 
 
